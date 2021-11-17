@@ -1,6 +1,7 @@
 //import { StatusBar } from 'expo-status-bar';
 import React,{useEffect} from 'react';
 //screens
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import SplashScreen from './components/screens/SplashScreen';
 import WelcomeScreen from './components/screens/WelcomeScreen';
 import ForgetPassword from './components/screens/ForgetPassword';
@@ -15,29 +16,25 @@ import TabScreen from './components/screens/TabScreen';
 
 // navigator
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-
-
 
 export default function App() {
 
-  const Stack = createStackNavigator();
+  const Drawer = createDrawerNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown:false}}>
+      <Drawer.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown:true}}>
         
-        <Stack.Screen name="TabScreen" component={TabScreen} />
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="SignInScreen" component={SignIn} />
-        <Stack.Screen name="SignUpScreen" component={SignUp} />
-        <Stack.Screen name="ForgetScreen" component={ForgetPassword} />
-        <Stack.Screen name="ForgetPasswordSuccessFul" component={ForgetPasswordSuccessFul} />
-        <Stack.Screen name="Dashboard" component={DashBoard} />
+        <Drawer.Screen name="e-Society" component={TabScreen} />
+        <Drawer.Screen name="SplashScreen" component={SplashScreen} />
+        <Drawer.Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Drawer.Screen name="SignInScreen" component={SignIn} />
+        <Drawer.Screen name="SignUpScreen" component={SignUp} />
+        <Drawer.Screen name="ForgetScreen" component={ForgetPassword} />
+        <Drawer.Screen name="ForgetPasswordSuccessFul" component={ForgetPasswordSuccessFul} />
+        <Drawer.Screen name="Dashboard" component={DashBoard} />
 
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
