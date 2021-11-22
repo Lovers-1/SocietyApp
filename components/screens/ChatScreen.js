@@ -8,7 +8,7 @@ const ChatScreen = () => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
-            <Text style={{fontWeight: 'bold', paddingTop: 80,fontSize: 15}}>
+            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15, margin: 0}}>
                     Chat Board
             </Text>
             
@@ -16,7 +16,7 @@ const ChatScreen = () => {
                     width: '100%', height: '100%', alignItems:'flex-start', paddingBottom: 20, paddingLeft: 20}}>
 
                     {/* Group Tabs    */}
-                    <View style={{paddingTop: 20, width: '100%', height: 1000}}>
+                    <View style={{paddingTop: 70, width: '100%', height: 1000}}>
 
                     {/* Existing Group */}
                     <Text style={{paddingBottom: 10}}>
