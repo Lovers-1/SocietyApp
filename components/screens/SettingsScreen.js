@@ -7,7 +7,7 @@ const SettingsScreen = ({navigation}) => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
-            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15}}>
+            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15, margin: 0}}>
                     Settings
             </Text>
             
@@ -16,7 +16,7 @@ const SettingsScreen = ({navigation}) => {
 
                     {/* Settings Tabs    */}
                     
-                    <View style={{paddingTop: 20, width: '100%', height: 1000}}>
+                    <View style={{paddingTop: 70, width: '100%', height: 1000}}>
 
                     {/* Account Details */}
                     <TouchableOpacity onPress={()=>navigation.navigate('Account Details')}>

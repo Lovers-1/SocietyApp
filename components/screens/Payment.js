@@ -7,7 +7,7 @@ const payment = ({navigation}) => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
-            <Text style={{fontWeight: 'bold', paddingTop: 80,fontSize: 15}}>
+            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15}}>
                     Payment
             </Text>
             
@@ -15,7 +15,7 @@ const payment = ({navigation}) => {
                     width: '100%', height: '100%', alignItems:'flex-start', paddingBottom: 20, paddingLeft: 20}}>
 
                     {/* Make Payments Tabs    */}
-                    <View style={{paddingTop: 20, width: '100%', height: 1000}}>
+                    <View style={{paddingTop: 70, width: '100%', height: 1000}}>
 
                     {/* Make Payment */}
                     
