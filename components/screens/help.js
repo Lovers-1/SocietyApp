@@ -25,7 +25,7 @@ const help = ({ navigation }) => {
                 <ScrollView>
                 <View style={style.description}>
                     <Text style={style.spacebetween} >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    LAWRENCE Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                      Lorem ac vitae odio neque, pretium non imperdiet nec arcu. Sodales diam lectus ac faucibus.
                      Nec aliquet magna quis mauris ut sed vitae semper.
                     </Text>
