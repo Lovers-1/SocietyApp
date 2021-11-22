@@ -1,13 +1,13 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({navigation}) => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
-            <Text style={{fontWeight: 'bold', paddingTop: 70,fontSize: 15}}>
+            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15}}>
                     Settings
             </Text>
             
@@ -15,12 +15,15 @@ const SettingsScreen = () => {
                     width: '100%', height: '100%', alignItems:'flex-start', paddingBottom: 20, paddingLeft: 20}}>
 
                     {/* Settings Tabs    */}
+                    
                     <View style={{paddingTop: 20, width: '100%', height: 1000}}>
 
                     {/* Account Details */}
+                    <TouchableOpacity onPress={()=>navigation.navigate('Account Details')}>
                     <Text style={{paddingBottom: 10}}>
                         My Account
                     </Text>
+                    
                     <View style={{flexDirection: 'row'}}>
                     <Icon
                         name='ios-person'
@@ -33,8 +36,9 @@ const SettingsScreen = () => {
                         <View style={styles.moreContainer}>
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
+                        
                     </View>
-                    
+                    </TouchableOpacity>
                     <Card.Divider/>
 
                     {/* Other Groups     */}
@@ -78,6 +82,7 @@ const SettingsScreen = () => {
                     <Card.Divider/>
 
                     {/* Help     */}
+                    <TouchableOpacity onPress={()=>navigation.navigate('Help And Support')}>
                     <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Help
                     </Text>
@@ -94,7 +99,7 @@ const SettingsScreen = () => {
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
                     </View>
-                    
+                    </TouchableOpacity>
                     <Card.Divider/>
 
                     {/* Logout     */}

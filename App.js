@@ -10,32 +10,49 @@ import SignUp from './components/screens/SignUp';
 import ForgetPasswordSuccessFul from './components/screens/ForgetPasswordSuccessFul';
 import DashBoard from './components/screens/DashBoard';
 import TabScreen from './components/screens/TabScreen';
+
 // import { DrawerScreenProps } from '@react-navigation/drawer';
-
-
-
 // navigator
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './components/screens/HomeScreen';
+import paymentScreen from './components/screens/Payment';
+import BookingEvent from './components/screens/BookingEvent';
 
-export default function App() {
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
-  const Drawer = createDrawerNavigator();
 
+function DrawerRoutes() {
+  return (
+    <Drawer.Navigator initialRouteName="e-Society" screenOptions={{headerShown:false}}>
+       
+      <Drawer.Screen name="e-Society"  component={TabScreen} />
+        
+    </Drawer.Navigator>
+  )
+}
+
+
+function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="HomeScreen" screenOptions={{headerShown:true}}>
-        
-        <Drawer.Screen name="e-Society" component={TabScreen} />
-        <Drawer.Screen name="SplashScreen" component={SplashScreen} />
-        <Drawer.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Drawer.Screen name="SignInScreen" component={SignIn} />
-        <Drawer.Screen name="SignUpScreen" component={SignUp} />
-        <Drawer.Screen name="ForgetScreen" component={ForgetPassword} />
-        <Drawer.Screen name="ForgetPasswordSuccessFul" component={ForgetPasswordSuccessFul} />
-        <Drawer.Screen name="Dashboard" component={DashBoard} />
 
-      </Drawer.Navigator>
+      <Stack.Navigator screenOptions={{headerShown:true}}>
+        <Stack.Screen name="SplashScreen" options = {{headerShown :false}} component={SplashScreen}/>
+        <Stack.Screen name="WelcomeScreen" options = {{headerShown :false}} component={WelcomeScreen} />
+        <Stack.Screen name="SignIn" options = {{headerShown :false}} component={SignIn} />
+        <Stack.Screen name="SignUp" options = {{headerShown :false}}  component={SignUp} />
+        <Stack.Screen name="paymentScreen" options = {{headerShown :false}}  component={paymentScreen} />
+        <Stack.Screen name="ForgetScreen" options = {{headerShown :false}}  component={ForgetPassword} />
+        <Stack.Screen name="ForgetPasswordSuccessFul" options = {{headerShown :false}}  component={ForgetPasswordSuccessFul} />
+        <Stack.Screen name="TabScreen" options = {{headerShown :false}} component={DrawerRoutes} />
+        <Stack.Screen name="Booking Event" options = {{headerShown :false}} component={BookingEvent} />
+        
+      </Stack.Navigator>
+
     </NavigationContainer>
   );
 }
 
+export default App
