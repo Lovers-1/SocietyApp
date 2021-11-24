@@ -16,7 +16,7 @@ const AccountDetails = ({navigation}) => {
     const ReviewSchem =yup.object({
         user:yup.string().required().min(6),
         email:yup.string().required().min(6),
-        phonenumber:yup.string().required().min(10),
+        phonenumber:yup.string().required().max(10).min(10),
         password:yup.string().required().min(6),
         confirmpassword:yup.string().required().min(6),
     })

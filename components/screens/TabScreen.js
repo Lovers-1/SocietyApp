@@ -8,7 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import payment from './Payment';
-import paymentScreen from './paymentScreen';
+
+import paymentScreen from './PaymentScreen';
 import AccountDetails from './AccountDetails';
 import help from './help';
 

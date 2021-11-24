@@ -30,11 +30,7 @@ const Pagination=({index})=>{
       setwelcomeListIndex(changed[0].index);
     })
     const viewConfigRef =useRef({viewAreaCoveragePercentThreshold:50})
-    const pageScoll =()=>{
-      welcomeList.current.scrollToIndex({
-        index:welcomeListIndex < 2 ? welcomeListIndex + 1:welcomeListIndex,
-      })
-    }
+    
 
     return(
         
