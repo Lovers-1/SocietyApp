@@ -66,7 +66,7 @@ const SignUp=({navigation})=>{
                     <Text style={{padding:8, color:'gray',}}>
                         Already Have An Account?
                     </Text>
-                    <TouchableOpacity onPress={()=>navigation.navigate('help')}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('SignIn')}>
                     <Text style={{ fontWeight: 'bold',marginLeft:-12, padding: 8, color:'#0225A2'}}>
                         Sign Up
                         

@@ -5,7 +5,16 @@ import { TextInput } from 'react-native-gesture-handler';
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from 'react-native-vector-icons/Feather'
 import { Display } from '../utils';
+import * as yup from 'yup'
+import { Formik } from 'formik';
+
+
+
 const VerificationOTPScreen = ({navigation}) => {
+    const Review=yup.object({
+
+        phonenumber:yup.string().required().min(10)
+    })
     const firstInput =useRef()
     const secondInput =useRef()
     const thirdInput =useRef()
@@ -68,6 +77,15 @@ const VerificationOTPScreen = ({navigation}) => {
                         text ? fifthInput.current.focus() : fourthInput.current.focus() }}/>
                 </View>
             </View>
+            <Formik 
+               initialValues={{phonenumber:''}}
+               validationSchema={Review}
+               onSubmit={(values,action)=>{
+                   action.resetForm()
+                Submit(values)
+               }}
+               >
+                   {(props)=>(
             <View style={[styles.inputContainer]}>
                 <View style={styles.inputSubContainer}>
                     <Feather name="phone" size={22}
@@ -77,11 +95,17 @@ const VerificationOTPScreen = ({navigation}) => {
                     <TextInput placeholder="Enter PHONE NUMBER"
                     selectionColor='gainsboro'
                         keyboardType='numeric'
+                        value={props.values.phonenumber}
+                        onBlur={props.handleBlur('phonenumber')}
+                        onChangeText={props.handleChange('phonenumber')}
                     style={styles.inputText}
                     />
+                    <Text>{props.errors.phonenumber && props.touched.phonenumber}</Text>
                 </View>
              
             </View>
+            )}
+            </Formik> 
             <TouchableOpacity style={styles.signinButton}
             onPress={()=>navigation.navigate('AboutSociety')} >
                 <Text style={styles.signinButtonText}>SUBMIT</Text>
