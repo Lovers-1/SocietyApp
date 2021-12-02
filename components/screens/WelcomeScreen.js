@@ -68,7 +68,7 @@ const Pagination=({index})=>{
             <View>
             <TouchableOpacity activeOpacity={8.0}
               style={[styles.gettingsStartedButton,{backgroundColor:"#0225A1"}]}
-              onPress={()=>navigation.navigate('VerificationOTPScreen')}
+              onPress={()=>navigation.navigate('SignUp')}
               >
                 <Text style={[styles.gettingsStartedButtonText,{color:'#fff'}]}>GET STARTED</Text>
               </TouchableOpacity>

@@ -1,27 +1,42 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import { SafeAreaView, StyleSheet, Text, View ,
-StatusBar,Pressable, TextInput} from 'react-native'
+StatusBar,Pressable, TextInput,TouchableOpacity,Picker} from 'react-native'
 import Feather from "react-native-vector-icons/Feather"
 import { Display } from '../utils'
+import Icon from "react-native-vector-icons/MaterialIcons"
 const BookingEvent = ({navigation}) => {
+    const [pickerindex,setpickerindex]=useState(0)
+    const [events,setEvents]=useState('')
     return (
         <SafeAreaView>
              <StatusBar
-            backgroundColor="grey"
+            backgroundColor="#0225A1"
             barStyle="light-content"
             />
              <View style={styles.headerContainer} > 
-              <Feather name="menu" size={30}  color='#fff'  
-             onPress={()=>navigation.goBack()} /> 
+              <TouchableOpacity onPress={()=>navigation.goBack()}>
+                  <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
+              </TouchableOpacity>
               
-              <Text style={styles.headerTitle}>Booking</Text>
+              <Text style={styles.headerTitle}>Book Event</Text>
               </View>
               <View style={styles.boxcontainer}>
                   <View style={{alignItems:'center'}}>
-                  <Text style={styles.titles}>Book Event</Text>
+                  {/* <Text style={styles.titles}>Book Event</Text> */}
                   </View>
                   <View style={{padding:15}}>
               <Text style={styles.titles}>Event Type</Text>
+              <Picker 
+              selectedValue={events}
+              
+              onValueChange={(value,index)=>setEvents( value)}
+              >
+                  <Picker.Item label='Wedding' value='Wedding'/>
+                  <Picker.Item label='Party' value='Party'/>
+                  <Picker.Item label='Ceremony' value='Ceremony'/>
+              </Picker>
+              
+              
               <Text style={styles.titles}>Fees Paid</Text>
               <TextInput
               placeholder='R00.00'
@@ -30,7 +45,7 @@ const BookingEvent = ({navigation}) => {
               borderWidth:1}}/>
               <Text style={styles.titles}>Event Description</Text>
               <TextInput
-              placeholder='Location'
+              placeholder='Description'
               multiline
               numberOfLines={3}
               style={{padding:10,backgroundColor:'#fff',
@@ -73,10 +88,8 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         paddingVertical:30,
         paddingHorizontal:10,
-        backgroundColor:"#0225A1",
-        borderBottomWidth:1,
-       borderRadius:20,
-       marginTop:-20
+        
+       marginTop:20
    
      },
      headerTitle:{
@@ -84,15 +97,15 @@ const styles = StyleSheet.create({
        lineHeight:20 * 1.4,
        width:Display.setWidth(80),
        textAlign:'center',
-       color:'#fff'  
+       color:'#000'  
  
      },
      boxcontainer:{
-        backgroundColor:'#DADADA',
-        height:'90%',
+        // backgroundColor:'#DADADA',
+        height:'85%',
         width:'90%',
         marginLeft:20,
-        marginTop:30,
+        marginTop:-20,
         
     },
     signinButton:{

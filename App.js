@@ -18,6 +18,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './components/screens/HomeScreen';
 import paymentScreen from './components/screens/Payment';
 import BookingEvent from './components/screens/BookingEvent';
+import VerificationOTPScreen from './components/screens/VerificationOTPScreen';
+import AboutSociety from './components/screens/AboutSociety';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -48,7 +50,8 @@ function App() {
         <Stack.Screen name="ForgetPasswordSuccessFul" options = {{headerShown :false}}  component={ForgetPasswordSuccessFul} />
         <Stack.Screen name="TabScreen" options = {{headerShown :false}} component={DrawerRoutes} />
         <Stack.Screen name="Booking Event" options = {{headerShown :false}} component={BookingEvent} />
-        
+        <Stack.Screen name="VerificationOTPScreen" options = {{headerShown :false}} component={VerificationOTPScreen} />
+        <Stack.Screen name="AboutSociety" options = {{headerShown :false}} component={AboutSociety} />
       </Stack.Navigator>
 
     </NavigationContainer>
