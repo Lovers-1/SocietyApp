@@ -65,7 +65,7 @@ const HomeScreen = ({navigation}) => {
                 </Text>
             </View>
             <View style={{width:80, height: 80, padding:3, margin: 1, marginTop: 1, marginLeft: 180}}>
-                <Text>
+                <Text style={{color:'#0225A1'}}>
                     View All
                 </Text>
             </View>
@@ -86,7 +86,7 @@ const HomeScreen = ({navigation}) => {
         <View style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
                     borderRadius: 15, marginLeft: 30, marginTop: -40}}>
             <Text style={{fontWeight: '500', paddingLeft: 35}}>
-               View 
+              
                 Transactions
             </Text>    
         </View>

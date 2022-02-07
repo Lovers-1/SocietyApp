@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     },
     moreIcon: {
         color: '#d6d7da',
+        
         justifyContent: 'flex-end'
     }
 })
