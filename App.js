@@ -10,7 +10,7 @@ import SignUp from './components/screens/SignUp';
 import ForgetPasswordSuccessFul from './components/screens/ForgetPasswordSuccessFul';
 import DashBoard from './components/screens/DashBoard';
 import TabScreen from './components/screens/TabScreen';
-
+import {AuthProvider} from './contexts/AuthProvider'
 // import { DrawerScreenProps } from '@react-navigation/drawer';
 // navigator
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,6 +38,7 @@ function DrawerRoutes() {
 
 function App() {
   return (
+    <AuthProvider>
     <NavigationContainer>
 
       <Stack.Navigator screenOptions={{headerShown:true}}>
@@ -55,6 +56,7 @@ function App() {
       </Stack.Navigator>
 
     </NavigationContainer>
+    </AuthProvider>
   );
 }
 
