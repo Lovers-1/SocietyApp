@@ -4,9 +4,29 @@ StatusBar,Pressable, TextInput,TouchableOpacity,Picker} from 'react-native'
 import Feather from "react-native-vector-icons/Feather"
 import { Display } from '../utils'
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { db } from '../../firebase'
+const itemRef = db.ref('/BookEvent')
 const BookingEvent = ({navigation}) => {
     const [pickerindex,setpickerindex]=useState(0)
     const [events,setEvents]=useState('')
+    const [fee,setFee]=useState('')
+    const [description,setDescription]=useState('')
+    const [location,setLocation]=useState('')
+    const [date,setDate]=useState('')
+    const [time,setTime]=useState('')
+    const [status,setStatus]=useState('Pending')
+    
+    const addHandle=()=>{
+        
+        itemRef.push({events,fee,description,location,date,time,status})
+        setLocation('')
+        setDate('')
+        setDescription('')
+        setEvents('')
+        setFee('')
+        setTime('')
+        
+    }
     return (
         <SafeAreaView>
              <StatusBar
@@ -29,7 +49,7 @@ const BookingEvent = ({navigation}) => {
               <Picker 
               selectedValue={events}
               
-              onValueChange={(value,index)=>setEvents( value)}
+              onValueChange={(value,index)=>setEvents(value)}
               >
                   <Picker.Item label='Wedding' value='Wedding'/>
                   <Picker.Item label='Party' value='Party'/>
@@ -39,38 +59,38 @@ const BookingEvent = ({navigation}) => {
               
               <Text style={styles.titles}>Fees Paid</Text>
               <TextInput
-              placeholder='R00.00'
+              placeholder='R00.00'    value={fee} onChangeText={(e)=>(setFee(e))}
               style={{padding:10,backgroundColor:'gainsboro',
               borderRadius:10,
               borderWidth:1}}/>
               <Text style={styles.titles}>Event Description</Text>
               <TextInput
               placeholder='Description'
-              multiline
+              multiline value={description} onChangeText={(e)=>(setDescription(e))}
               numberOfLines={3}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}/>
               <Text style={styles.titles}>Location</Text>
               <TextInput
-              placeholder='Location'
+              placeholder='Location' value={location} onChangeText={(e)=>(setLocation(e))}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}/>
               <Text style={styles.titles}>Date</Text>
               <TextInput
-              placeholder='Date'
+              placeholder='Date' value={date} onChangeText={(e)=>(setDate(e))}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}/>
               <Text style={styles.titles}>Time</Text>
               <TextInput
-              placeholder='time'
+              placeholder='time' value={time} onChangeText={(e)=>(setTime(e))}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}/>
               </View>
-              <Pressable style={styles.signinButton} >
+              <Pressable style={styles.signinButton} onPress={addHandle} >
                 <Text style={styles.signinButtonText}>SUBMIT</Text>
             </Pressable>
               </View>
