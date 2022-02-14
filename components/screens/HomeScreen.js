@@ -26,7 +26,7 @@ const HomeScreen = ({navigation}) => {
                 Lawrence Sekgoka
             </Text>
                 
-                <View style={{width: '20%'}}>
+                <TouchableOpacity style={{width: '20%', alignItems:'center'}} onPress={()=>navigation.navigate('Notification')}>
                 <Text style={{padding: 6, textAlign: 'center',justifyContent:'center', alignContent:'center',backgroundColor: '#ffffff',height:40,width:40, borderRadius: 100}}>
                                 <Icon 
                                 name='ios-notifications'
@@ -35,7 +35,7 @@ const HomeScreen = ({navigation}) => {
                                 size={20}
                                 />
                             </Text>
-                </View>
+                </TouchableOpacity>
                 
             </View>
             

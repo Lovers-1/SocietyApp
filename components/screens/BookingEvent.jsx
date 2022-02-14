@@ -4,9 +4,22 @@ StatusBar,Pressable, TextInput,TouchableOpacity,Picker} from 'react-native'
 import Feather from "react-native-vector-icons/Feather"
 import { Display } from '../utils'
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { db } from './firebase'
 const BookingEvent = ({navigation}) => {
     const [pickerindex,setpickerindex]=useState(0)
     const [events,setEvents]=useState('')
+    const [location,setLocation]=useState('')
+    const [Description,setDescription]=useState('')
+    const [Date,setDate]=useState('')
+    const [fee,setFee]=useState('')
+    const [Status,setStatus]=useState('Pending')
+
+    const addBooking=()=>{
+        db.ref('/BookEvent').push({
+            Status,events,location,Description,Date,fee
+        })
+    }
+
     return (
         <SafeAreaView>
              <StatusBar
@@ -40,13 +53,18 @@ const BookingEvent = ({navigation}) => {
               <Text style={styles.titles}>Fees Paid</Text>
               <TextInput
               placeholder='R00.00'
+              value={fee}
+              onChangeText={(text)=>setFee(text)}
               style={{padding:10,backgroundColor:'gainsboro',
               borderRadius:10,
+              
               borderWidth:1}}/>
               <Text style={styles.titles}>Event Description</Text>
               <TextInput
               placeholder='Description'
               multiline
+              value={Description}
+              onChangeText={(text)=>setDescription(text)}
               numberOfLines={3}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
@@ -54,12 +72,16 @@ const BookingEvent = ({navigation}) => {
               <Text style={styles.titles}>Location</Text>
               <TextInput
               placeholder='Location'
+              value={location}
+              onChangeText={(text)=>setLocation(text)}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}/>
               <Text style={styles.titles}>Date</Text>
               <TextInput
               placeholder='Date'
+              value={Date}
+              onChangeText={(text)=>setDate(text)}
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}/>
@@ -70,7 +92,7 @@ const BookingEvent = ({navigation}) => {
               borderRadius:10,
               borderWidth:1}}/>
               </View>
-              <Pressable style={styles.signinButton} >
+              <Pressable style={styles.signinButton} onPress={addBooking()}>
                 <Text style={styles.signinButtonText}>SUBMIT</Text>
             </Pressable>
               </View>

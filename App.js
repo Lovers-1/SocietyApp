@@ -20,6 +20,7 @@ import paymentScreen from './components/screens/Payment';
 import BookingEvent from './components/screens/BookingEvent';
 import VerificationOTPScreen from './components/screens/VerificationOTPScreen';
 import AboutSociety from './components/screens/AboutSociety';
+import Notification from './components/screens/Notification';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -52,6 +53,7 @@ function App() {
         <Stack.Screen name="Booking Event" options = {{headerShown :false}} component={BookingEvent} />
         <Stack.Screen name="VerificationOTPScreen" options = {{headerShown :false}} component={VerificationOTPScreen} />
         <Stack.Screen name="AboutSociety" options = {{headerShown :false}} component={AboutSociety} />
+        <Stack.Screen name="Notification" options = {{headerShown :false}} component={Notification} />
       </Stack.Navigator>
 
     </NavigationContainer>

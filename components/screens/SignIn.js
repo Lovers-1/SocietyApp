@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { View,SafeAreaView, Text ,StatusBar,Image,StyleSheet,
     TextInput,TouchableOpacity,CheckBox, ScrollView} from 'react-native';
 import { Formik } from 'formik';
-import * as yup from 'yup'
+import * as yup from 'yup';
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
@@ -18,7 +18,7 @@ const SignIn=({navigation})=>{
         password:yup.string().required().min(6),
     })
     return(
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <StatusBar
             backgroundColor="#0225A1"
             barStyle="light-content"
@@ -30,9 +30,9 @@ const SignIn=({navigation})=>{
                     <Separator
                 height={StatusBar.currentHeight}
                 />
-                <TouchableOpacity onPress={()=>navigation.goBack()}>
+                {/* <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <Icons name="keyboard-backspace" size={20} style={{ padding: 5 }}></Icons> 
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Text style={styles.headerTitle}></Text>
                 </View>
 

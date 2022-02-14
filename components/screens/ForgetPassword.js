@@ -23,7 +23,7 @@ const ForgetPassword = ({ navigation }) => {
                             <TextInput
                                 style={{ width: '100%', height: 40, borderWidth: 0 }}
                                 autoFocus={true}
-                                placeholder="ENTER YOUR FIRST NAME "  ></TextInput>
+                                placeholder="ENTER YOUR EMAIL "  ></TextInput>
                         </View>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('ForgetPasswordSuccessFul')}
