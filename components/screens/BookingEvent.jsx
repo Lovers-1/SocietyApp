@@ -28,30 +28,46 @@ const BookingEvent = ({ navigation }) => {
   const [fee, setFee] = useState("");
   const [Status, setStatus] = useState("Pending");
   const [date, setDate] = useState(new Date());
+  // const [time, setTime] = useState('')
+
+///
+
+function addZero(i) {
+  if (i < 10) {i = "0" + i}
+  return i;
+}
+
+const d = new Date();
+let h = addZero(d.getHours());
+let m = addZero(d.getMinutes());
+let s = addZero(d.getSeconds());
+let time = h + ":" + m ;
 
   const addBooking = () => {
-    if (
-      events == "" ||
-      location == "" ||
-      Description == "" ||
-      date == "" ||
-      fee == ""
-    ) {
-      Alert.alert("Error", "Enter all the fields", [
-        {
-          text: "ok",
-        },
-      ]);
-    } else {
-      db.ref("/BookEvent").push({
-        Status,
+    // if (
+    //   events === null ||
+    //   location === null ||
+    //   Description === null ||
+    //   date === null ||
+    //   fee ===null ||
+    //   time===null
+    // ) {
+    //   Alert.alert("Error", "Enter all the fields", [
+    //     {
+    //       text: "ok",
+    //     },
+    //   ]);
+    // } else {
+      db.ref('/BookEvent').push({
+        Status:'Pending',
         events,
         location,
         Description,
         date,
         fee,
-      });
-    }
+        time
+      })
+    // }
   };
 
   // 083 980 9151
@@ -64,6 +80,7 @@ const BookingEvent = ({ navigation }) => {
     setDate(currentDate);
   };
 
+  
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
@@ -96,6 +113,7 @@ const BookingEvent = ({ navigation }) => {
             selectedValue={events}
             onValueChange={(value, index) => setEvents(value)}
           >
+              <Picker.Item label="select" value="" />
             <Picker.Item label="Wedding" value="Wedding" />
             <Picker.Item label="Party" value="Party" />
             <Picker.Item label="Ceremony" value="Ceremony" />
@@ -176,11 +194,11 @@ const BookingEvent = ({ navigation }) => {
               setDate(date);
             }}
           />
+
           <Text style={styles.titles}>Time</Text>
 
-          <View>
-            <Button onPress={showTimepicker} title="Show time picker!" />
-          </View>
+          
+
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
@@ -188,18 +206,27 @@ const BookingEvent = ({ navigation }) => {
               mode={mode}
               is24Hour={true}
               display="default"
-              onChange={onChange}
+              
             
             />
           )}
 
-          {/* <TextInput
+          <View>
+            <Button onPress={showTimepicker} title="Show time picker!" 
+            onChangeText={(e) => setTime(time.value.toString())}
+            />
+          </View>
+
+          <TextInput
               placeholder='time'
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
-              borderWidth:1}}/> */}
+              borderWidth:1}}
+              onChangeText={(text) => setTime(text)}
+              />
+              
         </View>
-        <Pressable style={styles.signinButton} onPress={addBooking()}>
+        <Pressable style={styles.signinButton} onPress={addBooking}>
           <Text style={styles.signinButtonText}>SUBMIT</Text>
         </Pressable>
       </View>

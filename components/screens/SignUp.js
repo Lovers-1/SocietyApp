@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
 import Ico from 'react-native-vector-icons/MaterialCommunityIcons'
 import { View, SafeAreaView, Text, TouchableOpacity, TextInput, StyleSheet, Button, Image, _ScrollView } from 'react-native';
@@ -8,16 +8,53 @@ import Feather from "react-native-vector-icons/Feather";
 import { ScrollView } from 'react-native-gesture-handler';
 
 //
-
+// import { useAuth } from '../contexts/AuthContext';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
+import { auth } from './firebase';
 
 const SignUp = ({ navigation }) => {
 
-    //
+    // 
     const [isPasswordShow,setPasswordShow]=useState(false);
     const [isSelected,setSelection]=useState(false);
+    const email=useRef()
+  const password=useRef()
+  const passwordConfirm=useRef()
+//   const {signup}=useAuth()
+  const [error,setError]=useState('')
+    const ReviewSchem =yup.object({
+        email:yup.string().required().min(6),
+        password:yup.string().required().min(6),
+    })
+    const Submit= async (e)=>{
+        e.preventDefault()
+        if(password.current.value !== passwordConfirm.current.value){
+          return setError('password do not match')
+        }
+        try{
+          setError('')
+          
+        //   await signup(email.current.value,password.current.value)
+          await auth.createUserWithEmailAndPassword(email.current.value,password.current.value)
+        //   
+        //   .then(res=>{
+        //     const user={
+        //       Firstname: Firstname,
+                            
+        //                     email: email.current.value,
+        //                     Phonenumber: Phonenumber,
+        //                     uid: res.user.uid
+        //     }
+        //     db.ref('/user').child(res.user.uid).set(user)
+            
+        //   })
+         
+        } catch{
+          setError('failed to create an account')
+        }
+       
+      }
     return (
         <SafeAreaView style={styles.container}>
 
@@ -32,12 +69,23 @@ const SignUp = ({ navigation }) => {
                             source={require('../images/logo.png')}
                         />
                     </View>
+                    <Formik 
+               initialValues={{email:'',password:''}}
+               validationSchema={ReviewSchem}
+               onSubmit={(values,action)=>{
+                   action.resetForm()
+                Submit(values)
+               }}
+               >
+                   {(props)=>(
+                       <View>
                     <View style={styles.inputCon}>
 
                         <View style={styles.lovers} >
                             <Icon name='person' size={22} color='black' style={{ margin: 9 }}></Icon>
                             <TextInput
                                 autoFocus={true}
+                                
                                 placeholder="ENTER YOUR FIRST NAME "  ></TextInput>
                         </View>
 
@@ -49,17 +97,24 @@ const SignUp = ({ navigation }) => {
 
                         <View style={styles.lovers} >
                             <Icon name='email' size={22} color='black' style={{ margin: 10 }}></Icon>
-                            <TextInput placeholder="ENTER YOUR EMAIL">
+                            <TextInput placeholder="ENTER YOUR EMAIL"
+                            onChangeText={props.handleChange('email')}
+                            value={props.values.email}
+                            onBlur={props.handleBlur('email')}>
 
                             </TextInput>
                         </View>
+                        <Text style={styles.errortext}>{props.touched.email && props.errors.email}</Text>
                         <View style={styles.lovers} >
                             <Icon name='perm-phone-msg' size={22} color='black' style={{ margin: 10 }}></Icon>
                             <TextInput placeholder="ENTER YOUR PHONE NO " ></TextInput>
                         </View>
                         <View style={styles.lovers} >
                             <Icon name='lock' size={22} color='black' style={{ margin: 10 }}></Icon>
-                            <TextInput style={{ width: "80%" }} placeholder="ENTER YOUR PASSWORD" ></TextInput>
+                            <TextInput style={{ width: "80%" }} placeholder="ENTER YOUR PASSWORD"
+                             onChangeText={props.handleChange('password')}
+                             value={props.values.password}
+                              onBlur={props.handleBlur('password')} ></TextInput>
                             <Feather
                  name={isPasswordShow?"eye-off":"eye"} size={22}
                  color='black'
@@ -68,9 +123,13 @@ const SignUp = ({ navigation }) => {
                  />
 
                         </View>
+                        <Text style={styles.errortext}>{props.touched.password && props.errors.password}</Text>
                         <View style={styles.lovers} >
                             <Icon name='lock' size={22} color='black' style={{ margin: 10 }}></Icon>
-                            <TextInput style={{ width: "80%" }} placeholder="CONFIRM PASSWORD " ></TextInput>
+                            <TextInput style={{ width: "80%" }} 
+                            onChangeText={props.handleChange('passwordConfirm')}
+                            value={props.values.passwordConfirm}
+                             onBlur={props.handleBlur('passwordConfirm')} placeholder="CONFIRM PASSWORD " ></TextInput>
                             <Feather
                  name={isPasswordShow?"eye-off":"eye"} size={22}
                  color='black'
@@ -78,6 +137,7 @@ const SignUp = ({ navigation }) => {
                  onPress={()=>setPasswordShow(!isPasswordShow)}
                  />
                         </View>
+                        <Text>{error}</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('PaymentScreen')} style={{ backgroundColor: '#0225A2', width: '75%', height: 40, borderRadius: 10, alignItems: 'center', marginTop: 20 }}>
                             <Text style={{ padding: 8, color: '#fff' }}>
                                 REGISTER
@@ -91,11 +151,15 @@ const SignUp = ({ navigation }) => {
                         </Text>
                         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                             <Text style={{  marginLeft: -12, padding: 8, color: '#0225A2' }}>
-                                Sign In
+                                Sign In 
 
                             </Text>
                         </TouchableOpacity>
                     </View>
+                </View>
+                
+                )}
+                </Formik> 
                 </View>
 
             </ScrollView>
