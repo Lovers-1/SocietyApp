@@ -6,14 +6,13 @@ import "firebase/database"
 
 
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyBjpwPZgVQRdwRf4FfCaHH4rRB-FgQcrzs",
-  authDomain: "todo-c2d07.firebaseapp.com",
-  databaseURL: "https://todo-c2d07-default-rtdb.firebaseio.com",
-  projectId: "todo-c2d07",
-  storageBucket: "todo-c2d07.appspot.com",
-  messagingSenderId: "300856305118",
-  appId: "1:300856305118:web:3cbc27bef4c47a3f11694f",
-  measurementId: "G-7EF8PMEYLJ"
+  apiKey: "AIzaSyDM3elUX8AI0AkrpXGPQObCJqRWXRzrSC0",
+  authDomain: "react-contact-69e6e.firebaseapp.com",
+  databaseURL: "https://react-contact-69e6e-default-rtdb.firebaseio.com",
+  projectId: "react-contact-69e6e",
+  storageBucket: "react-contact-69e6e.appspot.com",
+  messagingSenderId: "974248023568",
+  appId: "1:974248023568:web:7bb66f13d5c0dd3e611c95"
 })
 
 export const auth = app.auth()

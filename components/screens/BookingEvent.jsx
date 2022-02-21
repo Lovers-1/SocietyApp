@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -30,7 +30,7 @@ const BookingEvent = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   // const [time, setTime] = useState('')
 
-///
+
 
 function addZero(i) {
   if (i < 10) {i = "0" + i}
@@ -58,7 +58,7 @@ let time = h + ":" + m ;
     //     },
     //   ]);
     // } else {
-      db.ref('/BookEvent').push({
+      db.ref('BookEvent').push({
         Status:'Pending',
         events,
         location,
@@ -93,6 +93,22 @@ let time = h + ":" + m ;
     showMode("time");
   };
 
+  const [EventType, setEventType] = useState([]);
+    
+    useEffect(()=>{
+        
+            db.ref('/Event/').on('value',snap=>{
+              let item = [];
+              const a_ =snap.val();
+              for (let x in a_){
+                item.push({Price:a_[x].Price,key:x,selector:a_[x].selector})
+              }
+              setEventType(item)
+            })
+         
+      
+    })
+    console.log(EventType)
   return (
     <SafeAreaView style={styles.box}>
       <StatusBar backgroundColor="#0225A1" barStyle="light-content" />
@@ -105,7 +121,7 @@ let time = h + ":" + m ;
       </View>
       <View style={styles.boxcontainer}>
         <View style={{ alignItems: "center" }}>
-          {/* <Text style={styles.titles}>Book Event</Text> */}
+          {/* <Text style={styles.titles}>Book Event</Text>  */}
         </View>
         <View style={{ padding: 15 }}>
           <Text style={styles.titles}>Event Type</Text>
@@ -120,19 +136,39 @@ let time = h + ":" + m ;
           </Picker>
 
           <Text style={styles.titles}>Fees Paid</Text>
-          <TextInput
-            placeholder="R00.00"
-            keyboardType="numeric"
-            value={fee}
-            onChangeText={(text) => setFee(text)}
-            style={{
-              padding: 10,
-              backgroundColor: "gainsboro",
-              borderRadius: 10,
-
-              borderWidth: 1,
-            }}
-          />
+          
+        {
+            EventType.map(element =>
+              <>
+              {/* {
+                'Wedding' === element.selector?( */}
+                  <TextInput
+                  placeholder="R00.00"
+                  keyboardType="numeric"
+                  value={element.Price}
+                  // onChangeText={(text) => setFee(text)}
+                  style={{
+                    padding: 10,
+                    backgroundColor: "gainsboro",
+                    borderRadius: 10,
+      
+                    borderWidth: 1,
+                  }}
+                />
+                {/* ):(
+                  <></>
+                )
+              }
+              */}
+  
+                <Text>
+                    {element.Price}
+                    {element.selector}
+                </Text>
+                </>
+            )
+        }
+      
           <Text style={styles.titles}>Event Description</Text>
           <TextInput
             placeholder="Description"
@@ -213,7 +249,7 @@ let time = h + ":" + m ;
 
           <View>
             <Button onPress={showTimepicker} title="Show time picker!" 
-            onChangeText={(e) => setTime(time.value.toString())}
+            onChangeText={(e) => setTime(e)}
             />
           </View>
 
