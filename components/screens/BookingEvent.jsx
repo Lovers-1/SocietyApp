@@ -18,6 +18,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { db } from "./firebase";
 import DatePicker from "react-native-datepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { log } from "react-native-reanimated";
 
 const BookingEvent = ({ navigation }) => {
   const [pickerindex, setpickerindex] = useState(0);
@@ -125,9 +126,10 @@ let time = h + ":" + m ;
         </View>
         <View style={{ padding: 15 }}>
           <Text style={styles.titles}>Event Type</Text>
+          
           <Picker
             selectedValue={events}
-            onValueChange={(value, index) => setEvents(value)}
+            onValueChange={(value, index) => {setEvents(value); console.log(value);}}
           >
               <Picker.Item label="select" value="" />
             <Picker.Item label="Wedding" value="Wedding" />
@@ -136,12 +138,13 @@ let time = h + ":" + m ;
           </Picker>
 
           <Text style={styles.titles}>Fees Paid</Text>
-          
         {
             EventType.map(element =>
               <>
-              {/* {
-                'Wedding' === element.selector?( */}
+           
+          {
+                events == element.selector?(
+              
                   <TextInput
                   placeholder="R00.00"
                   keyboardType="numeric"
@@ -151,20 +154,19 @@ let time = h + ":" + m ;
                     padding: 10,
                     backgroundColor: "gainsboro",
                     borderRadius: 10,
-      
                     borderWidth: 1,
                   }}
                 />
-                {/* ):(
+                ):(
                   <></>
                 )
               }
-              */}
+              
   
-                <Text>
+                {/* <Text>
                     {element.Price}
                     {element.selector}
-                </Text>
+                </Text> */}
                 </>
             )
         }
