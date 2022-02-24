@@ -17,8 +17,8 @@ import { Display } from "../utils";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { db } from "./firebase";
 import DatePicker from "react-native-datepicker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { log } from "react-native-reanimated";
+// import DateTimePicker from "@react-native-community/datetimepicker";
+
 
 const BookingEvent = ({ navigation }) => {
   const [pickerindex, setpickerindex] = useState(0);
@@ -85,14 +85,14 @@ let time = h + ":" + m ;
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
+  // const showMode = (currentMode) => {
+  //   setShow(true);
+  //   setMode(currentMode);
+  // };
 
-  const showTimepicker = () => {
-    showMode("time");
-  };
+  // const showTimepicker = () => {
+  //   showMode("time");
+  // };
 
   const [EventType, setEventType] = useState([]);
     
@@ -109,7 +109,8 @@ let time = h + ":" + m ;
          
       
     })
-    console.log(EventType)
+    console.log(EventType,'EventType')
+    
   return (
     <SafeAreaView style={styles.box}>
       <StatusBar backgroundColor="#0225A1" barStyle="light-content" />
@@ -139,36 +140,25 @@ let time = h + ":" + m ;
 
           <Text style={styles.titles}>Fees Paid</Text>
         {
-            EventType.map(element =>
-              <>
-           
-          {
-                events == element.selector?(
-              
-                  <TextInput
-                  placeholder="R00.00"
-                  keyboardType="numeric"
-                  value={element.Price}
-                  // onChangeText={(text) => setFee(text)}
-                  style={{
-                    padding: 10,
-                    backgroundColor: "gainsboro",
-                    borderRadius: 10,
-                    borderWidth: 1,
-                  }}
-                />
-                ):(
-                  <></>
-                )
-              }
-              
-  
-                {/* <Text>
-                    {element.Price}
-                    {element.selector}
-                </Text> */}
-                </>
-            )
+            EventType.map(element=>(
+
+              element.selector == events&&(
+                <Text>{element.Price}</Text>
+              //   <TextInput
+              //   placeholder="R00.00"
+              //   keyboardType="numeric"
+              //   value={element.Price}
+              //   // onChangeText={(text) => setFee(text)}
+              //   style={{
+              //     padding: 10,
+              //     backgroundColor: "gainsboro",
+              //     borderRadius: 10,
+              //     borderWidth: 1,
+              //   }}
+              // />
+              )
+            ))
+         
         }
       
           <Text style={styles.titles}>Event Description</Text>
@@ -228,16 +218,16 @@ let time = h + ":" + m ;
               },
               // ... You can check the source to find the other keys.
             }}
-            onDateChange={(date) => {
-              setDate(date);
-            }}
+            // onDateChange={(date) => {
+            //   setDate(date);
+            // }}
           />
 
           <Text style={styles.titles}>Time</Text>
 
           
 
-          {show && (
+          {/* {show && (
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -247,12 +237,12 @@ let time = h + ":" + m ;
               
             
             />
-          )}
+          )} */}
 
           <View>
-            <Button onPress={showTimepicker} title="Show time picker!" 
+            {/* <Button onPress={showTimepicker} title="Show time picker!" 
             onChangeText={(e) => setTime(e)}
-            />
+            /> */}
           </View>
 
           <TextInput
