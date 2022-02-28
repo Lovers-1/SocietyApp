@@ -1,13 +1,11 @@
-import React,{useEffect,useState} from 'react'
-import { View,StyleSheet, Text ,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
+import React,{useState,useEffect} from 'react'
 import { db } from './firebase'
 import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
-
-const Notification = ({navigation}) => {
-
+const Events = ({navigation}) => {
     const [Status,setStatus]=useState('')
     const [book, setBookings] = useState([]);
     
@@ -18,20 +16,24 @@ const Notification = ({navigation}) => {
               const a_ =snap.val();
               for (let x in a_){
                 item.push({Status:a_[x].Status,key:x,location:a_[x].location,
-                  Description:a_[x].Description,events:a_[x].events,fee:a_[x].fee,
-                  time:a_[x].time })
+                    Description:a_[x].Description,events:a_[x].events,fee:a_[x].fee,
+                    time:a_[x].time })
               }
-              setBookings(item)
+            //   const text ='Accepted'
+            //   if(text){
+            //       const newData=item.filter(function (element){
+            //           const itemData=element.Status?element.Status:''
+            //           return itemData.indexOf(text)>-1
+            //       })
+            //       setBookings(newData)
+            //   }
+            setBookings(item)
             })
          
-        // db.ref('BookEvent').on('value',snap=>{ 
-        //   setBookings({...snap.val() })
-        // })  
+        
     },[])
-    console.log(book,'fhtg');
   return (
-      <>
-    <View style={styles.container}>
+    <>
     <View style={styles.headerContainer} > 
               <TouchableOpacity onPress={()=>navigation.goBack()}>
                   <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
@@ -39,8 +41,7 @@ const Notification = ({navigation}) => {
               
               
               </View>
-
-        {
+       {
             book.map(element => 
               
             <View style={styles.boxcontainer}>
@@ -80,15 +81,20 @@ const Notification = ({navigation}) => {
                     style={{marginRight:10}}/>
                  <Text>{element.Status}</Text>
                 </View>
+                <TouchableOpacity style={styles.signinButton}
+        >
+                <Text style={styles.signinButtonText}>PAY R {element.fee}</Text>
+            </TouchableOpacity>
             </View>
                 
             )
         }
-      
-        </View>
     </>
   )
 }
+
+export default Events
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -148,7 +154,20 @@ const styles = StyleSheet.create({
       flex:1
 
   },
-});
-export default Notification;
-
-
+  signinButton:{
+    backgroundColor:'#0225A1',
+    borderRadius:8,
+    height: 40,
+    marginHorizontal:30,
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop:20,
+  elevation:2,
+},
+signinButtonText:{
+    fontSize:18,
+    lineHeight:18 * 1.4,
+    color:'#fff',
+    
+},
+})

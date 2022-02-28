@@ -17,7 +17,7 @@ import { Display } from "../utils";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { db } from "./firebase";
 import DatePicker from "react-native-datepicker";
-// import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 
 const BookingEvent = ({ navigation }) => {
@@ -85,14 +85,14 @@ let time = h + ":" + m ;
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  // const showMode = (currentMode) => {
-  //   setShow(true);
-  //   setMode(currentMode);
-  // };
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
-  // const showTimepicker = () => {
-  //   showMode("time");
-  // };
+  const showTimepicker = () => {
+    showMode("time");
+  };
 
   const [EventType, setEventType] = useState([]);
   const [Event, setEvent] = useState([]);
@@ -125,6 +125,7 @@ let time = h + ":" + m ;
           
       }
   }
+  const today=new Date()
     
   return (
     <SafeAreaView style={styles.box}>
@@ -165,7 +166,7 @@ let time = h + ":" + m ;
                 placeholder="R00.00"
                 keyboardType="numeric"
                 value={element.Price}
-                // onChangeText={(text) => setFee(text)}
+                onChangeText={(text) => setFee(text)}
                 style={{
                   padding: 10,
                   backgroundColor: "gainsboro",
@@ -214,7 +215,7 @@ let time = h + ":" + m ;
             mode="date"
             // placeholder="select date"
             format="YYYY-MM-DD"
-            // minDate="2016-05-01"
+            minDate={today}
             // maxDate="2016-06-01"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
@@ -236,16 +237,16 @@ let time = h + ":" + m ;
               },
               // ... You can check the source to find the other keys.
             }}
-            // onDateChange={(date) => {
-            //   setDate(date);
-            // }}
+            onDateChange={(date) => 
+              setDate(date)
+            }
           />
 
           <Text style={styles.titles}>Time</Text>
 
           
 
-          {/* {show && (
+          {show && (
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -255,12 +256,12 @@ let time = h + ":" + m ;
               
             
             />
-          )} */}
+          )}
 
           <View>
-            {/* <Button onPress={showTimepicker} title="Show time picker!" 
+            <Button onPress={showTimepicker} title="time" 
             onChangeText={(e) => setTime(e)}
-            /> */}
+            />
           </View>
 
           <TextInput

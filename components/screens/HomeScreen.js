@@ -100,7 +100,7 @@ const HomeScreen = ({navigation}) => {
                 Reports
             </Text>    
         </View>
-        <TouchableOpacity onPress={()=>navigation.navigate('VerificationOTPScreen')}
+        <TouchableOpacity onPress={()=>navigation.navigate('Events')}
          style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
                     borderRadius: 15, marginLeft: 30}}>
             <Text style={{fontWeight: '500', paddingLeft: 45}}>
