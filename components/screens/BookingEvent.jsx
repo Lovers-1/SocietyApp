@@ -95,7 +95,7 @@ let time = h + ":" + m ;
   // };
 
   const [EventType, setEventType] = useState([]);
-    
+  const [Event, setEvent] = useState([]);
     useEffect(()=>{
         
             db.ref('/Event/').on('value',snap=>{
@@ -104,12 +104,27 @@ let time = h + ":" + m ;
               for (let x in a_){
                 item.push({Price:a_[x].Price,key:x,selector:a_[x].selector})
               }
-              setEventType(item)
+            
+              setEvent(item)
+             
             })
          
       
-    })
-    console.log(EventType,'EventType')
+    },[])
+    console.log(Event,'EventType')
+    const FilterFunction =(text)=>{
+      if(text){
+          const newData = Event.filter(function(item){
+              const itemData = item.selector? item.selector.toUpperCase()
+              :''.toUpperCase();
+              const textData = text.toUpperCase();
+              return itemData.indexOf( textData)>-1;
+
+          })
+          setEventType(newData)
+          
+      }
+  }
     
   return (
     <SafeAreaView style={styles.box}>
@@ -130,7 +145,7 @@ let time = h + ":" + m ;
           
           <Picker
             selectedValue={events}
-            onValueChange={(value, index) => {setEvents(value); console.log(value);}}
+            onValueChange={(value, index) => {FilterFunction(value)}}
           >
               <Picker.Item label="select" value="" />
             <Picker.Item label="Wedding" value="Wedding" />
@@ -138,12 +153,14 @@ let time = h + ":" + m ;
             <Picker.Item label="Ceremony" value="Ceremony" />
           </Picker>
 
-          <Text style={styles.titles}>Fees Paid</Text>
+          <Text style={styles.titles}>Fees </Text>
         {
             EventType.map(element=>(
 
-              element.selector == events&&(
+            <>
                 <Text>{element.Price}</Text>
+                <Text>{element.selector}</Text>
+                </>
               //   <TextInput
               //   placeholder="R00.00"
               //   keyboardType="numeric"
@@ -156,7 +173,7 @@ let time = h + ":" + m ;
               //     borderWidth: 1,
               //   }}
               // />
-              )
+          
             ))
          
         }
