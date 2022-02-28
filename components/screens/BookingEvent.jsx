@@ -158,21 +158,22 @@ let time = h + ":" + m ;
             EventType.map(element=>(
 
             <>
-                <Text>{element.Price}</Text>
-                <Text>{element.selector}</Text>
-                </>
-              //   <TextInput
-              //   placeholder="R00.00"
-              //   keyboardType="numeric"
-              //   value={element.Price}
-              //   // onChangeText={(text) => setFee(text)}
-              //   style={{
-              //     padding: 10,
-              //     backgroundColor: "gainsboro",
-              //     borderRadius: 10,
-              //     borderWidth: 1,
-              //   }}
-              // />
+            {/* //     <Text>{element.Price}</Text> */}
+              <Text>{element.selector}</Text>
+            
+                <TextInput
+                placeholder="R00.00"
+                keyboardType="numeric"
+                value={element.Price}
+                // onChangeText={(text) => setFee(text)}
+                style={{
+                  padding: 10,
+                  backgroundColor: "gainsboro",
+                  borderRadius: 10,
+                  borderWidth: 1,
+                }}
+              />
+                  </>
           
             ))
          
