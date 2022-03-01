@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View ,TouchableOpacity,ScrollView} from 'react-native'
 import React,{useState,useEffect} from 'react'
 import { db } from './firebase'
 import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
+
 const Events = ({navigation}) => {
     const [Status,setStatus]=useState('')
     const [book, setBookings] = useState([]);
@@ -19,21 +20,21 @@ const Events = ({navigation}) => {
                     Description:a_[x].Description,events:a_[x].events,fee:a_[x].fee,
                     time:a_[x].time })
               }
-            //   const text ='Accepted'
-            //   if(text){
-            //       const newData=item.filter(function (element){
-            //           const itemData=element.Status?element.Status:''
-            //           return itemData.indexOf(text)>-1
-            //       })
-            //       setBookings(newData)
-            //   }
-            setBookings(item)
+              const text ='Accepted'
+              if(text){
+                  const newData=item.filter(function (element){
+                      const itemData=element.Status?element.Status:''
+                      return itemData.indexOf(text)>-1
+                  })
+                  setBookings(newData)
+              }
+            // setBookings(newData)
             })
          
         
     },[])
   return (
-    <>
+    <ScrollView>
     <View style={styles.headerContainer} > 
               <TouchableOpacity onPress={()=>navigation.goBack()}>
                   <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
@@ -83,13 +84,13 @@ const Events = ({navigation}) => {
                 </View>
                 <TouchableOpacity style={styles.signinButton}
         >
-                <Text style={styles.signinButtonText}>PAY R {element.fee}</Text>
+                <Text style={styles.signinButtonText} onPress={()=>navigation.navigate('paymentScreen')}>PAY R {element.fee}</Text>
             </TouchableOpacity>
             </View>
                 
             )
         }
-    </>
+    </ScrollView>
   )
 }
 
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
    },
      boxcontainer:{
          backgroundColor:'#DADADA',
-         height:'60%',
+         height:'40%',
          width:'80%',
          marginLeft:40,
          marginTop:40

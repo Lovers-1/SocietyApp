@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import { View,StyleSheet, Text ,TouchableOpacity} from 'react-native'
+import { View,StyleSheet, Text ,TouchableOpacity,ScrollView} from 'react-native'
 import { db } from './firebase'
 import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -19,7 +19,7 @@ const Notification = ({navigation}) => {
               for (let x in a_){
                 item.push({Status:a_[x].Status,key:x,location:a_[x].location,
                   Description:a_[x].Description,events:a_[x].events,fee:a_[x].fee,
-                  time:a_[x].time })
+                  time:a_[x].time ,date:a_[x].date})
               }
               setBookings(item)
             })
@@ -30,7 +30,7 @@ const Notification = ({navigation}) => {
     },[])
     console.log(book,'fhtg');
   return (
-      <>
+      <ScrollView>
     <View style={styles.container}>
     <View style={styles.headerContainer} > 
               <TouchableOpacity onPress={()=>navigation.goBack()}>
@@ -86,7 +86,7 @@ const Notification = ({navigation}) => {
         }
       
         </View>
-    </>
+    </ScrollView>
   )
 }
 const styles = StyleSheet.create({
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
    },
      boxcontainer:{
          backgroundColor:'#DADADA',
-         height:'60%',
+         height:'20%',
          width:'80%',
          marginLeft:40,
          marginTop:40

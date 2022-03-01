@@ -10,7 +10,11 @@ import { Formik } from 'formik';
 
 
 
-const VerificationOTPScreen = ({navigation}) => {
+const VerificationOTPScreen = ({navigation,route}) => {
+
+    const email= route.params.email;
+    console.log(email);
+
     const Review=yup.object({
 
         phonenumber:yup.string().required().min(10)
@@ -77,7 +81,7 @@ const VerificationOTPScreen = ({navigation}) => {
                         text ? fifthInput.current.focus() : fourthInput.current.focus() }}/>
                 </View>
             </View>
-            <Formik 
+            {/* <Formik 
                initialValues={{phonenumber:''}}
                validationSchema={Review}
                onSubmit={(values,action)=>{
@@ -109,7 +113,7 @@ const VerificationOTPScreen = ({navigation}) => {
             <Text>{props.errors.phonenumber && props.touched.phonenumber}</Text>
             </View>
             )}
-            </Formik> 
+            </Formik>  */}
             <TouchableOpacity style={styles.signinButton}
             onPress={()=>navigation.navigate('AboutSociety')} >
                 <Text style={styles.signinButtonText}>SUBMIT</Text>

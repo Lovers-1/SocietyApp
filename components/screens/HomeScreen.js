@@ -83,13 +83,16 @@ const HomeScreen = ({navigation}) => {
             
         </View>
         </TouchableOpacity>  
-        <View style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
-                    borderRadius: 15, marginLeft: 30, marginTop: -40}}>
+        <TouchableOpacity style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
+                    borderRadius: 15, marginLeft: 30, marginTop: -40}} 
+         onPress={() => navigation.navigate('AboutSociety')}>
+        <View >
             <Text style={{fontWeight: '500', paddingLeft: 35}}>
               
-                Transactions
+                About Society
             </Text>    
         </View>
+        </TouchableOpacity>
         </View>  
 
         <View style={{ marginTop:25,flex:1,flexDirection:'row',justifyContent:'flex-start', 

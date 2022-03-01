@@ -5,6 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
 const AboutSociety = ({navigation}) => {
+    
     return (
         <View style={styles.container}>
             
