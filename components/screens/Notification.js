@@ -1,10 +1,12 @@
 import React,{useEffect,useState} from 'react'
-import { View,StyleSheet, Text ,TouchableOpacity,ScrollView} from 'react-native'
+import { View,StyleSheet, Text ,TouchableOpacity,ScrollView,SafeAreaView} from 'react-native'
 import { db } from './firebase'
 import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
+import Sm from "react-native-vector-icons/SimpleLineIcons"
 
 const Notification = ({navigation}) => {
 
@@ -30,56 +32,66 @@ const Notification = ({navigation}) => {
     },[])
     console.log(book,'fhtg');
   return (
-      <ScrollView>
-    <View style={styles.container}>
-    <View style={styles.headerContainer} > 
-              <TouchableOpacity onPress={()=>navigation.goBack()}>
-                  <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
-              </TouchableOpacity>
-              
-              
-              </View>
+    <SafeAreaView>
+      <View>
+        {/* tool bar */}
+        <View style={{paddingHorizontal: 15, 
+                paddingVertical:10, display:'flex',
+                flexDirection: 'row',alignItems:'center', elevation:1, backgroundColor:'#0225A1'}}>
+                    <TouchableOpacity
+                        onPress={()=>navigation.goBack()}
+                        >
+                        <Icons name="keyboard-backspace" size={28} color="#fff" style={{ marginTop:10, paddingTop:15}}/>
+                    </TouchableOpacity>
 
+                    <View style={{justifyContent: 'center', width: '100%', flex:1,}}>
+                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'#fff',marginTop:10, paddingTop:15}}>My Notifications</Text>
+                    </View>
+        </View>
+      </View>
+
+      <ScrollView>
+      <View style={styles.container}>
         {
             book.map(element => 
-              
             <View style={styles.boxcontainer}>
               <View style={styles.inputSubContainer}>
-                <Ionicons name="documents" color='#0225A1' size={30}/>
+                <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
                 
                  <Text> {element.events}</Text>
                 </View>
                <View style={styles.inputSubContainer}>
-                <Ionicons name="documents" color='#0225A1' size={30}/>
+                <Icon name="event-note" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
                 
                  <Text> {element.Description}</Text>
                 </View>
+
                 <View style={styles.inputSubContainer}>
-                
-                
-                 <Text>R {element.fee}</Text>
+                  <Icon name="money" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
+                 <Text>R{element.fee}</Text>
                 </View>
                 
                 <View style={styles.inputSubContainer}>
                 
-                <Ionicons name="location" color='#0225A1' size={30}/>
+                <Ionicons name="location" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
                  <Text>{element.location}</Text>
                 </View>
                 <View style={styles.inputSubContainer}>
                 
                 <Feather
-                 name="calendar" size={22}
-                 color='#0225A1'
+                 name="calendar" size={25}
+                 color='#0225A1' style={{paddingHorizontal:5}}
                  />
                  <Text>{element.date}</Text>
                 </View>
                 <View style={styles.inputSubContainer}>
                
-                <Icon name="fiber-pin" size={22}
+                <Icons name="alert-rhombus" size={25} style={{paddingHorizontal:5}}
                     color='#0225A1'
                     style={{marginRight:10}}/>
                  <Text>{element.Status}</Text>
                 </View>
+
             </View>
                 
             )
@@ -87,6 +99,9 @@ const Notification = ({navigation}) => {
       
         </View>
     </ScrollView>
+    
+    </SafeAreaView>
+      
   )
 }
 const styles = StyleSheet.create({
@@ -95,32 +110,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent:'center',
          alignItems:'center',
-
+         paddingHorizontal:10,
+         elevation:2,
+         paddingBottom:80
     },
-    headerContainer:{
-      flexDirection:'row' ,
-      alignItems:'center',
-      justifyContent:'center',
-      paddingVertical:30,
-      paddingHorizontal:10,
-      
-     marginTop:30
- 
-   },
-   headerTitle:{
-     fontSize:20,
-     lineHeight:20 * 1.4,
-     width:Display.setWidth(80),
-     textAlign:'center',
-     color:'#000'  
-
-   },
      boxcontainer:{
          backgroundColor:'#DADADA',
-         height:'20%',
-         width:'80%',
-         marginLeft:40,
-         marginTop:40
+         width:'100%',
+         marginHorizontal:15, 
+         marginVertical:10,
+         borderRadius:6
      },
      inputContainer:{
       backgroundColor:'#F5F5F5',

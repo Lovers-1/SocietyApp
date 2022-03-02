@@ -1,42 +1,55 @@
 import React from 'react';
-import { Text, View, StyleSheet,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Card } from 'react-native-elements';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const payment = ({navigation}) => {
     return (
-        <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
-        alignItems: 'center', alignContent: 'center', width: '100%'}}>
-            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15}}>
-                    Payment
-            </Text>
-            
+        <SafeAreaView>
+
+            <View style={{paddingHorizontal: 15, 
+                paddingVertical:10, display:'flex',
+                flexDirection: 'row',alignItems:'center', elevation:1, backgroundColor:'#0225A1', height:80}}>
+
+                    <View style={{justifyContent: 'center', width: '100%', flex:1,}}>
+                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'#fff',marginTop:10, paddingTop:15}}>Payment Methods</Text>
+                    </View>
+            </View>
+
+            <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
+                alignItems: 'center', alignContent: 'center', width: '100%'}}>
+
                 <View style={{flexDirection:'column',justifyContent:'flex-start', 
-                    width: '100%', height: '100%', alignItems:'flex-start', paddingBottom: 20, paddingLeft: 20}}>
+                    width: '100%', height: '100%', alignItems:'flex-start', paddingBottom: 5, paddingLeft: 20}}>
 
                     {/* Make Payments Tabs    */}
-                    <View style={{paddingTop: 70, width: '100%', height: 1000}}>
+                    <View style={{paddingTop: 50, width: '100%', height: 1000}}>
 
-                    {/* Make Payment */}
-                    
                     <Text style={{paddingBottom: 10}}>
-                        Make payment
+                        Use Existing Card
                     </Text>
-                  
+                  <TouchableOpacity onPress={() =>{''}}>
+
+                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                        <View style={{flexDirection:'row'}}>
+                            <Icon
+                                name='ios-card'
+                                type='Ionicon'
+                                color='#000000'
+                                size={25}/>
+                                <Text style={{padding: 5, fontSize: 11, color: '#808080', textAlign:'left'}}>
+                                    **** **** **** *528
+                                </Text>
+                        </View>
                     
-                    <View style={{flexDirection: 'row'}}>
-                    <Icon
-                        name='ios-card'
-                        type='Ionicon'
-                        color='#000000'
-                        size={25}/>
-                        <Text style={{padding: 5, fontSize: 11, color: '#808080'}}>
-                            **** **** **** *528
-                        </Text>
                         <View style={styles.moreContainer}>
-                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
+                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon} color='#0225A1'/>
                         </View>
                     </View>
+
+                  </TouchableOpacity>
+                    
                     
                     <Card.Divider/>
 
@@ -46,7 +59,8 @@ const payment = ({navigation}) => {
                     <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Add New Card
                     </Text>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
+                    <View style={{flexDirection:'row'}}>
                     <Icon
                         name='ios-card-outline'
                         type='Ionicon'
@@ -55,8 +69,10 @@ const payment = ({navigation}) => {
                         <Text style={{padding: 5, fontSize: 11, color: '#808080'}}>
                             authorize new card
                         </Text>
+                    </View>
+                    
                         <View style={styles.moreContainer}>
-                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
+                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon} color='#0225A1'/>
                         </View>
                     </View>
                     </TouchableOpacity>
@@ -66,24 +82,32 @@ const payment = ({navigation}) => {
                     <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Paid Using ATM
                     </Text>
-                    <View style={{flexDirection: 'row'}}>
-                    <Icon
-                        name='ios-barcode-outline'
-                        type='Ionicon'
-                        color='#000000'
-                        size={25}/>
-                        <Text style={{padding: 5, fontSize: 11, color: '#808080'}}>
-                            scan receipt / enter receipt number
-                        </Text>
-                        <View style={styles.moreContainer}>
-                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
+                    <TouchableOpacity onPress={() =>{''}}>
+                        <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
+                        <View style={{flexDirection:'row'}}>
+                            <Icon
+                            name='ios-barcode-outline'
+                            type='Ionicon'
+                            color='#000000'
+                            size={25}/>
+                            <Text style={{padding: 5, fontSize: 11, color: '#808080'}}>
+                                scan receipt / enter receipt number
+                            </Text>
                         </View>
-                    </View>
+                        
+                            <View style={styles.moreContainer}>
+                                <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon} color='#0225A1'/>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    
                     <Card.Divider/>
                     </View>
                     
                 </View>
         </View>
+        </SafeAreaView>
+        
     )
 }
 
@@ -111,6 +135,6 @@ const styles = StyleSheet.create({
         
     },
     moreIcon: {
-        color: '#d6d7da'
+        color:'#0225A1'
     }
 })

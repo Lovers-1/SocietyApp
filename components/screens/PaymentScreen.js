@@ -14,17 +14,20 @@ const paymentScreen = ({ navigation }) => {
         <>
 
             <SafeAreaView >
-                
-                <View style={style.headercontainer}>
-                    <TouchableOpacity onPress={() =>
-                            navigation.goBack()} style={style.arrow}>
-                        <Icon name="arrow-back" size={20}></Icon>
-                    </TouchableOpacity>
 
-                    <Text style={style.addCard}>
-                        Add card
-                    </Text>
+                <View style={{paddingHorizontal: 15, 
+                paddingVertical:10, display:'flex',
+                flexDirection: 'row',alignItems:'center', elevation:1, backgroundColor:'#0225A1', height:80}}>
+                    <TouchableOpacity
+                        onPress={()=>navigation.goBack()}
+                        >
+                        <Icons name="keyboard-backspace" size={28} color="#fff" style={{ marginTop:10, paddingTop:15}}/>
+                    </TouchableOpacity>
+                    <View style={{justifyContent: 'center', width: '100%', flex:1,}}>
+                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'#fff',marginTop:10, paddingTop:15}}>Add New Card</Text>
+                    </View>
                 </View>
+
                 <ScrollView>
                 <View style={{alignContent:'center',justifyContent:'center',alignItems:'center'}}>
                     <Image style={style.bank} source={require('../images/Rectangle13.png')} />
@@ -38,7 +41,6 @@ const paymentScreen = ({ navigation }) => {
                             <Icon name="credit-card" size={20} style={{ padding: 5 }}></Icon>
                             <TextInput style={style.input} type="text" class="form-control" placeholder="card number" />
                         </View>
-
 
                     <View style={{marginTop: 5}} >
                         <Text style={{margin: 5, fontWeight: '600', textTransform:'capitalize'}}>card holder name</Text>

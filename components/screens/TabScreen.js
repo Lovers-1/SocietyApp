@@ -14,6 +14,7 @@ import help from './help';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
+
 function CombinePayment() {
   return (
     
@@ -23,9 +24,6 @@ function CombinePayment() {
        
       </Stack.Navigator>
 
-
-
-    
   );
 }
 function CombineSettings() {
@@ -37,24 +35,26 @@ function CombineSettings() {
         <Stack.Screen name="Help And Support"  component={help} />
        
       </Stack.Navigator>
-
-
-
     
   );
 }
+
 const TabScreen = () => {
     return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#fff"
+      barStyle={{
+        backgroundColor:'#0225A2',
+          borderRadius: 15, elevation: 6, alignItems:'center', justifyContent: 'center', position:'absolute', marginVertical:20,marginHorizontal:25, height:65,paddingBottom:10, paddingLeft:10, paddingRight:10,bottom:20, paddingTop:10
+      }}
+      
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarColor: '#0225A2',
           tabBarIcon: ({ color }) => (
           <Icon name="ios-home" color={color} size={24} />
           ),
@@ -65,7 +65,6 @@ const TabScreen = () => {
         component={CombinePayment}
         options={{
           tabBarLabel: 'Payments',
-          tabBarColor: '#0225A2',
           tabBarIcon: ({ color }) => (
           <Icon name="ios-wallet" color={color} size={24} />
           ),
@@ -76,7 +75,6 @@ const TabScreen = () => {
         component={ChatScreen}
         options={{
           tabBarLabel: 'Chat',
-          tabBarColor: '#0225A2',
           tabBarIcon: ({ color }) => (
           <Icon name="ios-chatbox" color={color} size={24} />
           ),
@@ -87,7 +85,6 @@ const TabScreen = () => {
         component={CombineSettings}
         options={{
           tabBarLabel: 'Setting',
-          tabBarColor: '#0225A2',
           tabBarIcon: ({ color }) => (
           <Icon name="ios-settings" color={color} size={24} />
           ),

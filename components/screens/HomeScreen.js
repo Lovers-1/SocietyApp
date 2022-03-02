@@ -1,8 +1,17 @@
 import React from 'react';
-import { Text, View, Button, StatusBar, Image, ScrollView, StyleSheet,TouchableOpacity } from 'react-native';
+import { Text, View, Button, StatusBar, Image, ScrollView, StyleSheet,TouchableOpacity,Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Card } from 'react-native-elements';
+import  Card  from 'react-native-elements';
+import booking from '../../components/images/booking.jpg'
+import about from '../../components/images/about.jpg'
+import reports from '../../components/images/reports.jpg'
+import events from '../../components/images/events.jpg'
+import pay from '../../components/images/pay.jpg'
+import pay2 from '../../components/images/pay2.jpg'
+import pay3 from '../../components/images/pay3.jpg'
 
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const HomeScreen = ({navigation}) => {
     return (
@@ -10,10 +19,11 @@ const HomeScreen = ({navigation}) => {
             
         <View style={{backgroundColor: '#f0f0f0', width: '100%', height: '100%'}}>
             <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#0225A1" translucent = {true}/>
+            
             <View style={{justifyContent:'center',
              paddingTop: 50, 
             alignContent:'center', alignItems:'center',backgroundColor: '#0225A1',
-            resizeMode: 'cover', borderBottomLeftRadius: 20, borderBottomRightRadius: 20,}}>
+            resizeMode: 'cover', borderBottomLeftRadius: 20, borderBottomRightRadius: 20,height: height*0.25, position:'relative'}}>
             {/* Welcome Text */}
 
             <View style={{ flex:1, paddingBottom:10, 
@@ -22,68 +32,94 @@ const HomeScreen = ({navigation}) => {
              alignItems:'flex-start'}}>
             
             <Text style={{fontSize: 16, color: '#ffffff',paddingBottom: 50, width: '80%', paddingLeft: 15, fontWeight: '800', letterSpacing: 1.2}}>
-                Welcome Back, {"\n"}
-                Lawrence Sekgoka
+                <Text style={{fontSize: 20, color: '#ffffff', fontWeight: 'bold',paddingVertical:3}}>Welcome Back,</Text> {"\n"}
+                <Text style={{fontSize: 18, color: '#ffffff', fontWeight: '800',paddingVertical:3, letterSpacing:2}}>Lawrence Sekgoka</Text>
             </Text>
                 
                 <TouchableOpacity style={{width: '20%', alignItems:'center'}} onPress={()=>navigation.navigate('Notification')}>
-                <Text style={{padding: 6, textAlign: 'center',justifyContent:'center', alignContent:'center',backgroundColor: '#ffffff',height:40,width:40, borderRadius: 100}}>
+                <Text style={{padding: 6, textAlign: 'center',justifyContent:'center', alignContent:'center',backgroundColor: '#ffffff',height:40,width:40, borderRadius: 100, alignSelf: 'center'}}>
                                 <Icon 
                                 name='ios-notifications'
                                 type='ionicon'
                                 color='#0225A1'
-                                size={20}
+                                size={25}
+                                style={{textAlign: 'center', alignItems:'center'}}
                                 />
                             </Text>
                 </TouchableOpacity>
                 
             </View>
-            
-            </View>    
 
             <View style={{backgroundColor: '#ffffff', width: '90%',
             borderBottomLeftRadius: 30, borderBottomRightRadius: 30, alignItems: 'center',
-            borderTopLeftRadius: 30, marginTop: -30, marginLeft: 20, borderBottomWidth: 0,
-            borderTopRightRadius: 30, paddingTop: 10, justifyContent: 'center',}}>
-            <Image
-            style={{width: 210,
-            borderBottomLeftRadius: 30,
-            borderBottomRightRadius: 30,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            alignContent:'space-around',
-            height: 175, justifyContent: 'center', 
-            alignItems: 'center', resizeMode: 'contain'}} 
-            source={require('../images/cards.png')} />
+            borderTopLeftRadius: 30, borderBottomWidth: 0,
+            borderTopRightRadius: 30, justifyContent: 'center',height: height*0.18, position: 'absolute', bottom: -70, padding:3}}>
+
+                <Image
+                style={{width: '100%',
+                borderBottomLeftRadius: 30,
+                borderBottomRightRadius: 30,
+                borderTopLeftRadius: 30,
+                borderTopRightRadius: 30,
+                alignContent:'space-around',
+                resizeMode:'cover',
+                height: '100%', justifyContent: 'center', 
+                alignItems: 'center'}} 
+                source={pay3} />
+
             </View>
             
-            <View style={{ marginTop:10, flex:1,flexDirection:'row',justifyContent:'flex-start', 
+            </View>
+
+            <View style={{ marginTop:100, flex:1,flexDirection:'row',justifyContent:'flex-start', 
                         alignItems:'flex-start'}}>
             <View style={{padding:5}}>
                 <Text style={styles.header}>
-                    Transactions
+                    SERVICES
                 </Text>
             </View>
-            <View style={{width:80, height: 80, padding:3, margin: 1, marginTop: 1, marginLeft: 180}}>
-                <Text style={{color:'#0225A1'}}>
+            <View style={{width:80, height: 80, marginTop: 1, marginLeft: 180, textAlign:'right'}}>
+                <Text style={{color:'#0225A1',textAlign:'right'}}>
                     View All
                 </Text>
             </View>
         </View>
+
+        {/* first card */}
         <View style={{ marginTop:20, flex:1,flexDirection:'row',justifyContent:'flex-start', 
                     alignItems:'flex-start'}}>
+
        <TouchableOpacity onPress={()=>navigation.navigate('Booking Event')}
-       style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
+       style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
        borderRadius: 15, marginLeft: 25, marginTop: -40}}>               
-        <View >
+        
+        <View style={{position:'relative', textAlign:'center', alignItems:'center', justifyContent: 'center'}}>
+
+            <Image source={booking} alt='booking' style={{resizeMode:'cover',height:'100%',width:'100%', borderRadius: 10, opacity:40}}/>
                           
-            <Text style={{fontWeight: '500', paddingLeft: 45}}>
+            <Text style={{fontWeight: 'bold', position:'absolute',color:'white', fontSize:18, textAlign:'center', top:30}}>
                 Booking
             </Text> 
             
         </View>
-        </TouchableOpacity>  
-        <TouchableOpacity style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>navigation.navigate('AboutSociety')}
+       style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
+       borderRadius: 15, marginLeft: 25, marginTop: -40}}>               
+        
+        <View style={{position:'relative', textAlign:'center', alignItems:'center', justifyContent: 'center'}}>
+
+            <Image source={about} alt='booking' style={{resizeMode:'cover',height:'100%',width:'100%', borderRadius: 10, opacity:40}}/>
+                          
+            <Text style={{fontWeight: 'bold', position:'absolute',color:'white', fontSize:18, textAlign:'center', top:30}}>
+                About Society
+            </Text> 
+            
+        </View>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
                     borderRadius: 15, marginLeft: 30, marginTop: -40}} 
          onPress={() => navigation.navigate('AboutSociety')}>
         <View >
@@ -92,24 +128,42 @@ const HomeScreen = ({navigation}) => {
                 About Society
             </Text>    
         </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         </View>  
 
         <View style={{ marginTop:25,flex:1,flexDirection:'row',justifyContent:'flex-start', 
                     alignItems:'flex-start'}}>
-        <View style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, marginBottom: 30, 
-                    height: 90, borderRadius: 15, marginLeft: 25}}>
-            <Text style={{fontWeight: '500', paddingLeft: 45}}>
+         
+         <TouchableOpacity onPress={()=>navigation.navigate('')}
+            style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
+            borderRadius: 15, marginLeft: 25, marginTop: 20}}>               
+        
+        <View style={{position:'relative', textAlign:'center', alignItems:'center', justifyContent: 'center'}}>
+
+            <Image source={reports} alt='booking' style={{resizeMode:'cover',height:'100%',width:'100%', borderRadius: 10, opacity:40}}/>
+                          
+            <Text style={{fontWeight: 'bold', position:'absolute',color:'white', fontSize:18, textAlign:'center', top:30}}>
                 Reports
-            </Text>    
+            </Text> 
+            
         </View>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={()=>navigation.navigate('Events')}
-         style={{ backgroundColor: '#ffffff', width: '40%', paddingTop: 35, height: 90, 
-                    borderRadius: 15, marginLeft: 30}}>
-            <Text style={{fontWeight: '500', paddingLeft: 45}}>
+            style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
+            borderRadius: 15, marginLeft: 25, marginTop: 20}}>               
+        
+        <View style={{position:'relative', textAlign:'center', alignItems:'center', justifyContent: 'center'}}>
+
+            <Image source={events} alt='booking' style={{resizeMode:'cover',height:'100%',width:'100%', borderRadius: 10, opacity:40}}/>
+                          
+            <Text style={{fontWeight: 'bold', position:'absolute',color:'white', fontSize:18, textAlign:'center', top:30}}>
                 Events
-            </Text>    
-        </TouchableOpacity >
+            </Text> 
+            
+        </View>
+        </TouchableOpacity>
+
         </View>
         </View>
         </ScrollView>
