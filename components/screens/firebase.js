@@ -3,6 +3,7 @@
 import  firebase from 'firebase'
 import "firebase/auth"
 import "firebase/database"
+import 'firebase/firestore'
 
 
 const app = firebase.initializeApp({
@@ -13,8 +14,11 @@ const app = firebase.initializeApp({
   storageBucket: "react-contact-69e6e.appspot.com",
   messagingSenderId: "974248023568",
   appId: "1:974248023568:web:7bb66f13d5c0dd3e611c95"
+
+  
 })
 
 export const auth = app.auth()
+export const bf = app.firestore()
 export const db = app.database()
 export default app

@@ -13,13 +13,71 @@ import { SafeAreaView, StyleSheet,
     Alert} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Icon } from 'react-native-elements';
+import {bf, db} from './firebase'
+
+
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
 const ChatGroupScreen = () => {
 
-    const [inputMessage, setInputMessage] = useState('');
+    const [inputMessage, setInputMessage] = useState();
+    const [messages, setMessages] =useState([])
+
+
+    const message=()=>{
+
+      // db.ref('/message')
+      // .push({
+      //   inputMessage
+      // })
+
+        bf.collection("mess").add({
+          inputMessage:inputMessage
+        })
+        .then((res) => {
+          console.log('successfully !!')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      
+
+    }
+
+    useEffect(()=>{
+      // db.ref("/message")
+      // .on('value', snap=>{
+      //   let item = [];
+      //   const a = snap.val();
+
+      //   for (let x in a){
+      //     item.push({message : a [x]})
+      //   }
+      //   setMessages(item)
+      //   console.log(item)
+        
+      // })
+
+      let info = [];
+
+      bf.collection('mess')
+      .get()
+      .then((res)=>{
+          res.forEach(element=>{
+            info.push({ ...element.data(), id: element.id})
+            console.log(element.data())
+
+          })
+          setMessages(info)
+      })
+      
+    },[])
+
+
+   
+
 
   return (
     <SafeAreaView style={{width: width, height: height}}>
@@ -40,15 +98,30 @@ const ChatGroupScreen = () => {
                         </View>
             </View>
 
+
+
             {/* flat list con */}
                 <View style={{backgroundColor:'#EFEFEF', height: height, width}}>
+<View >
 
+                  {
+                  messages.map((element)=>
+                    
+                  <Text>{element.inputMessage}</Text>
+
+                  
+                  ) 
+                  
+                  }
                 </View>
+                </View>
+
+                
 
             <View style={{ paddingVertical: 10,position:'absolute',bottom:80}}>
                 <View style={styles.messageInputView}>
                     <TextInput
-                    defaultValue={inputMessage}
+                    name={inputMessage}
                     style={styles.messageInput}
                     placeholder='Message'
                     onChangeText={(text) => setInputMessage(text)}
@@ -58,11 +131,10 @@ const ChatGroupScreen = () => {
                     />
                     <TouchableOpacity
                     style={styles.messageSendView}
-                    onPress={() => {
-                        
-                    }}
+                    onPress={message}
+                    
                     >
-                    <Icon name='send' type='material' />
+                    <Icon  name='send' type='material' />
                     </TouchableOpacity>
                 </View>
             </View>

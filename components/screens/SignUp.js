@@ -34,35 +34,78 @@ const SignUp = ({ navigation }) => {
         phoneNo: yup.number().required().min(10),
         password: yup.string().required().min(6).max(12),
         passwordConfirm: yup.string().required().min(6).max(12).oneOf([yup.ref('password'), null], 'password doess not math'),
+        societyCode: yup.number().required().min(6),
     })
-    const Submit= async (e)=>{
-        e.preventDefault()
-        if(password.current.value !== passwordConfirm.current.value){
-          return setError('password do not match')
-        }
-        try{
-          setError('')
-          
-        //   await signup(email.current.value,password.current.value)
-          await auth.createUserWithEmailAndPassword(email.current.value,password.current.value)
-        //   
-        //   .then(res=>{
-        //     const user={
-        //       Firstname: Firstname,
-                            
-        //                     email: email.current.value,
-        //                     Phonenumber: Phonenumber,
-        //                     uid: res.user.uid
-        //     }
-        //     db.ref('/user').child(res.user.uid).set(user)
+
+    
+    const createUser  = async (data) => {
+        try {
+            const { uid, email, password, name, phoneNo ,surname,societyCode } = data
+            const user = await auth.createUserWithEmailAndPassword(
+                email.trim().toLowerCase(), password)
+            .then(then(res =>{
+                res.user.sendEmailVerifcation()
+            }))
             
-        //   })
-         
-        } catch{
-          setError('failed to create an account')
+            .then(res => {
+                db.ref('societyUser').child(auth.currentUser.uid).set({
+                    name: name,
+                    surname: surname,
+                    email: email,
+                    phoneNo: phoneNo,
+                    societyCode:societyCode,
+                    uid: res.user.uid
+                })
+            })
         }
+        catch (error) {
+            if (error.code == 'auth/email-already-in-use') {
+                Alert.alert(
+                    "This email already exist"
+                )
+            }
+            if (
+                error.code == 'auth/invalid-email') {
+                Alert.alert(
+                    "This email already exist"
+                )
+            }
+            else {
+                Alert.alert("wellcome")
+            }
+
+        }
+
+    }
+
+    // const Submit= async (e)=>{
+    //     e.preventDefault()
+    //     if(password.current.value !== passwordConfirm.current.value){
+    //       return setError('password do not match')
+    //     }
+    //     try{
+    //       setError('')
+          
+    //     //   await signup(email.current.value,password.current.value)
+    //       await auth.createUserWithEmailAndPassword(email.current.value,password.current.value)
+    //     //   
+    //     //   .then(res=>{
+    //     //     const user={
+    //     //       Firstname: Firstname,
+                            
+    //     //                     email: email.current.value,
+    //     //                     Phonenumber: Phonenumber,
+    //     //                     uid: res.user.uid
+    //     //     }
+    //     //     db.ref('/user').child(res.user.uid).set(user)
+            
+    //     //   })
+         
+    //     } catch{
+    //       setError('failed to create an account')
+    //     }
        
-      }
+    //   }
       //
 
     //   const signUp = () =>{
@@ -105,11 +148,11 @@ const SignUp = ({ navigation }) => {
                         />
                     </View>
                     <Formik
-                    initialValues={{ email: '', password: '',name:'', phoneNo:'', surname:'',passwordConfirm:'' }}
+                    initialValues={{ email: '', password: '',name:'', phoneNo:'', surname:'',passwordConfirm:'',societyCode:'' }}
                     validationSchema={ReviewSchem}
                     onSubmit={(values, action) => {
                         action.resetForm()
-                        signUp(values)
+                        createUser(values)
                     }}
                 >
                     {(props) =>(
@@ -198,16 +241,21 @@ const SignUp = ({ navigation }) => {
                             ></TextInput>
                         </View>
                         {props.errors.passwordConfirm? <Text style={{color:"red"}}>{props.errors.passwordConfirm}</Text>:null}
+
+                        <View style={styles.lovers} >
+                            <Icon name='lock' size={22} color='black' style={{ margin: 10 }}></Icon>
+                            <TextInput style={{ width: "90%" }} 
+                            onChangeText={props.handleChange('societyCode')}
+                            value={props.values.societyCode}
+                             onBlur={props.handleBlur('societyCode')} placeholder="ENTER SOCIETY CODE " 
+                             secureTextEntry={visiable}
+                            ></TextInput>
+                        </View>
+                        {props.errors.societyCode? <Text style={{color:"red"}}>{props.errors.societyCode}</Text>:null}
                     </View>
-                   
-                  <TouchableOpacity style={styles.signinButton}
-            // onPress={props.handleSubmit} 
-            onPress={()=>navigation.navigate('VerificationOTPScreen',{email:email})}
-            >
+                  <TouchableOpacity style={styles.signinButton} onPress={props.handleSubmit}>
                 <Text style={styles.signinButtonText}>
                 REGISTER
-          
-
                 </Text>
             </TouchableOpacity>
                     <View style={styles.text} >

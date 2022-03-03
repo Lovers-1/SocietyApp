@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { View,SafeAreaView, Text ,StatusBar,Image,StyleSheet,
-    TextInput,TouchableOpacity,CheckBox, ScrollView} from 'react-native';
+    TextInput,TouchableOpacity,CheckBox, ScrollView,Alert, ActivityIndicator} from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -10,13 +10,59 @@ import Separator from '../data/Separator.jsx';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {Display} from '../utils'
+
+//
+import { db, auth } from "./firebase";
+
 const SignIn=({navigation})=>{
     const [isPasswordShow,setPasswordShow]=useState(false)
     const [isSelected,setSelection]=useState(false)
-    const ReviewSchem =yup.object({
-        email:yup.string().required().min(6),
-        password:yup.string().required().min(6),
-    })
+//     const ReviewSchem =yup.object({
+//         email:yup.string().required().min(6),
+//         password:yup.string().required().min(6),
+//     })
+
+
+
+const ReviewSchem = yup.object({
+    email: yup.string().email('Invalid email format').required().min(2, 'To Short!!'),
+    password: yup.string().required().min(6),
+});
+
+const [show, setShow] = useState(false);
+const [visiable, setVisiable] = useState(true);
+
+    //
+    const signIn = async (data) => {
+        try {
+            const { email, password } = data;
+            const user = await auth
+                .signInWithEmailAndPassword(email.trim().toLowerCase(), password)
+                .then((res) => {
+                    try {
+                        // const jsonValue = JSON.stringify(res.user)
+                        // setItem('user', res.user.uid)
+                        // localStorage.setItem("user", res.user.uid)
+                        navigation.navigate("TabScreen");
+                    } catch (e) {
+                        console.log("no data");
+                    }
+                });
+
+                <ActivityIndicator size="large"
+                color="#000" />
+            // Alert.alert("Succesfully logged in ");
+            ToastAndroid.show("Succussfully loged in ", ToastAndroid.SHORT)
+
+            Toast.show({
+                type: 'success',
+                text1: 'Hello',
+                text2: 'This is some something 👋'
+            });
+        } catch (error) {
+            Alert.alert(error.name, error.message);
+        }
+    };
     return(
         <SafeAreaView style={styles.container}>
             <StatusBar
@@ -45,7 +91,7 @@ const SignIn=({navigation})=>{
                validationSchema={ReviewSchem}
                onSubmit={(values,action)=>{
                    action.resetForm()
-                Submit(values)
+                signIn(values)
                }}
                >
                    {(props)=>(
@@ -107,7 +153,7 @@ const SignIn=({navigation})=>{
             </View>
     
             <TouchableOpacity style={styles.signinButton}
-            onPress={()=>navigation.navigate('TabScreen')}>
+            onPress={props.handleSubmit}>
                 <Text style={styles.signinButtonText}>LOGIN</Text>
             </TouchableOpacity>
             <View style={styles.signupContainer}>
