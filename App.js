@@ -22,6 +22,7 @@ import VerificationOTPScreen from './components/screens/VerificationOTPScreen';
 import AboutSociety from './components/screens/AboutSociety';
 import Notification from './components/screens/Notification';
 import Events from './components/screens/Events';
+import ChatGroupScreen from './components/screens/ChatGroupScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -56,6 +57,7 @@ function App() {
         <Stack.Screen name="AboutSociety" options = {{headerShown :false}} component={AboutSociety} />
         <Stack.Screen name="Notification" options = {{headerShown :false}} component={Notification} />
         <Stack.Screen name="Events" options = {{headerShown :false}} component={Events} />
+        <Stack.Screen name="chats" options = {{headerShown :false}} component={ChatGroupScreen} />
       </Stack.Navigator>
 
     </NavigationContainer>

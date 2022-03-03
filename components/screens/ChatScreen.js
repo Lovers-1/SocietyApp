@@ -1,10 +1,10 @@
 import React from 'react'
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 //import { Icon } from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Card } from 'react-native-elements';
 
-const ChatScreen = () => {
+const ChatScreen = ({navigation}) => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
@@ -19,6 +19,7 @@ const ChatScreen = () => {
                     <View style={{paddingTop: 70, width: '100%', height: 1000}}>
 
                     {/* Existing Group */}
+                    <TouchableOpacity onPress={()=>navigation.navigate('chats')}>
                     <Text style={{paddingBottom: 10}}>
                         My Group
                     </Text>
@@ -35,6 +36,8 @@ const ChatScreen = () => {
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
                     </View>
+                    </TouchableOpacity>
+                   
                     
                     <Card.Divider/>
 
