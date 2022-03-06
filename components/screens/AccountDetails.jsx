@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { StyleSheet, Text, View,SafeAreaView ,StatusBar,TextInput,
 TouchableOpacity,ScrollView} from 'react-native'
 import { Formik } from 'formik';
@@ -9,8 +9,13 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {Display} from '../utils'
-
-const AccountDetails = ({navigation}) => {
+import { db,auth } from './firebase';
+const AccountDetails = ({navigation,route}) => {
+    const [name,setName]=useState(route.params.name)
+    const [email,setEmail]=useState(route.params.email)
+    const [phoneNo,setPhoneNo]=useState(route.params.phoneNo)
+    const [uid,setUid]=useState(route.params.uid)
+ 
     const [isPasswordShow,setPasswordShow]=useState(false)
     const [isSelected,setSelection]=useState(false)
     const ReviewSchem =yup.object({
@@ -20,6 +25,18 @@ const AccountDetails = ({navigation}) => {
         password:yup.string().required().min(6),
         confirmpassword:yup.string().required().min(6),
     })
+    const updateBooking = () => {
+
+        db.ref('societyUser').child(uid).update({name,email,phoneNo})
+        .then(()=>db.ref('societyUser').once('value'))
+        .then(snapshot=>snapshot.val())
+        .catch(error => ({
+          errorCode: error.code,
+          errorMessage: error.message
+        }));
+        //  db.ref('/BookEvent/').set(bookings[bookingNumb].Status)
+        
+      };
     return (
         
         <SafeAreaView>
@@ -55,9 +72,10 @@ const AccountDetails = ({navigation}) => {
                     
                     <TextInput placeholder="Enter your name"
                     selectionColor='gainsboro'
-                    onChangeText={props.handleChange('user')}
-                    value={props.values.user}
-                    onBlur={props.handleBlur('user')}
+                    value={name}
+                    onChangeText={(text)=>setName(text)}
+                    
+                    //onBlur={props.handleBlur('user')}
                     style={styles.inputText}
                     />
                 </View>
@@ -72,8 +90,9 @@ const AccountDetails = ({navigation}) => {
                     
                     <TextInput placeholder="Enter your email"
                     selectionColor='gainsboro'
-                    onChangeText={props.handleChange('email')}
-                    value={props.values.email}
+                    value={email}
+                    onChangeText={(text)=>setEmail(text)}
+                    
                     onBlur={props.handleBlur('email')}
                     style={styles.inputText}
                     />
@@ -90,8 +109,9 @@ const AccountDetails = ({navigation}) => {
                     <TextInput placeholder="Phone Number"
                     selectionColor='gainsboro'
                     keyboardType="numeric"
-                    onChangeText={props.handleChange('phonenumber')}
-                    value={props.values.phonenumber}
+                    value={phoneNo}
+                    onChangeText={(text)=>setPhoneNo(text)}
+                    
                     onBlur={props.handleBlur('phonenumber')}
                     style={styles.inputText}
                     />
@@ -147,7 +167,7 @@ const AccountDetails = ({navigation}) => {
             <Text style={styles.errortext}>{props.touched.confirmpassword && props.errors.confirmpassword}</Text>
             <Text></Text>
             <TouchableOpacity style={styles.signinButton}
-            onPress={()=>navigation.navigate('CardAddedSucces')}>
+            onPress={updateBooking()}>
                 <Text style={styles.signinButtonText}>UPDATE</Text>
             </TouchableOpacity>
             

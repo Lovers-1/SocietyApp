@@ -1,9 +1,25 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Text, View, StyleSheet,TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { auth,db } from './firebase';
 const SettingsScreen = ({navigation}) => {
+    const [name,setName]=useState('')
+    const [email,setEmail]=useState('')
+    const [phoneNo,setphoneNo]=useState('')
+    const [uid,setUid]=useState('')
+    const user = auth.currentUser.uid;
+    useEffect(()=>{
+        db.ref(`/societyUser/`+ user).on('value',snap=>{
+          
+          setName(snap.val() && snap.val().name);
+      setEmail(snap.val().email)
+      setphoneNo(snap.val().phoneNo)
+      setUid(snap.val().uid)
+        })
+      
+        
+      },[])
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
@@ -19,7 +35,12 @@ const SettingsScreen = ({navigation}) => {
                     <View style={{paddingTop: 70, width: '100%', height: 1000}}>
 
                     {/* Account Details */}
-                    <TouchableOpacity onPress={()=>navigation.navigate('Account Details')}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Account Details',{
+                        name:name,
+                        email:email,
+                        phoneNo:phoneNo,
+                        uid:uid
+                    })}>
                     <Text style={{paddingBottom: 10}}>
                         My Account
                     </Text>
