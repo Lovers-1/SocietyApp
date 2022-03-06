@@ -8,7 +8,7 @@ import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import Separator from '../data/Separator.jsx';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {Display} from '../utils'
 
 //
@@ -32,33 +32,32 @@ const ReviewSchem = yup.object({
 const [show, setShow] = useState(false);
 const [visiable, setVisiable] = useState(true);
 
-    //
+const user = auth.currentUser.uid;
     const signIn = async (data) => {
         try {
             const { email, password } = data;
             const user = await auth
                 .signInWithEmailAndPassword(email.trim().toLowerCase(), password)
-                .then((res) => {
+                .then( async res => {
                     try {
-                        // const jsonValue = JSON.stringify(res.user)
-                        // setItem('user', res.user.uid)
-                        // localStorage.setItem("user", res.user.uid)
-                        navigation.navigate("TabScreen");
+                        const jsonValue = JSON.stringify(res.user)
+                        await AsyncStorage.setItem("user", res.user.uid)
+                        navigation.navigate("HomeScreen");
                     } catch (e) {
                         console.log("no data");
                     }
                 });
 
-                <ActivityIndicator size="large"
-                color="#000" />
-            // Alert.alert("Succesfully logged in ");
-            ToastAndroid.show("Succussfully loged in ", ToastAndroid.SHORT)
+                // <ActivityIndicator size="large"
+                // color="#000" />
+            Alert.alert("Succesfully logged in ");
+            //ToastAndroid.show("Succussfully loged in ", ToastAndroid.SHORT)
 
-            Toast.show({
-                type: 'success',
-                text1: 'Hello',
-                text2: 'This is some something 👋'
-            });
+            // Toast.show({
+            //     type: 'success',
+            //     text1: 'Hello',
+            //     text2: 'This is some something 👋'
+            // });
         } catch (error) {
             Alert.alert(error.name, error.message);
         }

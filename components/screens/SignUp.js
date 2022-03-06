@@ -1,17 +1,18 @@
 import React,{useState,useRef} from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
 import Ico from 'react-native-vector-icons/MaterialCommunityIcons'
-import { View, SafeAreaView, Text, TouchableOpacity, TextInput, StyleSheet, Button, Image, _ScrollView } from 'react-native';
+import { View, SafeAreaView, Text, TouchableOpacity, TextInput, StyleSheet, Button, Image, ScrollView,Alert } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Feather from "react-native-vector-icons/Feather";
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 //
 // import { useAuth } from '../contexts/AuthContext';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { auth, db } from './firebase';
+//import { max } from 'react-native-reanimated';
 
 
 const SignUp = ({ navigation }) => {
@@ -19,7 +20,7 @@ const SignUp = ({ navigation }) => {
     //
     const [visiable, setvisiable] = useState(true);
     const [show, setShow] = useState(false);
-    
+    const user = auth.currentUser.uid;
     const [isPasswordShow,setPasswordShow]=useState(false);
     const [isSelected,setSelection]=useState(false);
     const email=useRef()
@@ -31,10 +32,10 @@ const SignUp = ({ navigation }) => {
         email:yup.string().required().min(6),
         name: yup.string().required().max(15).min(3),
         surname: yup.string().required().max(15).min(3),
-        phoneNo: yup.number().required().min(10),
+        phoneNo: yup.string().required().max(10).min(10),
         password: yup.string().required().min(6).max(12),
         passwordConfirm: yup.string().required().min(6).max(12).oneOf([yup.ref('password'), null], 'password doess not math'),
-        societyCode: yup.number().required().min(6),
+        societyCode: yup.string().required().min(6),
     })
 
     
@@ -42,21 +43,19 @@ const SignUp = ({ navigation }) => {
         try {
             const { uid, email, password, name, phoneNo ,surname,societyCode } = data
             const user = await auth.createUserWithEmailAndPassword(
-                email.trim().toLowerCase(), password)
-            .then(then(res =>{
-                res.user.sendEmailVerifcation()
-            }))
-            
-            .then(res => {
-                db.ref('societyUser').child(auth.currentUser.uid).set({
+                email.trim().toLowerCase(), password).then(res => {
+                db.ref(`/societyUser`).child(res.user.uid).set({
                     name: name,
                     surname: surname,
-                    email: email,
+                    email: email.trim().toLowerCase(),
                     phoneNo: phoneNo,
                     societyCode:societyCode,
                     uid: res.user.uid
                 })
             })
+            // .then(then(res =>{
+            //     res.user.sendEmailVerifcation()
+            // }))
         }
         catch (error) {
             if (error.code == 'auth/email-already-in-use') {
@@ -71,7 +70,7 @@ const SignUp = ({ navigation }) => {
                 )
             }
             else {
-                Alert.alert("wellcome")
+                Alert.alert(error.code)
             }
 
         }

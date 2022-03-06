@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Button, StatusBar, Image, ScrollView, StyleSheet,TouchableOpacity,Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import  Card  from 'react-native-elements';
@@ -9,11 +9,24 @@ import events from '../../components/images/events.jpg'
 import pay from '../../components/images/pay.jpg'
 import pay2 from '../../components/images/pay2.jpg'
 import pay3 from '../../components/images/pay3.jpg'
-
+import { auth,db } from './firebase';
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
-
+// email:yup.string().required().min(6),
+// name: yup.string().required().max(15).min(3),
+// surname: yup.string().required().max(15).min(3),
+// phoneNo: yup.number().required().min(10),
 const HomeScreen = ({navigation}) => {
+    const user = auth.currentUser.uid;
+    const [name,setName]=useState('')
+    useEffect(()=>{
+        db.ref('/societyUser/').child(user).on('value',snap=>{
+          
+            setName(snap.val() && snap.val().name);
+        // setPhonenumber(snap.val().phonenumber)
+        // setEmail(snap.val().email)
+          })
+    },[])
     return (
         <ScrollView>
             
@@ -33,7 +46,7 @@ const HomeScreen = ({navigation}) => {
             
             <Text style={{fontSize: 16, color: '#ffffff',paddingBottom: 50, width: '80%', paddingLeft: 15, fontWeight: '800', letterSpacing: 1.2}}>
                 <Text style={{fontSize: 20, color: '#ffffff', fontWeight: 'bold',paddingVertical:3}}>Welcome Back,</Text> {"\n"}
-                <Text style={{fontSize: 18, color: '#ffffff', fontWeight: '800',paddingVertical:3, letterSpacing:2}}>Lawrence Sekgoka</Text>
+                <Text style={{fontSize: 18, color: '#ffffff', fontWeight: '800',paddingVertical:3, letterSpacing:2}}>{name}</Text>
             </Text>
                 
                 <TouchableOpacity style={{width: '20%', alignItems:'center'}} onPress={()=>navigation.navigate('Notification')}>

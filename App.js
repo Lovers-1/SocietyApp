@@ -58,6 +58,7 @@ function App() {
         <Stack.Screen name="Notification" options = {{headerShown :false}} component={Notification} />
         <Stack.Screen name="Events" options = {{headerShown :false}} component={Events} />
         <Stack.Screen name="chats" options = {{headerShown :false}} component={ChatGroupScreen} />
+        <Stack.Screen name="HomeScreen" options = {{headerShown :false}} component={HomeScreen} />
       </Stack.Navigator>
 
     </NavigationContainer>

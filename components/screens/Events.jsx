@@ -39,10 +39,10 @@ const Events = ({navigation}) => {
               <TouchableOpacity onPress={()=>navigation.goBack()}>
                   <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
               </TouchableOpacity>
-              
+              <Text>Event</Text>
               
               </View>
-       {
+       {book.length <0?(
             book.map(element => 
               
             <View style={styles.boxcontainer}>
@@ -89,6 +89,10 @@ const Events = ({navigation}) => {
             </View>
                 
             )
+            ):(<Text style={{flex: 1,
+              backgroundColor: '#fff',
+              justifyContent:'center',
+               alignItems:'center',}}>No Accepted Event</Text>)
         }
     </ScrollView>
   )

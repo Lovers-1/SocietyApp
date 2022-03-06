@@ -29,7 +29,7 @@ const BookingEvent = ({ navigation }) => {
   const [fee, setFee] = useState("");
   const [Status, setStatus] = useState("Pending");
   const [date, setDate] = useState(new Date());
-  // const [time, setTime] = useState('')
+  const [time, setTime] = useState('')
 
 
 
@@ -42,23 +42,23 @@ const d = new Date();
 let h = addZero(d.getHours());
 let m = addZero(d.getMinutes());
 let s = addZero(d.getSeconds());
-let time = h + ":" + m ;
+//let time = h + ":" + m ;
 
   const addBooking = () => {
-    // if (
-    //   events === null ||
-    //   location === null ||
-    //   Description === null ||
-    //   date === null ||
-    //   fee ===null ||
-    //   time===null
-    // ) {
-    //   Alert.alert("Error", "Enter all the fields", [
-    //     {
-    //       text: "ok",
-    //     },
-    //   ]);
-    // } else {
+    if (
+      events == '' ||
+      location == '' ||
+      Description == '' ||
+      date == '' ||
+      fee =='' ||
+      time==''
+    ) {
+      Alert.alert("Error", "Enter all the fields", [
+        {
+          text: "ok",
+        },
+      ]);
+    } else {
       db.ref('BookEvent').push({
         Status:'Pending',
         events,
@@ -68,7 +68,11 @@ let time = h + ":" + m ;
         fee,
         time
       })
-    // }
+      setDescription('')
+      setFee('')
+      setLocation('')
+      setTime('')
+    }
   };
 
   // 083 980 9151
@@ -106,7 +110,7 @@ let time = h + ":" + m ;
               }
             
               setEvent(item)
-             
+              
             })
          
       
@@ -122,7 +126,7 @@ let time = h + ":" + m ;
 
           })
           setEventType(newData)
-          
+          setEvents(text)
       }
   }
   const today=new Date()
@@ -159,13 +163,19 @@ let time = h + ":" + m ;
             EventType.map(element=>(
 
             <>
-            {/* //     <Text>{element.Price}</Text> */}
-              <Text>{element.selector}</Text>
+               {/* <Text>{element.selector}</Text> */}
+              <Text>Price for {element.selector} = {element.Price}</Text>
             
-                <TextInput
+                  </>
+          
+            ))
+         
+        }
+        
+        <TextInput
                 placeholder="R00.00"
                 keyboardType="numeric"
-                value={element.Price}
+                value={fee}
                 onChangeText={(text) => setFee(text)}
                 style={{
                   padding: 10,
@@ -174,11 +184,6 @@ let time = h + ":" + m ;
                   borderWidth: 1,
                 }}
               />
-                  </>
-          
-            ))
-         
-        }
       
           <Text style={styles.titles}>Event Description</Text>
           <TextInput
@@ -246,7 +251,7 @@ let time = h + ":" + m ;
 
           
 
-          {show && (
+          {/* {show && (
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -256,13 +261,13 @@ let time = h + ":" + m ;
               
             
             />
-          )}
+          )} */}
 
-          <View>
+          {/* <View>
             <Button onPress={showTimepicker} title="time" 
             onChangeText={(e) => setTime(e)}
             />
-          </View>
+          </View> */}
 
           <TextInput
               placeholder='time'
