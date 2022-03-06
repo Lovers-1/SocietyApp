@@ -51,14 +51,14 @@ function App() {
         <Stack.Screen name="paymentScreen" options = {{headerShown :false}}  component={paymentScreen} />
         <Stack.Screen name="ForgetScreen" options = {{headerShown :false}}  component={ForgetPassword} />
         <Stack.Screen name="ForgetPasswordSuccessFul" options = {{headerShown :false}}  component={ForgetPasswordSuccessFul} />
-        <Stack.Screen name="TabScreen" options = {{headerShown :false}} component={DrawerRoutes} />
+        <Stack.Screen name="HomeScreen" options = {{headerShown :false}} component={TabScreen} />
         <Stack.Screen name="Booking Event" options = {{headerShown :false}} component={BookingEvent} />
         <Stack.Screen name="VerificationOTPScreen" options = {{headerShown :false}} component={VerificationOTPScreen} />
         <Stack.Screen name="AboutSociety" options = {{headerShown :false}} component={AboutSociety} />
         <Stack.Screen name="Notification" options = {{headerShown :false}} component={Notification} />
         <Stack.Screen name="Events" options = {{headerShown :false}} component={Events} />
         <Stack.Screen name="chats" options = {{headerShown :false}} component={ChatGroupScreen} />
-        <Stack.Screen name="HomeScreen" options = {{headerShown :false}} component={HomeScreen} />
+        {/* <Stack.Screen name="HomeScreen" options = {{headerShown :false}} component={HomeScreen} /> */}
       </Stack.Navigator>
 
     </NavigationContainer>

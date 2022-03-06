@@ -20,7 +20,7 @@ import {bf, db} from './firebase'
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-const ChatGroupScreen = () => {
+const ChatGroupScreen = (navigation) => {
 
     const [inputMessage, setInputMessage] = useState();
     const [messages, setMessages] =useState([])
@@ -28,25 +28,40 @@ const ChatGroupScreen = () => {
 
     const message=()=>{
 
-      // db.ref('/message')
-      // .push({
-      //   inputMessage
-      // })
+      db.ref('/message')
+      .push({
+        inputMessage
+      })
 
-        bf.collection("mess").add({
-          inputMessage:inputMessage
-        })
-        .then((res) => {
-          console.log('successfully !!')
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        // bf.collection("mess").add({
+        //   inputMessage:inputMessage
+        // })
+        // .then((res) => {
+        //   console.log('successfully !!')
+        // })
+        // .catch((err) => {
+        //   console.log(err);
+        // });
       
 
     }
-
     useEffect(()=>{
+        
+      db.ref('/message').on('value',snap=>{
+        let item = [];
+        const a_ =snap.val();
+        for (let x in a_){
+          item.push({inputMessage:a_[x].inputMessage})
+        }
+        setMessages(item)
+      })
+   
+  // db.ref('BookEvent').on('value',snap=>{ 
+  //   setBookings({...snap.val() })
+  // })  
+},[])
+
+    //useEffect(()=>{
       // db.ref("/message")
       // .on('value', snap=>{
       //   let item = [];
@@ -60,20 +75,20 @@ const ChatGroupScreen = () => {
         
       // })
 
-      let info = [];
+      // let info = [];
 
-      bf.collection('mess')
-      .get()
-      .then((res)=>{
-          res.forEach(element=>{
-            info.push({ ...element.data(), id: element.id})
-            console.log(element.data())
+      // bf.collection('mess')
+      // .get()
+      // .then((res)=>{
+      //     res.forEach(element=>{
+      //       info.push({ ...element.data(), id: element.id})
+      //       console.log(element.data())
 
-          })
-          setMessages(info)
-      })
+      //     })
+      //     setMessages(info)
+      // })
       
-    },[])
+    //},[])
 
 
    

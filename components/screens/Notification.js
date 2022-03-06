@@ -88,7 +88,7 @@ const Notification = ({navigation}) => {
                
                 <Icons name="alert-rhombus" size={25} style={{paddingHorizontal:5}}
                     color='#0225A1'
-                    style={{marginRight:10}}/>
+                    styles={{marginRight:10}}/>
                  <Text>{element.Status}</Text>
                 </View>
 
