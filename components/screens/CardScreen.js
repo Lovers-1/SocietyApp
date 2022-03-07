@@ -1,4 +1,6 @@
 import React from 'react';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import {
   View,
   Text,
@@ -10,6 +12,7 @@ import {
 import { CreditCardInput } from "react-native-credit-card-input";
 import { Secret_key, STRIPE_PUBLISHABLE_KEY } from './keys';
 import { db,auth } from './firebase';
+import { ScrollView } from 'react-native-gesture-handler';
 // create a component
 const CURRENCY = 'USD';
 var CARD_TOKEN = null;
@@ -61,8 +64,6 @@ function getCreditCardToken(creditCardData){
 const CardScreen = ({navigation,route}) => {
 //
     const [isVisible, setisVisible] = React.useState(false);
- 
- 
 
   //
   const [CardInput, setCardInput] = React.useState({})
@@ -99,7 +100,11 @@ const CardScreen = ({navigation,route}) => {
       if(pament_data.status == 'succeeded')
       {
 
-  alert("Payment Successfully")
+        // alert("Payment Successfully")
+        // db.ref('/users/').child(auth.currentUser.uid).update({
+
+        // })
+        navigation.navigate('payment-successful');
 
       }
       else{
@@ -155,6 +160,7 @@ const userId = auth.currentUser.uid;
        
         <View>
          {/* tool bar */}
+         
        <View style={{paddingHorizontal: 15, 
                 paddingVertical:10, display:'flex',
                 flexDirection: 'row',alignItems:'center', elevation:1, backgroundColor:'#0225A1'}}>
@@ -165,10 +171,11 @@ const userId = auth.currentUser.uid;
                     </TouchableOpacity>
 
                     <View style={{justifyContent: 'center', width: '100%', flex:1,}}>
-                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'#fff',marginTop:10, paddingTop:15}}>EVENT</Text>
+                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'#fff',marginTop:10, paddingTop:15}}>PAY EVENT</Text>
                     </View>
         </View>
       </View>
+      <ScrollView>
         <Image 
         source={require('../images/undraw_Credit_card_payment_re_o911.png')}
         style={styles.ImgStyle}
@@ -190,6 +197,7 @@ const userId = auth.currentUser.uid;
           Pay Now
         </Text>
       </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
@@ -229,10 +237,11 @@ const styles = StyleSheet.create({
     borderRadius:5
   },
   inputStyle : {
-    backgroundColor:'#0225A1',
+    backgroundColor:'#F8F8F8',
     paddingLeft:15,
     borderRadius:5,
-    color:'#fff'
+    color:'#000',
+    borderWidth:0.4
   },
   labelStyle : {
     marginBottom:5,
