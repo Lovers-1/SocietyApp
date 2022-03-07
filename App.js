@@ -24,6 +24,7 @@ import Notification from './components/screens/Notification';
 import Events from './components/screens/Events';
 import ChatGroupScreen from './components/screens/ChatGroupScreen';
 import CardScreen from './components/screens/CardScreen';
+import PaymentSuccessfulScreen from './components/screens/PaymentSuccessfulScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -60,7 +61,7 @@ function App() {
         <Stack.Screen name="Events" options = {{headerShown :false}} component={Events} />
         <Stack.Screen name="chats" options = {{headerShown :false}} component={ChatGroupScreen} />
         <Stack.Screen name="CardScreen" options={{headerShown:false}} component ={CardScreen}/>
-        {/* <Stack.Screen name="HomeScreen" options = {{headerShown :false}} component={HomeScreen} /> */}
+        <Stack.Screen name="payment-successful" options = {{headerShown :false}} component={PaymentSuccessfulScreen} />
       </Stack.Navigator>
 
     </NavigationContainer>

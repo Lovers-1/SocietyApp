@@ -19,10 +19,12 @@ const height = Dimensions.get('screen').height;
 const HomeScreen = ({navigation}) => {
     const user = auth.currentUser.uid;
     const [name,setName]=useState('')
+    const [surname,setSurname] = useState('');
     useEffect(()=>{
         db.ref('/societyUser/').child(user).on('value',snap=>{
           
             setName(snap.val() && snap.val().name);
+            setSurname(snap.val() && snap.val().surname);
         // setPhonenumber(snap.val().phonenumber)
         // setEmail(snap.val().email)
           })
@@ -46,7 +48,7 @@ const HomeScreen = ({navigation}) => {
             
             <Text style={{fontSize: 16, color: '#ffffff',paddingBottom: 50, width: '80%', paddingLeft: 15, fontWeight: '800', letterSpacing: 1.2}}>
                 <Text style={{fontSize: 20, color: '#ffffff', fontWeight: 'bold',paddingVertical:3}}>Welcome Back,</Text> {"\n"}
-                <Text style={{fontSize: 18, color: '#ffffff', fontWeight: '800',paddingVertical:3, letterSpacing:2}}>{name}</Text>
+                <Text style={{fontSize: 18, color: '#ffffff', fontWeight: '800',paddingVertical:3, letterSpacing:2}}>{name} {surname}</Text>
             </Text>
                 
                 <TouchableOpacity style={{width: '20%', alignItems:'center'}} onPress={()=>navigation.navigate('Notification')}>

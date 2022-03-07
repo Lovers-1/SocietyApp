@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import { View,StyleSheet, Text ,TouchableOpacity,ScrollView,SafeAreaView} from 'react-native'
+import { View,StyleSheet, Text ,TouchableOpacity,ScrollView,SafeAreaView,Dimensions} from 'react-native'
 import { db } from './firebase'
 import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -8,11 +8,23 @@ import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import Sm from "react-native-vector-icons/SimpleLineIcons"
 
+const height = Dimensions.get('screen').height;
+const width = Dimensions.get('screen').width;
+
 const Notification = ({navigation}) => {
 
     const [Status,setStatus]=useState('')
     const [book, setBookings] = useState([]);
-    
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
+  useEffect(() => {
+    let today = new Date();
+    let date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
+    let time = today.getHours()+':' + (today.getMinutes());
+    setDate(date);
+    setTime(time);
+  }, []);
+
     useEffect(()=>{
         
             db.ref('BookEvent').on('value',snap=>{
@@ -32,7 +44,7 @@ const Notification = ({navigation}) => {
     },[])
     console.log(book,'fhtg');
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{height:height, width:width}}>
       <View>
          {/* tool bar */}
        <View style={{paddingHorizontal: 15, 
@@ -50,17 +62,32 @@ const Notification = ({navigation}) => {
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView style={{height:height, width: width}}>
+
       <View style={styles.container}>
+      <View style={{backgroundColor:'#0225A1', height: 60, width: 60, borderRadius:100, marginHorizontal:20, marginVertical:10, position:'relative',textAlign:'center', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
+          <Icon name='notifications' size={35} color='#fff' style={{textAlign:'center', justifyContent:'center', alignItems:'center', alignContent:'center'}}/>
+          <Text style={{position:'absolute', right:13, top:10, color:'#fff', fontWeight:'bold'}}>{book.length}</Text>
+      </View>
         {
             book.map(element => 
             <View style={styles.boxcontainer}>
+
               <View style={styles.inputSubContainer}>
                 <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
-                
-                 <Text> {element.events}</Text>
+                 <View style={{flexDirection:'row', position:'relative', width:'80%'}}>
+                    <View>
+                      <Text style={{fontWeight:'bold'}}> {element.events}</Text>
+                      <Text> R{element.fee}</Text>
+                    </View>
+                    <View style={{position:'absolute', right:2}}>
+                        {/* <Text>{date}</Text> */}
+                        <Text style={{color:'#0225A1'}}>{time}</Text>
+                    </View>
                 </View>
-               <View style={styles.inputSubContainer}>
+            </View>
+
+               {/* <View style={styles.inputSubContainer}>
                 <Icon name="event-note" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
                 
                  <Text> {element.Description}</Text>
@@ -90,7 +117,7 @@ const Notification = ({navigation}) => {
                     color='#0225A1'
                     styles={{marginRight:10}}/>
                  <Text>{element.Status}</Text>
-                </View>
+                </View> */}
 
             </View>
                 
@@ -108,15 +135,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        justifyContent:'center',
-         alignItems:'center',
-         paddingHorizontal:10,
+        //  paddingHorizontal:10,
          elevation:2,
-         paddingBottom:80
+         marginVertical:1,
+         height: height,
+         width: width
     },
      boxcontainer:{
          backgroundColor:'#DADADA',
-         width:'100%',
+        //  width:'100%',
          marginHorizontal:15, 
          marginVertical:10,
          borderRadius:6

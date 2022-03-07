@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { View,SafeAreaView, Text ,StatusBar,Image,StyleSheet,
-    TextInput,TouchableOpacity,CheckBox, ScrollView,Alert, ActivityIndicator} from 'react-native';
+    TextInput,TouchableOpacity,CheckBox, ScrollView,Alert, ActivityIndicator,ToastAndroid} from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -50,8 +50,8 @@ const [visiable, setVisiable] = useState(true);
 
                 // <ActivityIndicator size="large"
                 // color="#000" />
-            Alert.alert("Succesfully logged in ");
-            //ToastAndroid.show("Succussfully loged in ", ToastAndroid.SHORT)
+           
+            ToastAndroid.show("Succussfully loged in ", ToastAndroid.SHORT)
 
             // Toast.show({
             //     type: 'success',
