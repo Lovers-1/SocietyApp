@@ -35,15 +35,52 @@ const Events = ({navigation}) => {
     },[])
   return (
     <ScrollView>
-    <View style={styles.headerContainer} > 
-              <TouchableOpacity onPress={()=>navigation.goBack()}>
-                  <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
+
+<View style={{paddingHorizontal: 15, 
+                paddingVertical:10, display:'flex',
+                flexDirection: 'row',alignItems:'center', elevation:1, backgroundColor:'#0225A1', height:80}}>
+                      <TouchableOpacity onPress={()=>navigation.goBack()}>
+                  <Icon name="keyboard-backspace" size={20} style={{ padding: 5,color:'#FFF' }}/>
               </TouchableOpacity>
-              <Text>Event</Text>
-              
-              </View>
-       {book.length <0?(
+                    <View style={{justifyContent: 'center', width: '100%', flex:1,}}>
+                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'#fff',marginTop:10, paddingTop:15}}>EVENT</Text>
+                    </View>
+            </View>
+   
+       {book.length >0?(
             book.map(element => 
+
+              <>
+              <View style={{margin:20,}}>
+            <View style={{backgroundColor:'#fff',justifyContent:'space-between',flexDirection:'row', padding:8}}>
+            <Ionicons name="documents" color='#0225A1' size={30}/>
+                <Text>
+                  Even Type 
+                </Text>
+                <Text>
+                {element.events}
+                </Text>
+              </View>
+              <View style={{backgroundColor:'#fff',justifyContent:'space-between',flexDirection:'row', padding:8}}>
+            <Ionicons name="location"  color='#0225A1' size={30}/>
+                <Text>
+                Location
+                </Text>
+                <Text>
+                {element.location}
+                </Text>
+              </View>
+              <View style={{backgroundColor:'#fff',justifyContent:'space-between',flexDirection:'row', padding:8}}>
+            <Ionicons name="location"  color='#0225A1' size={30}/>
+                <Text>
+                Location
+                </Text>
+                <Text>
+                {element.location}
+                </Text>
+              </View>
+                
+              </View>
               
             <View style={styles.boxcontainer}>
               <View style={styles.inputSubContainer}>
@@ -87,12 +124,13 @@ const Events = ({navigation}) => {
                 <Text style={styles.signinButtonText} onPress={()=>navigation.navigate('paymentScreen')}>PAY R {element.fee}</Text>
             </TouchableOpacity>
             </View>
-                
+         </>       
             )
             ):(<Text style={{flex: 1,
               backgroundColor: '#fff',
               justifyContent:'center',
                alignItems:'center',}}>No Accepted Event</Text>)
+      
         }
     </ScrollView>
   )

@@ -23,6 +23,7 @@ import AboutSociety from './components/screens/AboutSociety';
 import Notification from './components/screens/Notification';
 import Events from './components/screens/Events';
 import ChatGroupScreen from './components/screens/ChatGroupScreen';
+import CardScreen from './components/screens/CardScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -58,6 +59,7 @@ function App() {
         <Stack.Screen name="Notification" options = {{headerShown :false}} component={Notification} />
         <Stack.Screen name="Events" options = {{headerShown :false}} component={Events} />
         <Stack.Screen name="chats" options = {{headerShown :false}} component={ChatGroupScreen} />
+        <Stack.Screen name="CardScreen" options={{headerShown:false}} component ={CardScreen}/>
         {/* <Stack.Screen name="HomeScreen" options = {{headerShown :false}} component={HomeScreen} /> */}
       </Stack.Navigator>
 

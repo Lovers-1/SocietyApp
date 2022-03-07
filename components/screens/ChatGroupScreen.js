@@ -20,7 +20,7 @@ import {bf, db} from './firebase'
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-const ChatGroupScreen = (navigation) => {
+const ChatGroupScreen = ({navigation}) => {
 
     const [inputMessage, setInputMessage] = useState();
     const [messages, setMessages] =useState([])
@@ -95,7 +95,7 @@ const ChatGroupScreen = (navigation) => {
 
 
   return (
-    <SafeAreaView style={{width: width, height: height}}>
+    <SafeAreaView style={{width: width, height: height,backgroundColor:'#fff'}}>
         <View style={{width: width, height: height,position:'relative'}}>
 
             {/* tool bar */}

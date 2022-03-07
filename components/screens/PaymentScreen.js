@@ -1,15 +1,55 @@
-import React from "react";
-import { TextInput, Text, View, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { TextInput, Text, View, Image, StyleSheet,Alert,ToastAndroid } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import '../images/logo.png';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-
+import { db,auth } from "./firebase";
 
 
 const paymentScreen = ({ navigation }) => {
+//
+    const [Cardnumber,setCardnumber]=useState('')
+    const [Cardholder,setCardholder]=useState('')
+    const [Carddate,setCarddate]=useState('')
+    const [CVV,setCVV]=useState('')
+    const [Description,setDescription]=useState('')
+    const user= auth.currentUser.uid
+    //
+    const Addcard = () => {
+        // if (
+        //     Cardnumber == '' ||
+        //     Cardholder == '' ||
+        //   Description == '' ||
+        //   Carddate == '' ||
+        //   CVV =='' 
+          
+        // ) {
+        //   Alert.alert("Error", "Enter all the fields", [
+        //     {
+        //       text: "ok",
+        //     },
+        //   ]);
+        // } else {
+          db.ref('/societyUser/').child(user).update({
+            Cardnumber,
+            Cardholder,
+            Carddate,
+            CVV,
+            Description           
+          }).then(()=>{
+            ToastAndroid.show('successfully paid the fees.', 2000);
+          }
+          )
+          setCardnumber('')
+          setCardholder('')
+          setCarddate('')
+          setCVV('')
+          setDescription('')
+        // }
+      };
     return (
         <>
 
@@ -39,7 +79,10 @@ const paymentScreen = ({ navigation }) => {
 
                         <View style={style.inputBox} class="input-group mb-3 input-group-sm">
                             <Icon name="credit-card" size={20} style={{ padding: 5 }}></Icon>
-                            <TextInput style={style.input} type="text" class="form-control" placeholder="card number" />
+                            <TextInput style={style.input} type="text" 
+                            onChangeText={(text)=>setCardnumber(text)}
+                            value={Cardnumber}
+                            class="form-control" placeholder="card number" />
                         </View>
 
                     <View style={{marginTop: 5}} >
@@ -47,7 +90,10 @@ const paymentScreen = ({ navigation }) => {
 
                         <View style={style.inputBox} class="input-group mb-3 input-group-sm">
                             <Icon name="people" size={20} style={{ padding: 5 }}></Icon>
-                            <TextInput style={style.input} type="text" class="form-control" placeholder="Enter card holder" />
+                            <TextInput style={style.input} type="text"
+                            onChangeText={(text)=>setCardholder(text)}
+                            value={Cardholder}
+                            class="form-control" placeholder="Enter card holder" />
                         </View>
 
                     </View>
@@ -58,7 +104,10 @@ const paymentScreen = ({ navigation }) => {
 
                             <View style={style.inputBox} class="input-group mb-3 input-group-sm">
                                 <Icon name="calendar-today" size={20} style={{ padding: 5 }}></Icon>
-                                <TextInput style={style.input} type="text" class="form-control" placeholder="card date" />
+                                <TextInput style={style.input} type="text" 
+                                 onChangeText={(text)=>setCarddate(text)}
+                                 value={Carddate}
+                                class="form-control" placeholder="card date" />
                             </View>
                         </View>
                         <View style={style.cvv}>
@@ -66,7 +115,10 @@ const paymentScreen = ({ navigation }) => {
 
                             <View style={style.inputBox} class="input-group mb-3 input-group-sm">
                                 <Icon name="verified-user" size={20} style={{ padding: 5 }}></Icon>
-                                <TextInput style={style.input} type="text" class="form-control" placeholder="CVV" />
+                                <TextInput style={style.input} type="text" 
+                                 onChangeText={(text)=>setCVV(text)}
+                                 value={CVV}
+                                class="form-control" placeholder="CVV" />
                             </View>
 
                         </View>
@@ -77,14 +129,17 @@ const paymentScreen = ({ navigation }) => {
 
                         <View style={style.inputBox} class="input-group mb-3 input-group-sm">
                             <Icons name="text-recognition" size={20} style={{ padding: 5 }}></Icons>
-                            <TextInput style={style.input} type="text" class="form-control" placeholder="Enter discription" />
+                            <TextInput style={style.input} type="text" 
+                             onChangeText={(text)=>setDescription(text)}
+                             value={Description}
+                            class="form-control" placeholder="Enter discription" />
                         </View>
                     </View>
                 </View>
                 </View>
                 <View>
                 <TouchableOpacity style={style.signinButton}
-                onPress={()=>navigation.navigate('CardAddedSucces')}>
+                onPress={Addcard}>
                 <Text style={style.signinButtonText}>CONTINUE</Text>
             </TouchableOpacity>
                 </View>

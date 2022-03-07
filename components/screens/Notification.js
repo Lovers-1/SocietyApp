@@ -34,8 +34,8 @@ const Notification = ({navigation}) => {
   return (
     <SafeAreaView>
       <View>
-        {/* tool bar */}
-        <View style={{paddingHorizontal: 15, 
+         {/* tool bar */}
+       <View style={{paddingHorizontal: 15, 
                 paddingVertical:10, display:'flex',
                 flexDirection: 'row',alignItems:'center', elevation:1, backgroundColor:'#0225A1'}}>
                     <TouchableOpacity

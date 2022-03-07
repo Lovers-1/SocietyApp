@@ -3,8 +3,9 @@ import { Text, View, StyleSheet,TouchableOpacity,SafeAreaView } from 'react-nati
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Card } from 'react-native-elements';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { db } from './firebase';
 const payment = ({navigation}) => {
+    
     return (
         <SafeAreaView>
 
@@ -29,7 +30,7 @@ const payment = ({navigation}) => {
                     <Text style={{paddingBottom: 10}}>
                         Use Existing Card
                     </Text>
-                  <TouchableOpacity onPress={() =>{''}}>
+                  <TouchableOpacity onPress={() =>navigation.navigate('CardScreen')}>
 
                     <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection:'row'}}>

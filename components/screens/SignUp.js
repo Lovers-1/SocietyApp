@@ -20,7 +20,7 @@ const SignUp = ({ navigation }) => {
     //
     const [visiable, setvisiable] = useState(true);
     const [show, setShow] = useState(false);
-    const user = auth.currentUser.uid;
+  
     const [isPasswordShow,setPasswordShow]=useState(false);
     const [isSelected,setSelection]=useState(false);
     const email=useRef()

@@ -23,6 +23,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-credit-card-input": "^0.4.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
@@ -32,6 +33,7 @@
     "react-native-screens": "~3.4.0",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "~0.13.12",
+    "stripe": "^8.207.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

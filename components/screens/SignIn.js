@@ -32,7 +32,7 @@ const ReviewSchem = yup.object({
 const [show, setShow] = useState(false);
 const [visiable, setVisiable] = useState(true);
 
-const user = auth.currentUser.uid;
+
     const signIn = async (data) => {
         try {
             const { email, password } = data;
