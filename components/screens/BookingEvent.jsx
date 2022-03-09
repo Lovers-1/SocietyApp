@@ -18,9 +18,12 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { db } from "./firebase";
 import DatePicker from "react-native-datepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
-
-const BookingEvent = ({ navigation }) => {
+const BookingEvent = ({ navigation ,route}) => {
+  const [name,setName]=useState(route.params.name)
+    const [surname,setSurname] = useState(route.params.surname);
+    const [email,setEmail]=useState(route.params.email)
   const [pickerindex, setpickerindex] = useState(0);
   const [events, setEvents] = useState("");
   const [location, setLocation] = useState("");
@@ -28,7 +31,7 @@ const BookingEvent = ({ navigation }) => {
   // const [Date,setDate]=useState('')
   const [fee, setFee] = useState("");
   const [Status, setStatus] = useState("Pending");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [time, setTime] = useState('')
 
 
@@ -46,11 +49,11 @@ let s = addZero(d.getSeconds());
 
   const addBooking = () => {
     if (
-      events == '' ||
+    //  events == '' ||
       location == '' ||
       Description == '' ||
       date == '' ||
-      fee =='' ||
+     // fee =='' ||
       time==''
     ) {
       Alert.alert("Error", "Enter all the fields", [
@@ -67,11 +70,13 @@ let s = addZero(d.getSeconds());
         date,
         fee,
         time
+       ,name,email
       })
       setDescription('')
       setFee('')
       setLocation('')
       setTime('')
+      navigation.navigate('bookingSc')
     }
   };
 
@@ -105,7 +110,7 @@ let s = addZero(d.getSeconds());
             db.ref('/Event/').on('value',snap=>{
               let item = [];
               const a_ =snap.val();
-              for (let x in a_){
+              for (let x in a_){ 
                 item.push({Price:a_[x].Price,key:x,selector:a_[x].selector})
               }
             
@@ -130,6 +135,7 @@ let s = addZero(d.getSeconds());
       }
   }
   const today=new Date()
+  const newtime=moment(new Date()).format('HH:MM')
     
   return (
     <SafeAreaView style={styles.box}>
@@ -163,9 +169,22 @@ let s = addZero(d.getSeconds());
             EventType.map(element=>(
 
             <>
+           
                {/* <Text>{element.selector}</Text> */}
-              <Text>Price for {element.selector} = {element.Price}</Text>
+              <Text style={{color:'#fff',fontWeight:'bold'}}>Price for {element.selector} = {element.Price}</Text>
             
+              {/* <TextInput
+                placeholder="R00.00"
+                keyboardType="numeric"
+                value={element.Price}
+               // onChangeText={(text) => setFee(text)}
+                style={{
+                  padding: 10,
+                  backgroundColor: "gainsboro",
+                  borderRadius: 10,
+                  borderWidth: 1,
+                }}
+              /> */}
                   </>
           
             ))
@@ -218,7 +237,7 @@ let s = addZero(d.getSeconds());
             style={{ width: "100%" }}
             date={date}
             mode="date"
-            // placeholder="select date"
+             placeholder="select date"
             format="YYYY-MM-DD"
             minDate={today}
             // maxDate="2016-06-01"
@@ -274,13 +293,14 @@ let s = addZero(d.getSeconds());
               style={{padding:10,backgroundColor:'#fff',
               borderRadius:10,
               borderWidth:1}}
+              value={time}
               onChangeText={(text) => setTime(text)}
               />
               
         </View>
-        <Pressable style={styles.signinButton} onPress={addBooking}>
+        <TouchableOpacity style={styles.signinButton} onPress={addBooking}>
           <Text style={styles.signinButtonText}>SUBMIT</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

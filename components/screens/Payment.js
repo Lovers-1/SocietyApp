@@ -4,9 +4,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Card } from 'react-native-elements';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { db } from './firebase';
-const payment = ({navigation}) => {
-    
-    return (
+const payment = ({navigation,route}) => {
+    const name=route.params.name
+    const email=route.params.email
+                const eventtype=route.params.eventtype
+                const fee=route.params.fee;
+                const Description = route.params.Description;
+                const date = route.params.date;
+    return (    
         <SafeAreaView>
 
             <View style={{paddingHorizontal: 15, 
@@ -30,7 +35,9 @@ const payment = ({navigation}) => {
                     <Text style={{paddingBottom: 10}}>
                         Use Existing Card
                     </Text>
-                  <TouchableOpacity onPress={() =>navigation.navigate('CardScreen')}>
+                  <TouchableOpacity onPress={() =>navigation.navigate('CardScreen',{eventtype:eventtype,
+                  name:name,email:email,fee:fee,date:date,
+                  Description:Description,})}>
 
                     <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection:'row'}}>

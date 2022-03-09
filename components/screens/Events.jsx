@@ -5,11 +5,13 @@ import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { date } from 'yup'
 
-const Events = ({ navigation }) => {
+const Events = ({ navigation,route }) => {
   const [Status, setStatus] = useState('')
   const [book, setBookings] = useState([]);
-
+  const name=route.params.name
+  const email=route.params.email
   useEffect(() => {
 
     db.ref('BookEvent').on('value', snap => {
@@ -19,7 +21,7 @@ const Events = ({ navigation }) => {
         item.push({
           Status: a_[x].Status, key: x, location: a_[x].location,
           Description: a_[x].Description, events: a_[x].events, fee: a_[x].fee,
-          time: a_[x].time
+          time: a_[x].time,date: a_[x].date
         })
       }
       const text = 'Accepted'
@@ -113,7 +115,9 @@ const Events = ({ navigation }) => {
               </View>
               <TouchableOpacity style={styles.signinButton}
               >
-                <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen')}>PAY R {element.fee}</Text>
+                <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
+                  name:name,email:email,fee:element.fee,date:element.date,
+                  Description:element.Description,})}>PAY R {element.fee}</Text>
               </TouchableOpacity>
               
             </View>

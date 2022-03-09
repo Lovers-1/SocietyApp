@@ -10,7 +10,7 @@ import SignUp from './components/screens/SignUp';
 import ForgetPasswordSuccessFul from './components/screens/ForgetPasswordSuccessFul';
 import DashBoard from './components/screens/DashBoard';
 import TabScreen from './components/screens/TabScreen';
-
+import bookingSc from './components/screens/bookingSc';
 // import { DrawerScreenProps } from '@react-navigation/drawer';
 // navigator
 import { NavigationContainer } from '@react-navigation/native';
@@ -62,6 +62,7 @@ function App() {
         <Stack.Screen name="chats" options = {{headerShown :false}} component={ChatGroupScreen} />
         <Stack.Screen name="CardScreen" options={{headerShown:false}} component ={CardScreen}/>
         <Stack.Screen name="payment-successful" options = {{headerShown :false}} component={PaymentSuccessfulScreen} />
+        <Stack.Screen name="bookingSc" options = {{headerShown :false}} component={bookingSc} />
       </Stack.Navigator>
 
     </NavigationContainer>

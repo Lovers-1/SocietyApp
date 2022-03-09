@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {
@@ -13,6 +13,7 @@ import { CreditCardInput } from "react-native-credit-card-input";
 import { Secret_key, STRIPE_PUBLISHABLE_KEY } from './keys';
 import { db,auth } from './firebase';
 import { ScrollView } from 'react-native-gesture-handler';
+import moment from 'moment';
 // create a component
 const CURRENCY = 'USD';
 var CARD_TOKEN = null;
@@ -62,12 +63,45 @@ function getCreditCardToken(creditCardData){
 };
 
 const CardScreen = ({navigation,route}) => {
-//
+
     const [isVisible, setisVisible] = React.useState(false);
 
+const name=route.params.name 
+const email=route.params.email
+const uid=auth.currentUser.uid
+const eventtype=route.params.eventtype
+const fee=route.params.fee;
+const Description = route.params.Description;
+const date = route.params.date;
+
+
+//
+
+
+//
+let today = new Date();
+    let Cdate = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
+    let Ctime = today.getHours()+':' + (today.getMinutes());
+   
   //
   const [CardInput, setCardInput] = React.useState({})
+  const payment =()=>{
+    db.ref("payment")
+    .push({
+      name,
+      email,
+      uid,
+      eventtype,
+      fee,
+      Description,
+    date,
+    Cdate,
+    Ctime,
+    Status:'Paid'
 
+//
+    })
+}
   const onSubmit = async () => {
 
     if (CardInput.valid == false || typeof CardInput.valid == "undefined") {
@@ -101,9 +135,7 @@ const CardScreen = ({navigation,route}) => {
       {
 
         // alert("Payment Successfully")
-        // db.ref('/users/').child(auth.currentUser.uid).update({
-
-        // })
+       payment()
         navigation.navigate('payment-successful');
 
       }
@@ -122,8 +154,7 @@ const userId = auth.currentUser.uid;
   const charges = async () => {
 
     const card = {
-        'amount':100
-        , 
+        'amount':100, 
         'currency': CURRENCY,
         'source': CARD_TOKEN,
         'description': "Developers Sin Subscription"
@@ -147,7 +178,9 @@ const userId = auth.currentUser.uid;
           .join('&')
       }).then(response => response.json());
   };
-  
+  //
+
+
 
 
   const _onChange =(data) => {

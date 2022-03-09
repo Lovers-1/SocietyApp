@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Card } from 'react-native-elements';
 
-const ChatScreen = ({navigation}) => {
+const ChatScreen = ({navigation,route}) => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>

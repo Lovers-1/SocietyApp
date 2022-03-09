@@ -16,17 +16,18 @@ const height = Dimensions.get('screen').height;
 // name: yup.string().required().max(15).min(3),
 // surname: yup.string().required().max(15).min(3),
 // phoneNo: yup.number().required().min(10),
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation,route}) => {
     const user = auth.currentUser.uid;
-    const [name,setName]=useState('')
+    const [name,setName]=useState()
     const [surname,setSurname] = useState('');
+    const [email,setEmail]=useState('')
     useEffect(()=>{
         db.ref('/societyUser/').child(user).on('value',snap=>{
           
             setName(snap.val() && snap.val().name);
             setSurname(snap.val() && snap.val().surname);
         // setPhonenumber(snap.val().phonenumber)
-        // setEmail(snap.val().email)
+         setEmail(snap.val().email)
           })
     },[])
     return (
@@ -104,7 +105,7 @@ const HomeScreen = ({navigation}) => {
         <View style={{ marginTop:20, flex:1,flexDirection:'row',justifyContent:'flex-start', 
                     alignItems:'flex-start'}}>
 
-       <TouchableOpacity onPress={()=>navigation.navigate('Booking Event')}
+       <TouchableOpacity onPress={()=>navigation.navigate('Booking Event',{user:user,name:name,email:email})}
        style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
        borderRadius: 15, marginLeft: 25, marginTop: -40}}>               
         
@@ -164,7 +165,7 @@ const HomeScreen = ({navigation}) => {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>navigation.navigate('Events')}
+        <TouchableOpacity onPress={()=>navigation.navigate('Events',{user:user,name:name,email:email})}
             style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
             borderRadius: 15, marginLeft: 25, marginTop: 20}}>               
         
