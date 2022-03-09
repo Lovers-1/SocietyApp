@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Text, View, StyleSheet,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,  ToastAndroid } from 'react-native';
 import { Card } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { auth,db } from './firebase';
@@ -20,6 +20,12 @@ const SettingsScreen = ({navigation}) => {
       
         
       },[])
+
+      const signOut =() =>{
+          auth.signOut();
+          navigation.navigate('SignIn')
+    ToastAndroid.show("Succussfully loged out ", ToastAndroid.SHORT)
+      }
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
@@ -124,6 +130,8 @@ const SettingsScreen = ({navigation}) => {
                     <Card.Divider/>
 
                     {/* Logout     */}
+
+                    <TouchableOpacity onPress={signOut}>
                     <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Logout
                     </Text>
@@ -140,7 +148,7 @@ const SettingsScreen = ({navigation}) => {
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
                     </View>
-                    
+                    </TouchableOpacity>
                     <Card.Divider/>
 
                     </View>

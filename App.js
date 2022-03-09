@@ -25,6 +25,7 @@ import Events from './components/screens/Events';
 import ChatGroupScreen from './components/screens/ChatGroupScreen';
 import CardScreen from './components/screens/CardScreen';
 import PaymentSuccessfulScreen from './components/screens/PaymentSuccessfulScreen';
+import Report from './components/screens/Report';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -63,6 +64,7 @@ function App() {
         <Stack.Screen name="CardScreen" options={{headerShown:false}} component ={CardScreen}/>
         <Stack.Screen name="payment-successful" options = {{headerShown :false}} component={PaymentSuccessfulScreen} />
         <Stack.Screen name="bookingSc" options = {{headerShown :false}} component={bookingSc} />
+        <Stack.Screen name="Report" options = {{headerShown :false}} component={Report} />
       </Stack.Navigator>
 
     </NavigationContainer>

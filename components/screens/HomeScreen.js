@@ -150,7 +150,7 @@ const HomeScreen = ({navigation,route}) => {
         <View style={{ marginTop:25,flex:1,flexDirection:'row',justifyContent:'flex-start', 
                     alignItems:'flex-start'}}>
          
-         <TouchableOpacity onPress={()=>navigation.navigate('')}
+         <TouchableOpacity onPress={()=>navigation.navigate('Report')}
             style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
             borderRadius: 15, marginLeft: 25, marginTop: 20}}>               
         
