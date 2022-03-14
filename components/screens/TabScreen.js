@@ -60,7 +60,7 @@ const TabScreen = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Payments"
         component={CombinePayment}
         options={{
@@ -69,7 +69,7 @@ const TabScreen = () => {
           <Icon name="ios-wallet" color={color} size={24} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Chat"
         component={ChatScreen}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import { SafeAreaView, StyleSheet,
     Text,
     View,
@@ -14,7 +14,7 @@ import { SafeAreaView, StyleSheet,
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Icon } from 'react-native-elements';
 import {bf, db} from './firebase'
-
+import { GiftedChat } from 'react-native-gifted-chat'
 
 
 const width = Dimensions.get('screen').width;
@@ -55,6 +55,18 @@ const ChatGroupScreen = ({navigation}) => {
         }
         setMessages(item)
       })
+      setMessages([
+        {
+          _id: 1,
+          text: 'Hi',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ])
    
   // db.ref('BookEvent').on('value',snap=>{ 
   //   setBookings({...snap.val() })
@@ -91,71 +103,19 @@ const ChatGroupScreen = ({navigation}) => {
     //},[])
 
 
-   
+    const onSend = useCallback((messages = []) => {
+      setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    }, [])
 
 
   return (
-    <SafeAreaView style={{width: width, height: height,backgroundColor:'#fff'}}>
-        <View style={{width: width, height: height,position:'relative'}}>
-
-            {/* tool bar */}
-            <View style={{ display:'flex',
-                    flexDirection: 'row',alignItems:'center',backgroundColor:'#fff', paddingVertical:20,paddingHorizontal:10, textAlign:'center'}}>
-
-                        <TouchableOpacity
-                            onPress={() =>navigation.goBack()}
-                            >
-                            <Icons name="keyboard-backspace" size={28} color="#000" style={{paddingTop:15}}/>
-                        </TouchableOpacity>
-
-                        <View style={{justifyContent: 'center', width: '100%', flex:1}}>
-                            <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',paddingTop:15}}>Chatting Board</Text>
-                        </View>
-            </View>
-
-
-
-            {/* flat list con */}
-                <View style={{backgroundColor:'#EFEFEF', height: height, width}}>
-<View >
-
-                  {
-                  messages.map((element)=>
-                    
-                  <Text>{element.inputMessage}</Text>
-
-                  
-                  ) 
-                  
-                  }
-                </View>
-                </View>
-
-                
-
-            <View style={{ paddingVertical: 10,position:'absolute',bottom:80}}>
-                <View style={styles.messageInputView}>
-                    <TextInput
-                    name={inputMessage}
-                    style={styles.messageInput}
-                    placeholder='Message'
-                    onChangeText={(text) => setInputMessage(text)}
-                    onSubmitEditing={() => {
-                        
-                    }}
-                    />
-                    <TouchableOpacity
-                    style={styles.messageSendView}
-                    onPress={message}
-                    
-                    >
-                    <Icon  name='send' type='material' />
-                    </TouchableOpacity>
-                </View>
-            </View>
-
-        </View>
-    </SafeAreaView>
+    <GiftedChat
+    messages={messages}
+    onSend={messages => onSend(messages)}
+    user={{
+      _id: 1,
+    }}
+  />
   )
 }
 
@@ -192,3 +152,67 @@ const styles = StyleSheet.create({
   });
 
 export default ChatGroupScreen
+
+
+
+// <SafeAreaView style={{width: width, height: height,backgroundColor:'#fff'}}>
+//         <View style={{width: width, height: height,position:'relative'}}>
+
+//             {/* tool bar */}
+//             <View style={{ display:'flex',
+//                     flexDirection: 'row',alignItems:'center',backgroundColor:'#fff', paddingVertical:20,paddingHorizontal:10, textAlign:'center'}}>
+
+//                         <TouchableOpacity
+//                             onPress={() =>navigation.goBack()}
+//                             >
+//                             <Icons name="keyboard-backspace" size={28} color="#000" style={{paddingTop:15}}/>
+//                         </TouchableOpacity>
+
+//                         <View style={{justifyContent: 'center', width: '100%', flex:1}}>
+//                             <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',paddingTop:15}}>Chatting Board</Text>
+//                         </View>
+//             </View>
+
+
+
+//             {/* flat list con */}
+//                 <View style={{backgroundColor:'#EFEFEF', height: height, width}}>
+// <View >
+
+//                   {
+//                   messages.map((element)=>
+                    
+//                   <Text>{element.inputMessage}</Text>
+
+                  
+//                   ) 
+                  
+//                   }
+//                 </View>
+//                 </View>
+
+                
+
+//             <View style={{ paddingVertical: 10,position:'absolute',bottom:80}}>
+//                 <View style={styles.messageInputView}>
+//                     <TextInput
+//                     name={inputMessage}
+//                     style={styles.messageInput}
+//                     placeholder='Message'
+//                     onChangeText={(text) => setInputMessage(text)}
+//                     onSubmitEditing={() => {
+                        
+//                     }}
+//                     />
+//                     <TouchableOpacity
+//                     style={styles.messageSendView}
+//                     onPress={message}
+                    
+//                     >
+//                     <Icon  name='send' type='material' />
+//                     </TouchableOpacity>
+//                 </View>
+//             </View>
+
+//         </View>
+//     </SafeAreaView>
