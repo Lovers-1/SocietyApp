@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React,{useEffect, useState} from 'react'
 import { auth, db } from './firebase'
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -34,17 +34,23 @@ const Report = ({navigation}) => {
     
       }, [])
   return (
-    <>
+    <ScrollView style={{top:30}}>
+      <View style={styles.headerContainer} 
+            >
+               
+               <Feather name="arrow-left" size={30}
+             onPress={()=>navigation.goBack()} /> 
+            <Text style={styles.headerTitle}></Text>
+            </View>
    {payment.length > 0 ? (
         payment.map(element =>
 
           <>
+
             <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3 }}>
 
               <View>
-                <Text>
-                  Event To Pay
-                </Text>
+                
               </View>
               <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
                 <Ionicons name="documents" color='#0225A1' size={30} />
@@ -101,8 +107,29 @@ const Report = ({navigation}) => {
       }}>No Payment</Text>)
 
       }
-    </>
+    </ScrollView>
   )
 }
 
 export default Report
+
+const styles = StyleSheet.create({
+  container:{
+
+  }
+  ,
+  headerContainer:{
+     flexDirection:'row' ,
+     alignItems:'flex-start',
+     justifyContent:'space-between',
+     paddingVertical:40,
+     paddingHorizontal:20
+  },
+  headerTitle:{
+      fontSize:20,
+      lineHeight:20 * 1.4,
+      width:80,
+      textAlign:'center'  
+
+    },
+  })

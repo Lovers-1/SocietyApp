@@ -161,7 +161,7 @@ let s = addZero(d.getSeconds());
               <Picker.Item label="select" value="" />
             <Picker.Item label="Wedding" value="Wedding" />
             <Picker.Item label="Party" value="Party" />
-            <Picker.Item label="Ceremony" value="Ceremony" />
+            <Picker.Item label="Funeral" value="Funeral" />
           </Picker>
 
           <Text style={styles.titles}>Fees </Text>
@@ -171,7 +171,7 @@ let s = addZero(d.getSeconds());
             <>
            
                {/* <Text>{element.selector}</Text> */}
-              <Text style={{color:'#fff',fontWeight:'bold'}}>Price for {element.selector} = {element.Price}</Text>
+              <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.selector} = R {element.Price}</Text>
             
               {/* <TextInput
                 placeholder="R00.00"
@@ -321,6 +321,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "white",
     height: "100%",
+    top:40
   },
 
   headerTitle: {
