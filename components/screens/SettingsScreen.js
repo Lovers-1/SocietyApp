@@ -89,10 +89,10 @@ const SettingsScreen = ({navigation}) => {
                     <Card.Divider/>
 
                     {/* Settings     */}
-                    <Text style={{paddingBottom: 10, paddingTop: 15}}>
+                    {/* <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Settings
-                    </Text>
-                    <View style={{flexDirection: 'row'}}>
+                    </Text> */}
+                    {/* <View style={{flexDirection: 'row'}}>
                     <Icon
                         name='ios-settings'
                         type='Ionicon'
@@ -104,9 +104,9 @@ const SettingsScreen = ({navigation}) => {
                         <View style={styles.moreContainer}>
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
-                    </View>
+                    </View> */}
                     
-                    <Card.Divider/>
+                    {/* <Card.Divider/> */}
 
                     {/* Help     */}
                     <TouchableOpacity onPress={()=>navigation.navigate('Help And Support')}>

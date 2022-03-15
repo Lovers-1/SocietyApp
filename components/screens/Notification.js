@@ -33,7 +33,7 @@ const Notification = ({navigation}) => {
               for (let x in a_){
                 item.push({Status:a_[x].Status,key:x,location:a_[x].location,
                   Description:a_[x].Description,events:a_[x].events,fee:a_[x].fee,
-                  time:a_[x].time ,date:a_[x].date})
+                  time:a_[x].time ,date:a_[x].date, name:a_[x].name})
               }
               setBookings(item)
             })
@@ -74,16 +74,16 @@ const Notification = ({navigation}) => {
             <View style={styles.boxcontainer}>
 
               <View style={styles.inputSubContainer}>
-                <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
+                {/* <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/> */}
                  <View style={{flexDirection:'row', position:'relative', width:'80%'}}>
-                    <View>
-                      <Text style={{fontWeight:'bold'}}> {element.events}</Text>
-                      <Text> R{element.fee}</Text>
+                    <View >
+                      <Text style={{fontWeight:'bold'}}>{element.name} {element.name}</Text>
+                      <Text > booked for {element.events} and the status</Text>
+                      
+                      <Text> is {element.Status} at {time}</Text>
+                      {/* <Text style={{color:'#0225A1'}}></Text> */}
                     </View>
-                    <View style={{position:'absolute', right:2}}>
-                        {/* <Text>{date}</Text> */}
-                        <Text style={{color:'#0225A1'}}>{time}</Text>
-                    </View>
+                   
                 </View>
             </View>
 
