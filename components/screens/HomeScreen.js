@@ -21,6 +21,7 @@ const HomeScreen = ({navigation,route}) => {
     const [name,setName]=useState()
     const [surname,setSurname] = useState('');
     const [email,setEmail]=useState('')
+    const [societyCode,setSocietyCode]=useState()
     useEffect(()=>{
         db.ref('/societyUser/').child(user).on('value',snap=>{
           
@@ -28,6 +29,7 @@ const HomeScreen = ({navigation,route}) => {
             setSurname(snap.val() && snap.val().surname);
         // setPhonenumber(snap.val().phonenumber)
          setEmail(snap.val().email)
+         setSocietyCode(snap.val().societyCode)
           })
     },[])
     return (
@@ -120,7 +122,7 @@ const HomeScreen = ({navigation,route}) => {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>navigation.navigate('AboutSociety')}
+        <TouchableOpacity onPress={()=>navigation.navigate('AboutSociety',{societyCode:societyCode})}
        style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
        borderRadius: 15, marginLeft: 25, marginTop: -40}}>               
         

@@ -1,11 +1,35 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import { StyleSheet, Text, View ,StatusBar,TouchableOpacity} from 'react-native'
 import { Display } from '../utils'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
-const AboutSociety = ({navigation}) => {
-    
+import { db } from './firebase'
+const AboutSociety = ({navigation,route}) => {
+    const mycode=route.params.societyCode
+    const [code, setCode] = useState([]);
+    useEffect(()=>{
+        
+        db.ref('user').on('value',snap=>{
+          let item = [];
+          const a_ =snap.val();
+          for (let x in a_){
+            item.push({societyCode:a_[x].societyCode,key:x,Address:a_[x].Address,
+            SocietyName:a_[x].SocietyName,})
+          }
+          
+      if (mycode) {
+        const newData = item.filter(function (element) {
+          const itemData = element.societyCode ? element.societyCode : ''
+          return itemData.indexOf(mycode) > -1
+        })
+        setCode(newData)
+      }
+         
+        })
+     
+      
+},[])
     return (
         <View style={styles.container}>
             
@@ -52,14 +76,15 @@ const AboutSociety = ({navigation}) => {
                         </Text>
 
                     </View>
-            
+                    {
+            code.map(element => 
             <View style={styles.boxcontainer}>
 
                 <View style={styles.inputSubContainer}>
                     <Icon name="group" size={22}
                         color='#0225A1'
                         style={{marginRight:10}}/>
-                    <Text>Polite Nice Mood Changing Society</Text>
+                    <Text>{element.SocietyName}  Society</Text>
                 </View>
 
                 <View style={styles.inputSubContainer}>
@@ -69,7 +94,7 @@ const AboutSociety = ({navigation}) => {
                 <View style={styles.inputSubContainer}>
                 
                 <Ionicons name="location" color='#0225A1' size={30}/>
-                 <Text>Ward 40, Moletji </Text>
+                 <Text>{element.Address} </Text>
                 </View>
                 <View style={{position: 'absolute', bottom:0, right:5, flexDirection:'row', alignItems:'center', backgroundColor:'#0225A1', padding:5, borderBottomRightRadius:10}}>
                 
@@ -85,9 +110,9 @@ const AboutSociety = ({navigation}) => {
                 <Icon name="fiber-pin" size={22}
                     color='#ff0000'
                     style={{marginRight:10}}/>
-                 <Text style={{color:'#ff0000'}}>45*12 (society pin)</Text>
+                 <Text style={{color:'#ff0000'}}>{element.societyCode} (society pin)</Text>
                 </View>
-            </View>
+            </View>)}
         </View>
     )
 }
