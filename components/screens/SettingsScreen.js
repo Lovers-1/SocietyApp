@@ -9,6 +9,7 @@ const SettingsScreen = ({navigation}) => {
     const [phoneNo,setphoneNo]=useState('')
     const [uid,setUid]=useState('')
     const user = auth.currentUser.uid;
+
     useEffect(()=>{
         db.ref(`/societyUser/`+ user).on('value',snap=>{
           
@@ -16,9 +17,7 @@ const SettingsScreen = ({navigation}) => {
       setEmail(snap.val().email)
       setphoneNo(snap.val().phoneNo)
       setUid(snap.val().uid)
-        })
-      
-        
+        })  
       },[])
 
       const signOut =() =>{
@@ -29,9 +28,10 @@ const SettingsScreen = ({navigation}) => {
     return (
         <View style={{backgroundColor: '#ffffff', justifyContent: 'center', 
         alignItems: 'center', alignContent: 'center', width: '100%'}}>
-            <Text style={{fontWeight: 'bold', paddingTop: 120,fontSize: 15, margin: 0}}>
-                    Settings
-            </Text>
+           
+           <Text style={{width:'100%',textAlign:'center',fontWeight: 'bold', paddingTop: 120,fontSize: 15, margin: 0, color: 'white', backgroundColor:'#0225A1'}}>
+                        Settings
+                </Text>
             
                 <View style={{flexDirection:'column',justifyContent:'flex-start', 
                     width: '100%', height: '100%', alignItems:'flex-start', paddingBottom: 20, paddingLeft: 20}}>
@@ -51,6 +51,7 @@ const SettingsScreen = ({navigation}) => {
                         My Account
                     </Text>
                     
+                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                     <Icon
                         name='ios-person'
@@ -60,6 +61,7 @@ const SettingsScreen = ({navigation}) => {
                         <Text style={{padding: 5, paddingTop: -15, fontSize: 11, color: '#808080'}}>
                             edit account details
                         </Text>
+                        </View>
                         <View style={styles.moreContainer}>
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
@@ -72,6 +74,7 @@ const SettingsScreen = ({navigation}) => {
                     <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Notifications
                     </Text>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                     <Icon
                         name='ios-notifications'
@@ -80,7 +83,7 @@ const SettingsScreen = ({navigation}) => {
                         size={18}/>
                         <Text style={{padding: 5, paddingTop: -15, fontSize: 11, color: '#808080'}}>
                             updates
-                        </Text>
+                        </Text></View>
                         <View style={styles.moreContainer}>
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
@@ -88,31 +91,11 @@ const SettingsScreen = ({navigation}) => {
                     
                     <Card.Divider/>
 
-                    {/* Settings     */}
-                    {/* <Text style={{paddingBottom: 10, paddingTop: 15}}>
-                        Settings
-                    </Text> */}
-                    {/* <View style={{flexDirection: 'row'}}>
-                    <Icon
-                        name='ios-settings'
-                        type='Ionicon'
-                        color='#808080'
-                        size={18}/>
-                        <Text style={{padding: 5, paddingTop: -15, fontSize: 11, color: '#808080'}}>
-                            edit unlock methods
-                        </Text>
-                        <View style={styles.moreContainer}>
-                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
-                        </View>
-                    </View> */}
-                    
-                    {/* <Card.Divider/> */}
-
-                    {/* Help     */}
                     <TouchableOpacity onPress={()=>navigation.navigate('Help And Support')}>
                     <Text style={{paddingBottom: 10, paddingTop: 15}}>
                         Help
                     </Text>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                     <Icon
                         name='ios-help'
@@ -121,7 +104,7 @@ const SettingsScreen = ({navigation}) => {
                         size={18}/>
                         <Text style={{padding: 5, paddingTop: -15, fontSize: 11, color: '#808080'}}>
                             help center, contact us, privacy policy
-                        </Text>
+                        </Text></View>
                         <View style={styles.moreContainer}>
                             <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
                         </View>
@@ -131,25 +114,19 @@ const SettingsScreen = ({navigation}) => {
 
                     {/* Logout     */}
 
-                    <TouchableOpacity onPress={signOut}>
-                    <Text style={{paddingBottom: 10, paddingTop: 15}}>
-                        Logout
-                    </Text>
-                    <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity onPress={signOut} style={{backgroundColor:'red', width:140, marginTop: 50, borderRadius:5, padding:5}}>
+
+                    <View style={{flexDirection: 'row', justifyContent:'center'}}>
                     <Icon
                         name='ios-log-out'
                         type='Ionicon'
-                        color='#808080'
-                        size={18}/>
-                        <Text style={{padding: 5, paddingTop: -15, fontSize: 11, color: '#808080'}}>
-                            click to sign out
+                        color='#fff'
+                        size={25}/>
+                        <Text style={{padding: 5, paddingTop: -15, fontSize: 18, color: '#fff'}}>
+                            Log-out
                         </Text>
-                        <View style={styles.moreContainer}>
-                            <Icon name="ios-chevron-forward" size={15} style={styles.moreIcon}/>
-                        </View>
                     </View>
                     </TouchableOpacity>
-                    <Card.Divider/>
 
                     </View>
                     
@@ -169,7 +146,7 @@ const styles = StyleSheet.create({
     },
     moreIcon: {
         color: '#d6d7da',
-        
+        paddingRight:15,
         justifyContent: 'flex-end'
     }
 })

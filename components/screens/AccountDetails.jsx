@@ -103,7 +103,7 @@ const AccountDetails = ({navigation,route}) => {
             <View style={[styles.inputContainer]}>
                 <View style={styles.inputSubContainer}>
                     <Icon name="phone" size={22}
-                    color='black'
+                    color='#333'
                     style={{marginRight:10}}/>
                     
                     <TextInput placeholder="Phone Number"
@@ -119,7 +119,7 @@ const AccountDetails = ({navigation,route}) => {
              
             </View>
             <Text style={styles.errortext}>{props.touched.phonenumber && props.errors.phonenumber}</Text>
-            <View style={styles.inputContainer}>
+            {/* <View style={styles.inputContainer}>
                 <View style={styles.inputSubContainer}>
                 <Icon name="lock" size={22}
                     color='black'
@@ -141,8 +141,9 @@ const AccountDetails = ({navigation,route}) => {
                 </View>
 
             </View>
-            <Text style={styles.errortext}>{props.touched.password && props.errors.password}</Text>
-            <View style={styles.inputContainer}>
+            <Text style={styles.errortext}>{props.touched.password && props.errors.password}</Text> */}
+            
+            {/* <View style={styles.inputContainer}>
                 <View style={styles.inputSubContainer}>
                 <Icon name="lock" size={22}
                     color='black'
@@ -163,9 +164,9 @@ const AccountDetails = ({navigation,route}) => {
                  />
                 </View>
 
-            </View>
-            <Text style={styles.errortext}>{props.touched.confirmpassword && props.errors.confirmpassword}</Text>
-            <Text></Text>
+            </View> */}
+            {/* <Text style={styles.errortext}>{props.touched.confirmpassword && props.errors.confirmpassword}</Text>
+            <Text></Text> */}
             <TouchableOpacity style={styles.signinButton}
             onPress={updateBooking()}>
                 <Text style={styles.signinButtonText}>UPDATE</Text>
