@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Picker,
   Button,
+  ScrollView,Dimensions
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import { Display } from "../utils";
@@ -20,10 +21,13 @@ import DatePicker from "react-native-datepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+
 const BookingEvent = ({ navigation ,route}) => {
   const [name,setName]=useState(route.params.name)
-    const [surname,setSurname] = useState(route.params.surname);
-    const [email,setEmail]=useState(route.params.email)
+  const [surname,setSurname] = useState(route.params.surname);
+  const [email,setEmail]=useState(route.params.email)
   const [pickerindex, setpickerindex] = useState(0);
   const [events, setEvents] = useState("");
   const [location, setLocation] = useState("");
@@ -140,168 +144,161 @@ let s = addZero(d.getSeconds());
   return (
     <SafeAreaView style={styles.box}>
       <StatusBar backgroundColor="#0225A1" barStyle="light-content" />
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }} />
-        </TouchableOpacity>
-
-        <Text style={styles.headerTitle}>Book Event</Text>
-      </View>
-      <View style={styles.boxcontainer}>
-        <View style={{ alignItems: "center" }}>
-          {/* <Text style={styles.titles}>Book Event</Text>  */}
-        </View>
-        <View style={{ padding: 15 }}>
-          <Text style={styles.titles}>Event Type</Text>
-          
-          <Picker
-            selectedValue={events}
-            onValueChange={(value, index) => {FilterFunction(value)}}
-          >
-              <Picker.Item label="select" value="" />
-            <Picker.Item label="Wedding" value="Wedding" />
-            <Picker.Item label="Party" value="Party" />
-            <Picker.Item label="Funeral" value="Funeral" />
-          </Picker>
-
-          <Text style={styles.titles}>Fees </Text>
-        {
-            EventType.map(element=>(
-
-            <>
-           
-               {/* <Text>{element.selector}</Text> */}
-              <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.selector} = R {element.Price}</Text>
-            
-              {/* <TextInput
-                placeholder="R00.00"
-                keyboardType="numeric"
-                value={element.Price}
-               // onChangeText={(text) => setFee(text)}
-                style={{
-                  padding: 10,
-                  backgroundColor: "gainsboro",
-                  borderRadius: 10,
-                  borderWidth: 1,
-                }}
-              /> */}
-                  </>
-          
-            ))
-         
-        }
-        
-        <TextInput
-                placeholder="R00.00"
-                keyboardType="numeric"
-                value={fee}
-                onChangeText={(text) => setFee(text)}
-                style={{
-                  padding: 10,
-                  backgroundColor: "gainsboro",
-                  borderRadius: 10,
-                  borderWidth: 1,
-                }}
-              />
       
-          <Text style={styles.titles}>Event Description</Text>
-          <TextInput
-            placeholder="Description"
-            multiline
-            value={Description}
-            onChangeText={(text) => setDescription(text)}
-            numberOfLines={3}
-            style={{
-              padding: 10,
-              backgroundColor: "#fff",
-              borderRadius: 10,
-              borderWidth: 1,
-            }}
-          />
-          <Text style={styles.titles}>Location</Text>
-          <TextInput
-            placeholder="Location"
-            value={location}
-            onChangeText={(text) => setLocation(text)}
-            style={{
-              padding: 10,
-              backgroundColor: "#fff",
-              borderRadius: 10,
-              borderWidth: 1,
-            }}
-          />
-          <Text style={styles.titles}>Date</Text>
+       {/* tool bar */}
+       <View style={{ display:'flex',
+                flexDirection: 'row',alignItems:'center',backgroundColor:'#0225A1', paddingVertical:10,paddingHorizontal:15, marginTop:23}}>
 
-          <DatePicker
-            //   style={styles.datePicker}
-            style={{ width: "100%" }}
-            date={date}
-            mode="date"
-             placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate={today}
-            // maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: "absolute",
-                left: 8,
-                top: 4,
-                color: "blue",
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 0,
+                    <TouchableOpacity
+                        onPress={()=>navigation.goBack()}
+                        >
+                        <Icon name="keyboard-backspace" size={28} color="#fff"/>
+                    </TouchableOpacity>
 
-                backgroundColor: "#fff",
-                borderRadius: 10,
-                borderWidth: 1,
-                borderColor: "black",
-              },
-              // ... You can check the source to find the other keys.
-            }}
-            onDateChange={(date) => 
-              setDate(date)
-            }
-          />
+                    <View style={{justifyContent: 'center', width: '100%', flex:1}}>
+                        <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'white'}}>Book My Event</Text>
+                    </View>
 
-          <Text style={styles.titles}>Time</Text>
-
-          
-
-          {/* {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              
-            
-            />
-          )} */}
-
-          {/* <View>
-            <Button onPress={showTimepicker} title="time" 
-            onChangeText={(e) => setTime(e)}
-            />
-          </View> */}
-
-          <TextInput
-              placeholder='time'
-              style={{padding:10,backgroundColor:'#fff',
-              borderRadius:10,
-              borderWidth:1}}
-              value={time}
-              onChangeText={(text) => setTime(text)}
-              />
-              
         </View>
-        <TouchableOpacity style={styles.signinButton} onPress={addBooking}>
-          <Text style={styles.signinButtonText}>SUBMIT</Text>
-        </TouchableOpacity>
-      </View>
+      
+      <ScrollView style={{height: height, width: width, marginTop:40}}>
+          <View style={styles.boxcontainer}>
+            <View style={{ alignItems: "center" }}>
+              {/* <Text style={styles.titles}>Book Event</Text>  */}
+            </View>
+            <View style={{ padding: 15}}>
+              <Text style={styles.titles}>Select Event Type</Text>
+              
+              <Picker
+                selectedValue={events}
+                onValueChange={(value, index) => {FilterFunction(value)}}
+              >
+                  <Picker.Item label="select" value="" />
+                <Picker.Item label="Wedding" value="Wedding" />
+                <Picker.Item label="Party" value="Party" />
+                <Picker.Item label="Funeral" value="Funeral" />
+              </Picker>
+
+              <Text style={styles.titles}>Fees </Text>
+            {
+                EventType.map(element=>(
+
+                <>
+              
+                  {/* <Text>{element.selector}</Text> */}
+                  <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.selector} = R {element.Price}</Text>
+                
+                  {/* <TextInput
+                    placeholder="R00.00"
+                    keyboardType="numeric"
+                    value={element.Price}
+                  // onChangeText={(text) => setFee(text)}
+                    style={{
+                      padding: 10,
+                      backgroundColor: "gainsboro",
+                      borderRadius: 10,
+                      borderWidth: 1,
+                    }}
+                  /> */}
+                      </>
+              
+                ))
+            
+            }
+            
+            <TextInput
+                    placeholder="R00.00"
+                    keyboardType="numeric"
+                    value={fee}
+                    onChangeText={(text) => setFee(text)}
+                    style={{
+                      padding: 10,
+                      backgroundColor: "gainsboro",
+                      borderRadius: 10,
+                      borderWidth: 1,
+                    }}
+                  />
+          
+              <Text style={styles.titles}>Event Description</Text>
+              <TextInput
+                placeholder="Description"
+                multiline
+                value={Description}
+                onChangeText={(text) => setDescription(text)}
+                numberOfLines={3}
+                style={{
+                  padding: 10,
+                  backgroundColor: "#fff",
+                  borderRadius: 10,
+                  borderWidth: 1,
+                }}
+              />
+              <Text style={styles.titles}>Location</Text>
+              <TextInput
+                placeholder="Location"
+                value={location}
+                onChangeText={(text) => setLocation(text)}
+                style={{
+                  padding: 10,
+                  backgroundColor: "#fff",
+                  borderRadius: 10,
+                  borderWidth: 1,
+                }}
+              />
+              <Text style={styles.titles}>Date</Text>
+
+              <DatePicker
+                //   style={styles.datePicker}
+                style={{ width: "100%" }}
+                date={date}
+                mode="date"
+                placeholder="select date"
+                format="YYYY-MM-DD"
+                minDate={today}
+                // maxDate="2016-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: "absolute",
+                    left: 8,
+                    top: 4,
+                    color: "blue",
+                    marginLeft: 0,
+                  },
+                  dateInput: {
+                    marginLeft: 0,
+
+                    backgroundColor: "#fff",
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: "black",
+                  },
+                  // ... You can check the source to find the other keys.
+                }}
+                onDateChange={(date) => 
+                  setDate(date)
+                }
+              />
+
+              <Text style={styles.titles}>Time</Text>
+
+              <TextInput
+                  placeholder='time'
+                  style={{padding:10,backgroundColor:'#fff',
+                  borderRadius:10,
+                  borderWidth:1}}
+                  value={time}
+                  onChangeText={(text) => setTime(text)}
+                  />
+                  
+            </View>
+            <TouchableOpacity style={styles.signinButton} onPress={addBooking}>
+              <Text style={styles.signinButtonText}>SUBMIT</Text>
+            </TouchableOpacity>
+          </View>
+      </ScrollView>
+     
     </SafeAreaView>
   );
 };
@@ -321,7 +318,6 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "white",
     height: "100%",
-    top:40
   },
 
   headerTitle: {
@@ -357,6 +353,7 @@ const styles = StyleSheet.create({
   },
   titles: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 16,
+    color:'#333'
   },
 });

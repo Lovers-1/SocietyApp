@@ -1,9 +1,11 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View,TouchableOpacity} from 'react-native'
 import React,{useEffect, useState} from 'react'
 import { auth, db } from './firebase'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Divider } from 'react-native-elements'
 const Report = ({navigation}) => {
     const UserId=auth.currentUser.uid
     const [payment,setPayment]=useState([])
@@ -34,64 +36,86 @@ const Report = ({navigation}) => {
     
       }, [])
   return (
-    <ScrollView style={{top:30}}>
-      <View style={styles.headerContainer} 
-            >
-               
-               <Feather name="arrow-left" size={30}
-             onPress={()=>navigation.goBack()} /> 
-            <Text style={styles.headerTitle}></Text>
-            </View>
+    <SafeAreaProvider>
+      {/* tool bar */}
+      <View style={{ display:'flex',
+              flexDirection: 'row',alignItems:'center',backgroundColor:'#0225A1', paddingVertical:10,paddingHorizontal:15, marginTop:23}}>
+
+                  <TouchableOpacity
+                      onPress={()=>navigation.goBack()}
+                      >
+                      <Icon name="keyboard-backspace" size={28} color="#fff"/>
+                  </TouchableOpacity>
+
+                  <View style={{justifyContent: 'center', width: '100%', flex:1}}>
+                      <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'white'}}>My Reports History</Text>
+                  </View>
+
+      </View>
+      <ScrollView style={{top:0}}>
+      
+
    {payment.length > 0 ? (
         payment.map(element =>
 
           <>
 
-            <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3 }}>
+            <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3, borderRadius:15 }}>
 
-              <View>
-                
+
+              {/* amount */}
+              <View style={{width: 200}}>
+                <View style={{ backgroundColor: 'blue', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center',borderTopLeftRadius:10, borderBottomRightRadius:10}}>
+                  <Icon name="money" color='#fff' size={20} style={{ paddingHorizontal: 5 }} />
+                  <Text style={{color: '#fff'}}>
+                    Total fee Amount -
+                  </Text>
+                  <Text style={{color: '#fff'}}>
+                     {" "}R{element.fee}
+                  </Text>
+                </View>
               </View>
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Ionicons name="documents" color='#0225A1' size={30} />
-                <Text>
+
+              <Divider style={{width: 90, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+
+              {/* type of event */}
+              <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center'}}>
+                <Ionicons name="documents" color='#333' size={20} />
+                {/* <Text>
                   Even Type
-                </Text>
-                <Text>
+                </Text> */}
+                <Text style={{paddingHorizontal: 5}}>
                   {element.eventtype}
                 </Text>
               </View>
-           
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Icon name="money" color='#0225A1' size={30} style={{ paddingHorizontal: 5 }} />
-                <Text>
-                  fee Amount
-                </Text>
-                <Text>
-                  R{element.fee}
-                </Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
+              
+              <Divider style={{width: 120, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+              {/* payment due date */}
+              <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center' }}>
                 <Feather
-                  name="calendar" size={30}
+                  name="calendar" size={20}
                   style={{ paddingHorizontal: 5 }}
-                  color='#0225A1'
+                  color='#333'
                 />
                 <Text>
-                  Date Due
-                </Text>
-                <Text>
-                  {element.date}
+                  {element.date} (Due-date)
                 </Text>
               </View>
-              <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Ionicons name="documents" color='#0225A1' size={30} style={{ paddingHorizontal: 5 }} />
-                <Text>
+
+              <Divider style={{width: 170, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+
+              {/* description */}
+              <View style={{ justifyContent: 'flex-start', flexDirection: 'column', padding: 8,marginHorizontal:10 }}>
+                <Text style={{fontSize: 16, fontWeight: 'bold', color:'blue'}}>
                   Description
                 </Text>
-                <Text>
+                <View style={{flexDirection: 'row', alignItems:'center'}}>
+                    <Ionicons name="documents" color='#0225A1' size={15} style={{ paddingHorizontal: 5 }} />
+                    <Text style={{paddingHorizontal:5, paddingVertical:5, marginHorizontal:5,fontSize:14,color:'#333'}}>
                   {element.Description}
                 </Text>
+                </View>
+                
               </View>
              
             </View>
@@ -108,6 +132,8 @@ const Report = ({navigation}) => {
 
       }
     </ScrollView>
+    </SafeAreaProvider>
+    
   )
 }
 

@@ -13,44 +13,79 @@ const AboutSociety = ({navigation}) => {
             backgroundColor="#0225A1"
             barStyle="light-content"
             />
-             <View style={styles.headerContainer} > 
-              <TouchableOpacity onPress={()=>navigation.goBack()}>
-                  <Icon name="keyboard-backspace" size={20} style={{ padding: 5 }}/>
-              </TouchableOpacity>
-              
-              <Text style={styles.headerTitle}>About Event</Text>
-              </View>
+
+            {/* tool bar */}
+            <View style={{ display:'flex',
+                    flexDirection: 'row',alignItems:'center',backgroundColor:'#0225A1', paddingVertical:10,paddingHorizontal:15, marginTop:23}}>
+
+                        <TouchableOpacity
+                            onPress={()=>navigation.goBack()}
+                            >
+                            <Icon name="keyboard-backspace" size={28} color="#fff"/>
+                        </TouchableOpacity>
+
+                        <View style={{justifyContent: 'center', width: '100%', flex:1}}>
+                            <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'white'}}>About Society</Text>
+                        </View>
+
+            </View>
+
+            <View style={{marginHorizontal: 20, 
+                        marginVertical:10, display:'flex',
+                        flexDirection: 'row',alignItems:'center',
+                        backgroundColor:'#F9F9F9', padding:5,
+                        borderRadius:15,elevation: 2
+                        }}>
+
+                        <Icon
+                            style={{paddingLeft:5}}
+                            name="info" 
+                            size={20}
+                            color="#ff0000"/>
+
+                        <Text style={{
+                            fontSize:10, 
+                            paddingLeft:5,
+                            color:'#ff0000'
+                            }}>
+                            Please ensure you do not share this details for security purposes.
+                        </Text>
+
+                    </View>
+            
             <View style={styles.boxcontainer}>
+
                 <View style={styles.inputSubContainer}>
-                <Icon name="group" size={22}
-                    color='#0225A1'
-                    style={{marginRight:10}}/>
-                 <Text>society</Text>
+                    <Icon name="group" size={22}
+                        color='#0225A1'
+                        style={{marginRight:10}}/>
+                    <Text>Polite Nice Mood Changing Society</Text>
                 </View>
+
                 <View style={styles.inputSubContainer}>
-                <Ionicons name="documents" color='#0225A1' size={30}/>
-                
-                 <Text>society</Text>
+                    <Ionicons name="documents" color='#0225A1' size={30}/>
+                    <Text style={{fontSize:12, paddingHorizontal:5}}>We serve the less disadvantaged people in our community</Text>
                 </View>
                 <View style={styles.inputSubContainer}>
                 
                 <Ionicons name="location" color='#0225A1' size={30}/>
-                 <Text>society</Text>
+                 <Text>Ward 40, Moletji </Text>
                 </View>
-                <View style={styles.inputSubContainer}>
+                <View style={{position: 'absolute', bottom:0, right:5, flexDirection:'row', alignItems:'center', backgroundColor:'#0225A1', padding:5, borderBottomRightRadius:10}}>
                 
                 <Feather
-                 name="calendar" size={22}
-                 color='#0225A1'
+                 name="calendar" size={18}
+                 color='#fff'
                  />
-                 <Text>society</Text>
+                 <Text style={{color:'white', paddingHorizontal:8}}>14-02-2022</Text>
+
                 </View>
                 <View style={styles.inputSubContainer}>
                
                 <Icon name="fiber-pin" size={22}
-                    color='#0225A1'
+                    color='#ff0000'
                     style={{marginRight:10}}/>
-                 <Text>society</Text>
+                 <Text style={{color:'#ff0000'}}>45*12 (society pin)</Text>
                 </View>
             </View>
         </View>
@@ -69,8 +104,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         paddingVertical:30,
         paddingHorizontal:10,
-        
-       marginTop:30
+        marginTop:10
    
      },
      headerTitle:{
@@ -82,11 +116,13 @@ const styles = StyleSheet.create({
  
      },
        boxcontainer:{
-           backgroundColor:'#DADADA',
-           height:'60%',
-           width:'80%',
-           marginLeft:40,
-           marginTop:40
+           backgroundColor:'#F9F9F9',
+           height:200,
+           width:360,
+           elevation: 2,
+           marginHorizontal:10,
+           position:'relative'
+           
        },
        inputContainer:{
         backgroundColor:'#F5F5F5',

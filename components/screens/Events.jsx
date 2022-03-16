@@ -6,6 +6,8 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { date } from 'yup'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Divider } from 'react-native-elements'
 
 const Events = ({ navigation,route }) => {
   const [Status, setStatus] = useState('')
@@ -38,102 +40,144 @@ const Events = ({ navigation,route }) => {
 
   }, [])
   return (
-    <ScrollView>
+    <SafeAreaProvider>
+       {/* tool bar */}
+       <View style={{ display:'flex',
+              flexDirection: 'row',alignItems:'center',backgroundColor:'#0225A1', paddingVertical:10,paddingHorizontal:15, marginTop:23}}>
 
-      <View style={{
-        paddingHorizontal: 15,
-        paddingVertical: 10, display: 'flex',
-        flexDirection: 'row', alignItems: 'center', elevation: 1, backgroundColor: '#0225A1', height: 80
-      }}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="keyboard-backspace" size={20} style={{ padding: 5, color: '#FFF' }} />
-        </TouchableOpacity>
-        <View style={{ justifyContent: 'center', width: '100%', flex: 1, }}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#fff', marginTop: 10, paddingTop: 15 }}>EVENT</Text>
-        </View>
+                  <TouchableOpacity
+                      onPress={()=>navigation.goBack()}
+                      >
+                      <Icon name="keyboard-backspace" size={28} color="#fff"/>
+                  </TouchableOpacity>
+
+                  <View style={{justifyContent: 'center', width: '100%', flex:1}}>
+                      <Text style={{fontSize:16, fontWeight: 'bold',textAlign: 'center',color:'white'}}>Events Awaiting Payment</Text>
+                  </View>
+
       </View>
 
-      {book.length > 0 ? (
-        book.map(element =>
+      <View style={{marginHorizontal: 20, 
+        marginVertical:10, display:'flex',
+        flexDirection: 'row',alignItems:'center',
+        backgroundColor:'#F9F9F9', padding:5,
+        borderRadius:15,elevation: 2
+        }}>
 
-          <>
-            <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3 }}>
+        <Icon
+            style={{paddingLeft:5}}
+            name="info" 
+            size={20}
+            color="#ff0000"/>
 
-              <View>
-                <Text>
-                  Event To Pay
-                </Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Ionicons name="documents" color='#0225A1' size={30} />
-                <Text>
-                  Even Type
-                </Text>
-                <Text>
-                  {element.events}
-                </Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Ionicons name="location" color='#0225A1' size={30} />
-                <Text>
-                  Location
-                </Text>
-                <Text>
-                  {element.location}
-                </Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Icon name="money" color='#0225A1' size={30} style={{ paddingHorizontal: 5 }} />
-                <Text>
-                  fee Amount
-                </Text>
-                <Text>
-                  R{element.fee}
-                </Text>
-              </View>
-              <View style={{ backgroundColor: '#fff', justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Feather
-                  name="calendar" size={30}
-                  style={{ paddingHorizontal: 5 }}
-                  color='#0225A1'
-                />
-                <Text>
-                  Date Due
-                </Text>
-                <Text>
-                  {element.date}
-                </Text>
-              </View>
-              <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 8 }}>
-                <Ionicons name="documents" color='#0225A1' size={30} style={{ paddingHorizontal: 5 }} />
-                <Text>
-                  Description
-                </Text>
-                <Text>
-                  {element.Description}
-                </Text>
-              </View>
-              <TouchableOpacity style={styles.signinButton}
-              >
-                <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
-                  name:name,email:email,fee:element.fee,date:element.date,
-                  Description:element.Description,})}>PAY R {element.fee}</Text>
-              </TouchableOpacity>
+        <Text style={{
+            fontSize:10, 
+            paddingLeft:5,
+            color:'#ff0000'
+            }}>
+            Please ensure you make earlier payments to avoid charges on your fee.
+        </Text>
+
+    </View>
+
+      <ScrollView>
+          
+          {book.length > 0 ? (
+            book.map(element =>
+
+              <>
+                <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3 }}>
+
+                  {/* amount */}
+                    <View style={{width: 200}}>
+                      <View style={{ backgroundColor: 'red', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center', borderBottomRightRadius:10}}>
+                        <Icon name="money" color='#fff' size={20} style={{ paddingHorizontal: 5 }} />
+                        <Text style={{color: '#fff'}}>
+                          Total fee Amount -
+                        </Text>
+                        <Text style={{color: '#fff'}}>
+                          {" "}R{element.fee}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <Divider style={{width: 90, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+
+                    {/* event type */}
+                    <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center'}}>
+                      <Ionicons name="documents" color='#333' size={20} />
+                      <Text style={{paddingHorizontal: 5,color:'#333'}}>
+                        {element.events} - event
+                      </Text>
+                    </View>
+
+                    <Divider style={{width: 120, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+
+                    {/* date */}
+                    <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center' }}>
+                      <Feather
+                        name="calendar" size={20}
+                        style={{ paddingHorizontal: 5 }}
+                        color='red'
+                      />
+                      <Text style={{color:'red', fontSize:12}}>
+                        {element.date} (Due-date)
+                      </Text>
+                    </View>
+
+                    <Divider style={{width: 170, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+
+                  {/* location */}
+                  <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8 , alignItems:'center'}}>
+                    <Ionicons name="location" color='#333' size={20} />
+                    
+                    <Text style={{color:'#333'}}>
+                      {element.location}
+                    </Text>
+
+                  </View>
+
+                  <Divider style={{width: 200, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+
+                  
+
+
+                  {/* description */}
+                  <View style={{ justifyContent: 'flex-start', flexDirection: 'column', padding: 8,marginHorizontal:10 }}>
+                    <Text style={{fontSize: 16, fontWeight: 'bold', color:'#333'}}>
+                      Description
+                    </Text>
+                    <View style={{flexDirection: 'row', alignItems:'center'}}>
+                        <Ionicons name="documents" color='#333' size={15} style={{ paddingHorizontal: 5 }} />
+                        <Text style={{paddingHorizontal:5, paddingVertical:5, marginHorizontal:5,fontSize:14,color:'#333'}}>
+                      {element.Description}
+                    </Text>
+                    </View>
+                  </View>
+
+                  <TouchableOpacity style={styles.signinButton}
+                  >
+                    <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
+                      name:name,email:email,fee:element.fee,date:element.date,
+                      Description:element.Description,})}>PAY R {element.fee}</Text>
+                  </TouchableOpacity>
+                  
+                </View>
+
               
-            </View>
+              </>
+            )
+          ) : (<Text style={{
+            flex: 1,
+            backgroundColor: '#fff',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>No Accepted Event</Text>)
 
-           
-          </>
-        )
-      ) : (<Text style={{
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>No Accepted Event</Text>)
-
-      }
-    </ScrollView>
+          }
+          </ScrollView>
+    </SafeAreaProvider>
+    
   )
 }
 
@@ -199,8 +243,8 @@ const styles = StyleSheet.create({
 
   },
   signinButton: {
-    backgroundColor: '#0225A1',
-    borderRadius: 8,
+    backgroundColor: '#ff0000',
+    borderRadius: 0,
     height: 40,
     marginHorizontal: 30,
     justifyContent: 'center',
