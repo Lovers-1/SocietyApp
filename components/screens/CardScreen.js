@@ -70,7 +70,7 @@ const name=route.params.name
 const email=route.params.email
 const uid=auth.currentUser.uid
 const eventtype=route.params.eventtype
-const fee=route.params.fee;
+const price=route.params.price;
 const Description = route.params.Description;
 const date = route.params.date;
 
@@ -92,7 +92,7 @@ let today = new Date();
       email,
       uid,
       eventtype,
-      fee,
+      price,
       Description,
     date,
     Cdate,

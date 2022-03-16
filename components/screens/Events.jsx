@@ -22,7 +22,7 @@ const Events = ({ navigation,route }) => {
       for (let x in a_) {
         item.push({
           Status: a_[x].Status, key: x, location: a_[x].location,
-          Description: a_[x].Description, events: a_[x].events, fee: a_[x].fee,
+          Description: a_[x].Description, events: a_[x].events, price: a_[x].price,
           time: a_[x].time,date: a_[x].date
         })
       }
@@ -96,7 +96,7 @@ const Events = ({ navigation,route }) => {
                           Total fee Amount -
                         </Text>
                         <Text style={{color: '#fff'}}>
-                          {" "}R{element.fee}
+                          {" "}R{element.price}
                         </Text>
                       </View>
                     </View>
@@ -158,8 +158,8 @@ const Events = ({ navigation,route }) => {
                   <TouchableOpacity style={styles.signinButton}
                   >
                     <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
-                      name:name,email:email,fee:element.fee,date:element.date,
-                      Description:element.Description,})}>PAY R {element.fee}</Text>
+                      name:name,email:email,price:element.price,date:element.date,
+                      Description:element.Description,})}>PAY R {element.price}</Text>
                   </TouchableOpacity>
                   
                 </View>

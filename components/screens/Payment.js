@@ -8,7 +8,7 @@ const payment = ({navigation,route}) => {
     const name=route.params.name
     const email=route.params.email
                 const eventtype=route.params.eventtype
-                const fee=route.params.fee;
+                const price=route.params.price;
                 const Description = route.params.Description;
                 const date = route.params.date;
     return (    
@@ -36,7 +36,7 @@ const payment = ({navigation,route}) => {
                         Use Existing Card
                     </Text>
                   <TouchableOpacity onPress={() =>navigation.navigate('CardScreen',{eventtype:eventtype,
-                  name:name,email:email,fee:fee,date:date,
+                  name:name,email:email,price:price,date:date,
                   Description:Description,})}>
 
                     <View style={{flexDirection: 'row', justifyContent:'space-between'}}>

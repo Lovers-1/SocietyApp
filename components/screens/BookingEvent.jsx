@@ -73,6 +73,7 @@ let s = addZero(d.getSeconds());
         Description,
         date,
         fee,
+        price,
         time
        ,name,email
       })
@@ -140,6 +141,11 @@ let s = addZero(d.getSeconds());
   }
   const today=new Date()
   const newtime=moment(new Date()).format('HH:MM')
+
+  var price = 0;
+
+
+
     
   return (
     <SafeAreaView style={styles.box}>
@@ -186,13 +192,13 @@ let s = addZero(d.getSeconds());
                 <>
               
                   {/* <Text>{element.selector}</Text> */}
-                  <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.selector} = R {element.Price}</Text>
+                  <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.selector} = R {price= element.Price}</Text>
                 {}
                   <TextInput
                     placeholder="R00.00"
                     keyboardType="numeric"
                     value={element.Price}
-                   onChangeText={(text) => setFee(text)}
+                  //  onChangeText={ setFee(element.Price)}
                     style={{
                       padding: 10,
                       backgroundColor: "gainsboro",

@@ -32,7 +32,7 @@ const Notification = ({navigation}) => {
               const a_ =snap.val();
               for (let x in a_){
                 item.push({Status:a_[x].Status,key:x,location:a_[x].location,
-                  Description:a_[x].Description,events:a_[x].events,fee:a_[x].fee,
+                  Description:a_[x].Description,events:a_[x].events,price:a_[x].price,
                   time:a_[x].time ,date:a_[x].date, name:a_[x].name})
               }
               setBookings(item)
@@ -77,7 +77,7 @@ const Notification = ({navigation}) => {
                 {/* <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/> */}
                  <View style={{flexDirection:'row', position:'relative', width:'80%'}}>
                     <View >
-                      <Text style={{fontWeight:'bold'}}>{element.name}{element.fee}</Text>
+                      <Text style={{fontWeight:'bold'}}>{element.name}</Text>
                       <Text >Booked for {element.events} and the status</Text>
                       
                       <Text>is {element.Status} at {element.time}</Text>
