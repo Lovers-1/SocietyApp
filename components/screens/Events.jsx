@@ -90,7 +90,7 @@ const Events = ({ navigation,route }) => {
 
                   {/* amount */}
                     <View style={{width: 200}}>
-                      <View style={{ backgroundColor: 'red', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center', borderBottomRightRadius:10}}>
+                      <View style={{ backgroundColor: 'blue', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center', borderBottomRightRadius:10}}>
                         <Icon name="money" color='#fff' size={20} style={{ paddingHorizontal: 5 }} />
                         <Text style={{color: '#fff'}}>
                           Total fee Amount -
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
 
   },
   signinButton: {
-    backgroundColor: '#ff0000',
+    backgroundColor: 'blue',
     borderRadius: 0,
     height: 40,
     marginHorizontal: 30,

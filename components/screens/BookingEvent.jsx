@@ -187,26 +187,26 @@ let s = addZero(d.getSeconds());
               
                   {/* <Text>{element.selector}</Text> */}
                   <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.selector} = R {element.Price}</Text>
-                
-                  {/* <TextInput
+                {}
+                  <TextInput
                     placeholder="R00.00"
                     keyboardType="numeric"
                     value={element.Price}
-                  // onChangeText={(text) => setFee(text)}
+                   onChangeText={(text) => setFee(text)}
                     style={{
                       padding: 10,
                       backgroundColor: "gainsboro",
                       borderRadius: 10,
                       borderWidth: 1,
                     }}
-                  /> */}
+                  />
                       </>
               
                 ))
             
             }
             
-            <TextInput
+            {/* <TextInput
                     placeholder="R00.00"
                     keyboardType="numeric"
                     value={fee}
@@ -217,7 +217,7 @@ let s = addZero(d.getSeconds());
                       borderRadius: 10,
                       borderWidth: 1,
                     }}
-                  />
+                  /> */}
           
               <Text style={styles.titles}>Event Description</Text>
               <TextInput
@@ -283,14 +283,25 @@ let s = addZero(d.getSeconds());
 
               <Text style={styles.titles}>Time</Text>
 
-              <TextInput
+              {/* <TextInput
                   placeholder='time'
                   style={{padding:10,backgroundColor:'#fff',
                   borderRadius:10,
                   borderWidth:1}}
                   value={time}
                   onChangeText={(text) => setTime(text)}
-                  />
+                  /> */}
+
+              <Picker
+                selectedValue={time}
+                onValueChange={(value, index) => {setTime(value)}}
+              >
+                <Picker.Item label="Select time" value="" />
+                <Picker.Item label="09:00 am" value="09:00 am" />
+                <Picker.Item label="12:00 pm" value="12:00 pm" />
+                <Picker.Item label="15:00 pm" value="15:00 pm" />
+                <Picker.Item label="18:00 pm" value="18:00 pm" />
+              </Picker>
                   
             </View>
             <TouchableOpacity style={styles.signinButton} onPress={addBooking}>

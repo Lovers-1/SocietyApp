@@ -77,10 +77,10 @@ const Notification = ({navigation}) => {
                 {/* <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/> */}
                  <View style={{flexDirection:'row', position:'relative', width:'80%'}}>
                     <View >
-                      <Text style={{fontWeight:'bold'}}>{element.name} {element.name}</Text>
-                      <Text > booked for {element.events} and the status</Text>
+                      <Text style={{fontWeight:'bold'}}>{element.name}{element.fee}</Text>
+                      <Text >Booked for {element.events} and the status</Text>
                       
-                      <Text> is {element.Status} at {time}</Text>
+                      <Text>is {element.Status} at {element.time}</Text>
                       {/* <Text style={{color:'#0225A1'}}></Text> */}
                     </View>
                    
