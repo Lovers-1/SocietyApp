@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react';
+import React,{useState,useRef,useEffect} from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
 import Ico from 'react-native-vector-icons/MaterialCommunityIcons'
 import { View, SafeAreaView, Text, TouchableOpacity, TextInput, StyleSheet, Button, Image, ScrollView,Alert } from 'react-native';
@@ -16,7 +16,22 @@ import { auth, db } from './firebase';
 
 
 const SignUp = ({ navigation }) => {
-
+    const [code, setCode] = useState([]);
+    useEffect(()=>{
+        
+        db.ref('user').on('value',snap=>{
+          let item = [];
+          const a_ =snap.val();
+          for (let x in a_){
+            item.push({societyCode:a_[x].societyCode,key:x,})
+          }
+          setCode(item)
+        })
+     
+    // db.ref('BookEvent').on('value',snap=>{ 
+    //   setBookings({...snap.val() })
+    // })  
+},[])
     //
     const [visiable, setvisiable] = useState(true);
     const [show, setShow] = useState(false);
@@ -40,22 +55,48 @@ const SignUp = ({ navigation }) => {
 
     
     const createUser  = async (data) => {
+        const { uid, email, password, name, phoneNo ,surname,societyCode } = data
+       
+        
+                
+                
+        
         try {
-            const { uid, email, password, name, phoneNo ,surname,societyCode } = data
-            const user = await auth.createUserWithEmailAndPassword(
-                email.trim().toLowerCase(), password).then(res => {
-                db.ref(`/societyUser`).child(res.user.uid).set({
-                    name: name,
-                    surname: surname,
-                    email: email.trim().toLowerCase(),
-                    phoneNo: phoneNo,
-                    societyCode:societyCode,
-                    uid: res.user.uid
-                })
-            })
+            
+                code.map( async (element) =>{
+                   if (element.societyCode.indexOf(societyCode)>-1){
+                    const user = await auth.createUserWithEmailAndPassword(
+                        email.trim().toLowerCase(), password).then(res => {
+                        db.ref(`/societyUser`).child(res.user.uid).set({
+                            name: name,
+                            surname: surname,
+                            email: email.trim().toLowerCase(),
+                            phoneNo: phoneNo,
+                            societyCode:societyCode,
+                            uid: res.user.uid
+                        })
+                        navigation.navigate('HomeScreen')
+                    })
+                       
+                     // return setError('code do not match')
+                   }
+                   else{
+                    // alert(
+                    //     "No such Society Code"
+                    // )
+                    setError('code do not match')
+                   }
+                 
+               //   const itemData = element.societyCode ? element.societyCode : setError('code do not match')
+               //   return itemData.indexOf(societyCode) > -1
+               })
+           
+           
+         
             // .then(then(res =>{
             //     res.user.sendEmailVerifcation()
             // }))
+        
         }
         catch (error) {
             if (error.code == 'auth/email-already-in-use') {
@@ -75,8 +116,8 @@ const SignUp = ({ navigation }) => {
 
         }
 
-    }
-
+    
+}
     // const Submit= async (e)=>{
     //     e.preventDefault()
     //     if(password.current.value !== passwordConfirm.current.value){
@@ -145,6 +186,7 @@ const SignUp = ({ navigation }) => {
                             style={{ marginTop: 2, }}
                             source={require('../images/logo.png')}
                         />
+                        <Text style={{color:'red'}}>{error}</Text>
                     </View>
                     <Formik
                     initialValues={{ email: '', password: '',name:'', phoneNo:'', surname:'',passwordConfirm:'',societyCode:'' }}
@@ -159,7 +201,17 @@ const SignUp = ({ navigation }) => {
                         
                        <View>
                     <View style={styles.inputCon}>
-
+                    <View style={styles.lovers} >
+                            <Icon name='lock' size={22} color='black' style={{ margin: 10 }}></Icon>
+                            <TextInput style={{ width: "90%" }} 
+                            onChangeText={props.handleChange('societyCode')}
+                            value={props.values.societyCode}
+                            keyboardType='numeric'
+                             onBlur={props.handleBlur('societyCode')} placeholder="ENTER SOCIETY CODE " 
+                             secureTextEntry={visiable}
+                            ></TextInput>
+                        </View>
+                        {props.errors.societyCode? <Text style={{color:"red"}}>{props.errors.societyCode}</Text>:null}
                         <View style={styles.lovers} >
                             <Icon name='person' size={22} color='black' style={{ margin: 9 }}></Icon>
                             <TextInput
@@ -204,6 +256,7 @@ const SignUp = ({ navigation }) => {
                              style={{ width: "90%" }}
                              onChangeText={props.handleChange('phoneNo')}
                             value={props.values.phoneNo}
+                            keyboardType='numeric'
                             onBlur={props.handleBlur('phoneNo')}
                              ></TextInput>
                         </View>
@@ -241,22 +294,24 @@ const SignUp = ({ navigation }) => {
                         </View>
                         {props.errors.passwordConfirm? <Text style={{color:"red"}}>{props.errors.passwordConfirm}</Text>:null}
 
-                        <View style={styles.lovers} >
-                            <Icon name='lock' size={22} color='black' style={{ margin: 10 }}></Icon>
-                            <TextInput style={{ width: "90%" }} 
-                            onChangeText={props.handleChange('societyCode')}
-                            value={props.values.societyCode}
-                             onBlur={props.handleBlur('societyCode')} placeholder="ENTER SOCIETY CODE " 
-                             secureTextEntry={visiable}
-                            ></TextInput>
-                        </View>
-                        {props.errors.societyCode? <Text style={{color:"red"}}>{props.errors.societyCode}</Text>:null}
+                       
                     </View>
-                  <TouchableOpacity style={styles.signinButton} onPress={props.handleSubmit}>
+                    {
+                        error =='code do not match'?(
+                            <TouchableOpacity style={styles.signinButton} disabled={true} >
                 <Text style={styles.signinButtonText}>
                 REGISTER
                 </Text>
             </TouchableOpacity>
+                        ):(
+                            <TouchableOpacity style={styles.signinButton} onPress={props.handleSubmit}>
+                <Text style={styles.signinButtonText}>
+                REGISTER
+                </Text>
+            </TouchableOpacity>
+                        )
+                    }
+                  
                     <View style={styles.text} >
                         <Text style={{ padding: 8, color: 'gray', }}>
                             Already Have An Account?
