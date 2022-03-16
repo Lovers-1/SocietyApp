@@ -84,7 +84,7 @@ const SignUp = ({ navigation }) => {
                     // alert(
                     //     "No such Society Code"
                     // )
-                    setError('code do not match')
+                    setError('No such society code')
                    }
                  
                //   const itemData = element.societyCode ? element.societyCode : setError('code do not match')
