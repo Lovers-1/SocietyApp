@@ -28,17 +28,19 @@ const BookingEvent = ({ navigation ,route}) => {
   const [name,setName]=useState(route.params.name)
   const [surname,setSurname] = useState(route.params.surname);
   const [email,setEmail]=useState(route.params.email)
+  const [societyCode, setSocietyCode] = useState(route.params.societyCode)
+
   const [pickerindex, setpickerindex] = useState(0);
   const [events, setEvents] = useState("");
   const [location, setLocation] = useState("");
   const [Description, setDescription] = useState("");
   // const [Date,setDate]=useState('')
-  const [fee, setFee] = useState("");
+ 
   const [Status, setStatus] = useState("Pending");
   const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [time, setTime] = useState('')
 
-
+console.log(societyCode,"code")
 
 function addZero(i) {
   if (i < 10) {i = "0" + i}
@@ -72,13 +74,13 @@ let s = addZero(d.getSeconds());
         location,
         Description,
         date,
-        fee,
+        societyCode,       
         price,
         time
        ,name,email
       })
       setDescription('')
-      setFee('')
+      
       setLocation('')
       setTime('')
       navigation.navigate('bookingSc')

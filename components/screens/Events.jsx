@@ -14,6 +14,8 @@ const Events = ({ navigation,route }) => {
   const [book, setBookings] = useState([]);
   const name=route.params.name
   const email=route.params.email
+  const societyCode =route.params.societyCode
+ 
   useEffect(() => {
 
     db.ref('BookEvent').on('value', snap => {
@@ -39,6 +41,8 @@ const Events = ({ navigation,route }) => {
 
 
   }, [])
+
+  console.log(societyCode,"code 2")
   return (
     <SafeAreaProvider>
        {/* tool bar */}
@@ -158,7 +162,7 @@ const Events = ({ navigation,route }) => {
                   <TouchableOpacity style={styles.signinButton}
                   >
                     <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
-                      name:name,email:email,price:element.price,date:element.date,
+                      name:name,email:email,price:element.price,date:element.date,societyCode:societyCode,
                       Description:element.Description,})}>PAY R {element.price}</Text>
                   </TouchableOpacity>
                   

@@ -32,6 +32,8 @@ const HomeScreen = ({navigation,route}) => {
          setSocietyCode(snap.val().societyCode)
           })
     },[])
+
+    console.log(societyCode,"code 1")
     return (
         <ScrollView>
             
@@ -107,7 +109,7 @@ const HomeScreen = ({navigation,route}) => {
         <View style={{ marginTop:20, flex:1,flexDirection:'row',justifyContent:'flex-start', 
                     alignItems:'flex-start'}}>
 
-       <TouchableOpacity onPress={()=>navigation.navigate('Booking Event',{user:user,name:name,email:email})}
+       <TouchableOpacity onPress={()=>navigation.navigate('Booking Event',{user:user, societyCode:societyCode,name:name,email:email})}
        style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
        borderRadius: 15, marginLeft: 25, marginTop: -40}}>               
         
@@ -167,7 +169,7 @@ const HomeScreen = ({navigation,route}) => {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>navigation.navigate('Events',{user:user,name:name,email:email})}
+        <TouchableOpacity onPress={()=>navigation.navigate('Events',{user:user,name:name,societyCode:societyCode,email:email})}
             style={{ backgroundColor: '#ffffff', width: '40%', height: 90, 
             borderRadius: 15, marginLeft: 25, marginTop: 20}}>               
         

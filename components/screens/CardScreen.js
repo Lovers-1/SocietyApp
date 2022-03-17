@@ -73,9 +73,12 @@ const eventtype=route.params.eventtype
 const price=route.params.price;
 const Description = route.params.Description;
 const date = route.params.date;
+const societyCode= route.params.societyCode
 
 
 //
+
+console.log(societyCode," djnfkmckmdckms")
 
 
 //
@@ -93,7 +96,7 @@ let today = new Date();
       uid,
       eventtype,
       price,
-      Description,
+      Description,societyCode,
     date,
     Cdate,
     Ctime,
