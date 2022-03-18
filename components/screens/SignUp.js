@@ -202,11 +202,11 @@ const SignUp = ({ navigation }) => {
                        <View>
                     <View style={styles.inputCon}>
                     <View style={styles.lovers} >
-                            <Icon name='lock' size={22} color='black' style={{ margin: 10 }}></Icon>
+                            <Icon name='fiber-pin' size={22} color='black' style={{ margin: 10 }}></Icon>
                             <TextInput style={{ width: "90%" }} 
                             onChangeText={props.handleChange('societyCode')}
                             value={props.values.societyCode}
-                            keyboardType='numeric'
+                            keyboardType='phone-pad'
                              onBlur={props.handleBlur('societyCode')} placeholder="ENTER SOCIETY CODE " 
                              secureTextEntry={visiable}
                             ></TextInput>

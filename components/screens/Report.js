@@ -18,7 +18,7 @@ const Report = ({navigation}) => {
           for (let x in a_) {
             item.push({
               Status: a_[x].Status, key: x, name:a_[x].name,
-              Description: a_[x].Description, eventtype: a_[x].eventtype, fee: a_[x].fee,
+              Description: a_[x].Description, eventtype: a_[x].eventtype, price: a_[x].price,
               time: a_[x].time,date: a_[x].date,Ctime:a_[x].Ctime,Cdate:a_[x].Cdate,uid:a_[x].uid
             })
           }
@@ -68,10 +68,10 @@ const Report = ({navigation}) => {
                 <View style={{ backgroundColor: 'blue', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center',borderTopLeftRadius:10, borderBottomRightRadius:10}}>
                   <Icon name="money" color='#fff' size={20} style={{ paddingHorizontal: 5 }} />
                   <Text style={{color: '#fff'}}>
-                    Total fee Amount -
+                    Total  Amount - Paid
                   </Text>
                   <Text style={{color: '#fff'}}>
-                     {" "}R{element.fee}
+                     {" "}R{element.price}
                   </Text>
                 </View>
               </View>

@@ -25,7 +25,7 @@ const Events = ({ navigation,route }) => {
         item.push({
           Status: a_[x].Status, key: x, location: a_[x].location,
           Description: a_[x].Description, events: a_[x].events, price: a_[x].price,
-          time: a_[x].time,date: a_[x].date
+          time: a_[x].time,date: a_[x].date,societyCode:a_[x].societyCode
         })
       }
       const text = 'Accepted'
@@ -90,83 +90,91 @@ const Events = ({ navigation,route }) => {
             book.map(element =>
 
               <>
-                <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3 }}>
+              {societyCode == element.societyCode ? (
+                 <View style={{ margin: 20,backgroundColor: '#fff',elevation: 3 }}>
 
-                  {/* amount */}
-                    <View style={{width: 200}}>
-                      <View style={{ backgroundColor: 'blue', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center', borderBottomRightRadius:10}}>
-                        <Icon name="money" color='#fff' size={20} style={{ paddingHorizontal: 5 }} />
-                        <Text style={{color: '#fff'}}>
-                          Total fee Amount -
-                        </Text>
-                        <Text style={{color: '#fff'}}>
-                          {" "}R{element.price}
-                        </Text>
-                      </View>
-                    </View>
+                 {/* amount */}
+                   <View style={{width: 200}}>
+                     <View style={{ backgroundColor: 'blue', justifyContent: 'flex-start', flexDirection: 'row', padding: 8, alignItems:'center', borderBottomRightRadius:10}}>
+                       <Icon name="money" color='#fff' size={20} style={{ paddingHorizontal: 5 }} />
+                       <Text style={{color: '#fff'}}>
+                         Total fee Amount -
+                       </Text>
+                       <Text style={{color: '#fff'}}>
+                         {" "}R{element.price}
+                         
+                       </Text>
+                     </View>
+                   </View>
 
-                    <Divider style={{width: 90, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+                   <Divider style={{width: 90, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
 
-                    {/* event type */}
-                    <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center'}}>
-                      <Ionicons name="documents" color='#333' size={20} />
-                      <Text style={{paddingHorizontal: 5,color:'#333'}}>
-                        {element.events} - event
-                      </Text>
-                    </View>
+                   {/* event type */}
+                   <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center'}}>
+                     <Ionicons name="documents" color='#333' size={20} />
+                     <Text style={{paddingHorizontal: 5,color:'#333'}}>
+                       {element.events} - event
+                     </Text>
+                   </View>
 
-                    <Divider style={{width: 120, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+                   <Divider style={{width: 120, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
 
-                    {/* date */}
-                    <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center' }}>
-                      <Feather
-                        name="calendar" size={20}
-                        style={{ paddingHorizontal: 5 }}
-                        color='red'
-                      />
-                      <Text style={{color:'red', fontSize:12}}>
-                        {element.date} (Due-date)
-                      </Text>
-                    </View>
+                   {/* date */}
+                   <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8, alignItems:'center' }}>
+                     <Feather
+                       name="calendar" size={20}
+                       style={{ paddingHorizontal: 5 }}
+                       color='red'
+                     />
+                     <Text style={{color:'red', fontSize:12}}>
+                       {element.date} (Due-date) 
+                     </Text>
+                   </View>
 
-                    <Divider style={{width: 170, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+                   <Divider style={{width: 170, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
 
-                  {/* location */}
-                  <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8 , alignItems:'center'}}>
-                    <Ionicons name="location" color='#333' size={20} />
-                    
-                    <Text style={{color:'#333'}}>
-                      {element.location}
-                    </Text>
+                 {/* location */}
+                 <View style={{ backgroundColor: '#fff', justifyContent: 'flex-end', flexDirection: 'row', padding: 8 , alignItems:'center'}}>
+                   <Ionicons name="location" color='#333' size={20} />
+                   
+                   <Text style={{color:'#333'}}>
+                     {element.location}
+                   </Text>
 
-                  </View>
+                 </View>
 
-                  <Divider style={{width: 200, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
+                 <Divider style={{width: 200, justifyContent:'flex-end', alignItems:'flex-end', alignSelf:'flex-end'}}/>
 
-                  
+                 
 
 
-                  {/* description */}
-                  <View style={{ justifyContent: 'flex-start', flexDirection: 'column', padding: 8,marginHorizontal:10 }}>
-                    <Text style={{fontSize: 16, fontWeight: 'bold', color:'#333'}}>
-                      Description
-                    </Text>
-                    <View style={{flexDirection: 'row', alignItems:'center'}}>
-                        <Ionicons name="documents" color='#333' size={15} style={{ paddingHorizontal: 5 }} />
-                        <Text style={{paddingHorizontal:5, paddingVertical:5, marginHorizontal:5,fontSize:14,color:'#333'}}>
-                      {element.Description}
-                    </Text>
-                    </View>
-                  </View>
+                 {/* description */}
+                 <View style={{ justifyContent: 'flex-start', flexDirection: 'column', padding: 8,marginHorizontal:10 }}>
+                   <Text style={{fontSize: 16, fontWeight: 'bold', color:'#333'}}>
+                     Description
+                   </Text>
+                   <View style={{flexDirection: 'row', alignItems:'center'}}>
+                       <Ionicons name="documents" color='#333' size={15} style={{ paddingHorizontal: 5 }} />
+                       <Text style={{paddingHorizontal:5, paddingVertical:5, marginHorizontal:5,fontSize:14,color:'#333'}}>
+                     {element.Description}
+                   </Text>
+                   </View>
+                 </View>
 
-                  <TouchableOpacity style={styles.signinButton}
-                  >
-                    <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
-                      name:name,email:email,price:element.price,date:element.date,societyCode:societyCode,
-                      Description:element.Description,})}>PAY R {element.price}</Text>
-                  </TouchableOpacity>
-                  
-                </View>
+                 <TouchableOpacity style={styles.signinButton}
+                 >
+                   <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
+                     name:name,email:email,price:element.price,date:element.date,societyCode:societyCode,key:key,
+                     Description:element.Description,})}>PAY R {element.price}</Text>
+                 </TouchableOpacity>
+                 
+               </View>
+              ):(
+                <>
+               
+                </>
+              )}
+               
 
               
               </>

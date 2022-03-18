@@ -56,7 +56,7 @@ const HomeScreen = ({navigation,route}) => {
                 <Text style={{fontSize: 18, color: '#ffffff', fontWeight: '800',paddingVertical:3, letterSpacing:2}}>{name} {surname}</Text>
             </Text>
                 
-                <TouchableOpacity style={{width: '20%', alignItems:'center'}} onPress={()=>navigation.navigate('Notification')}>
+                <TouchableOpacity style={{width: '20%', alignItems:'center'}} onPress={()=>navigation.navigate('Notification', {societyCode:societyCode})}>
                 <Text style={{padding: 6, textAlign: 'center',justifyContent:'center', alignContent:'center',backgroundColor: '#ffffff',height:40,width:40, borderRadius: 100, alignSelf: 'center'}}>
                                 <Icon 
                                 name='ios-notifications'
@@ -99,7 +99,7 @@ const HomeScreen = ({navigation,route}) => {
                 </Text>
             </View>
             <View style={{width:80, height: 80, marginTop: 1, marginLeft: 180, textAlign:'right'}}>
-                <Text style={{color:'#0225A1',textAlign:'right'}}>
+                <Text style={{color:'#0225A1',textAlign:'right',display:'none'}}>
                     View All
                 </Text>
             </View>

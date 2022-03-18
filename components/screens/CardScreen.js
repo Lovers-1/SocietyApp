@@ -74,7 +74,7 @@ const price=route.params.price;
 const Description = route.params.Description;
 const date = route.params.date;
 const societyCode= route.params.societyCode
-
+const key =route.key
 
 //
 
@@ -101,9 +101,9 @@ let today = new Date();
     Cdate,
     Ctime,
     Status:'Paid'
-
 //
     })
+    //db.ref('payment').child(uid).update({Status:'Completed'})
 }
   const onSubmit = async () => {
 

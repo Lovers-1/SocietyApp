@@ -47,10 +47,8 @@ function addZero(i) {
   return i;
 }
 
-const d = new Date();
-let h = addZero(d.getHours());
-let m = addZero(d.getMinutes());
-let s = addZero(d.getSeconds());
+const bookTime = moment(new Date()).format('HH:MM');
+
 //let time = h + ":" + m ;
 
   const addBooking = () => {
@@ -76,7 +74,8 @@ let s = addZero(d.getSeconds());
         date,
         societyCode,       
         price,
-        time
+        time,
+        bookTime
        ,name,email
       })
       setDescription('')

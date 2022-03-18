@@ -11,12 +11,14 @@ import Sm from "react-native-vector-icons/SimpleLineIcons"
 const height = Dimensions.get('screen').height;
 const width = Dimensions.get('screen').width;
 
-const Notification = ({navigation}) => {
+const Notification = ({navigation,route}) => {
 
     const [Status,setStatus]=useState('')
     const [book, setBookings] = useState([]);
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
+
+  const societyCode = route.params.societyCode;
   useEffect(() => {
     let today = new Date();
     let date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
@@ -33,8 +35,9 @@ const Notification = ({navigation}) => {
               for (let x in a_){
                 item.push({Status:a_[x].Status,key:x,location:a_[x].location,
                   Description:a_[x].Description,events:a_[x].events,price:a_[x].price,
-                  time:a_[x].time ,date:a_[x].date, name:a_[x].name})
-              }
+                  time:a_[x].time, bookTime:a_[x].bookTime, date:a_[x].date, name:a_[x].name,societyCode:a_[x].societyCode
+              })
+            }
               setBookings(item)
             })
          
@@ -65,61 +68,43 @@ const Notification = ({navigation}) => {
       <ScrollView style={{height:height, width: width}}>
 
       <View style={styles.container}>
-      <View style={{backgroundColor:'#0225A1', height: 60, width: 60, borderRadius:100, marginHorizontal:20, marginVertical:10, position:'relative',textAlign:'center', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
+      {/* <View style={{backgroundColor:'#0225A1', height: 60, width: 60, borderRadius:100, marginHorizontal:20, marginVertical:10, position:'relative',textAlign:'center', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
           <Icon name='notifications' size={35} color='#fff' style={{textAlign:'center', justifyContent:'center', alignItems:'center', alignContent:'center'}}/>
           <Text style={{position:'absolute', right:13, top:10, color:'#fff', fontWeight:'bold'}}>{book.length}</Text>
-      </View>
+      </View> */}
         {
-            book.map(element => 
-            <View style={styles.boxcontainer}>
+            book.map(element =>
+              <>
+              {societyCode == element.societyCode ? (
 
-              <View style={styles.inputSubContainer}>
-                {/* <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/> */}
-                 <View style={{flexDirection:'row', position:'relative', width:'80%'}}>
-                    <View >
-                      <Text style={{fontWeight:'bold'}}>{element.name}</Text>
-                      <Text >Booked for {element.events} and the status</Text>
-                      
-                      <Text>is {element.Status} at {element.time}</Text>
-                      {/* <Text style={{color:'#0225A1'}}></Text> */}
-                    </View>
-                   
-                </View>
-            </View>
-
-               {/* <View style={styles.inputSubContainer}>
-                <Icon name="event-note" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
-                
-                 <Text> {element.Description}</Text>
-                </View>
-
+                <View style={styles.boxcontainer}>
+         
                 <View style={styles.inputSubContainer}>
-                  <Icon name="money" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
-                 <Text>R{element.fee}</Text>
-                </View>
-                
-                <View style={styles.inputSubContainer}>
-                
-                <Ionicons name="location" color='#0225A1' size={30} style={{paddingHorizontal:5}}/>
-                 <Text>{element.location}</Text>
-                </View>
-                <View style={styles.inputSubContainer}>
-                
-                <Feather
-                 name="calendar" size={25}
-                 color='#0225A1' style={{paddingHorizontal:5}}
-                 />
-                 <Text>{element.date}</Text>
-                </View>
-                <View style={styles.inputSubContainer}>
-               
-                <Icons name="alert-rhombus" size={25} style={{paddingHorizontal:5}}
-                    color='#0225A1'
-                    styles={{marginRight:10}}/>
-                 <Text>{element.Status}</Text>
-                </View> */}
-
-            </View>
+                  {/* <Sm name="event" color='#0225A1' size={30} style={{paddingHorizontal:5}}/> */}
+                   <View style={{flexDirection:'row', position:'relative', width:'100%'}}>
+                      <View style={{width: '100%', paddingHorizontal:10}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <View style={{flexDirection: 'row'}}>
+                            <Feather name='user' size={15}/>
+                            <Text style={{fontWeight:'bold', marginLeft:5}}>{element.name}</Text>
+                          </View>
+                          <View style={{flexDirection: 'row'}}>
+                            <Text>{element.bookTime}</Text>
+                          </View>
+                        </View>
+                        <Text style={{fontSize: 10, fontWeight: '500', color: '#a9a9a9'}}>Booked for {element.events} and the status</Text>
+                        <Text style={{fontSize: 10, fontWeight: '500', color: '#a9a9a9'}}>is {element.Status} at {element.time}</Text>
+                      </View>
+                  </View>
+              </View>
+              </View>
+              ):
+            (
+              <>
+              </>
+            )}
+            </>
+        
                 
             )
         }
@@ -142,10 +127,10 @@ const styles = StyleSheet.create({
          width: width
     },
      boxcontainer:{
-         backgroundColor:'#DADADA',
+         backgroundColor:'#778899',
         //  width:'100%',
          marginHorizontal:15, 
-         marginVertical:10,
+         marginVertical:5,
          borderRadius:6
      },
      inputContainer:{
@@ -162,8 +147,7 @@ const styles = StyleSheet.create({
   },
   inputSubContainer:{
       flexDirection:'row',
-      alignItems:'center',
-      padding:10,
+      paddingVertical:10,
   },
   inputText:{
       fontSize:18,

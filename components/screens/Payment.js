@@ -12,6 +12,7 @@ const payment = ({navigation,route}) => {
                 const Description = route.params.Description;
                 const date = route.params.date;
                 const societyCode = route.params.societyCode
+                const key =route.params.key
     return (    
         <SafeAreaView>
 
@@ -37,7 +38,7 @@ const payment = ({navigation,route}) => {
                         Use Existing Card
                     </Text>
                   <TouchableOpacity onPress={() =>navigation.navigate('CardScreen',{eventtype:eventtype,
-                  name:name,email:email,price:price,date:date,societyCode:societyCode,
+                  name:name,email:email,price:price,date:date,societyCode:societyCode,key:key,
                   Description:Description,})}>
 
                     <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
