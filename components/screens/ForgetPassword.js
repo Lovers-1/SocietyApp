@@ -1,21 +1,46 @@
-import React from 'react';
+ import React, { useState } from 'react';
 import { View, SafeAreaView, Text, Image, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { auth } from './firebase';
 const ForgetPassword = ({ navigation }) => {
+
+    const [email, setEmail] = useState();
+
+    const sendPasswordReset =  () => {
+
+        auth.sendPasswordResetEmail(email)
+        .then(function() {
+        // Email sent.
+        console.log("email sent")
+     
+        
+       
+       
+        })
+        .catch(function(error) {
+        // An error happened.
+        console.log(error)
+        });
+        alert("link sent to email")
+        
+      };
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')} >
+            {/* <TouchableOpacity onPress={() => navigation.navigate('SignUp')} >
                 <Icon name="arrow-back" size={25} color='black' style={{ marginTop: 20, marginLeft: 15 }} ></Icon>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
+
             <ScrollView >
                 <View style={styles.container1} >
                     <Image
                         style={{ marginTop: 10, elevation: 5, }}
                         source={require('../images/logo.png')}
                     />
-                    <Text style={{ color: 'gray' }}> Lerma whaata ehajk sahjgbcx </Text>
-                    <Text style={{ color: 'gray' }}> Lerma whaata eha </Text>
+                    <Text style={{ color: 'gray' }}>Enter your email for password recorvery </Text>
+                    {/* <Text style={{ color: 'gray' }}> Lerma whaata eha </Text> */}
                     <View style={styles.inputCon}>
 
                         <View style={styles.lovers} >
@@ -23,10 +48,14 @@ const ForgetPassword = ({ navigation }) => {
                             <TextInput
                                 style={{ width: '100%', height: 40, borderWidth: 0 }}
                                 autoFocus={true}
-                                placeholder="ENTER YOUR EMAIL "  ></TextInput>
+                                onChangeText={(email) => setEmail(email)}
+                                placeholder="ENTER YOUR EMAIL "  >
+                                    
+                                </TextInput>
                         </View>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('ForgetPasswordSuccessFul')}
+                            // onPress={() =>  navigation.navigate('ForgetPasswordSuccessFul')}
+                            onPress={sendPasswordReset}
                             style={{ backgroundColor: '#0000CD', width: '75%', height: 45, borderRadius: 10, alignItems: 'center', elevation: 10, marginTop: 30 }}>
                             <Text style={{ padding: 13, color: '#fff', fontSize: 20 }}>
                                 CONTINUE

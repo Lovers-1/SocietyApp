@@ -53,20 +53,22 @@ const SignUp = ({ navigation }) => {
         societyCode: yup.string().required().min(6),
     })
 
-    
+    //
+
+        // const varifyEmail =()=>{
+        //     auth.
+        // }
+
+    //
     const createUser  = async (data) => {
         const { uid, email, password, name, phoneNo ,surname,societyCode } = data
-       
-        
-                
-                
-        
         try {
             
                 code.map( async (element) =>{
                    if (element.societyCode.indexOf(societyCode)>-1){
                     const user = await auth.createUserWithEmailAndPassword(
                         email.trim().toLowerCase(), password).then(res => {
+                            
                         db.ref(`/societyUser`).child(res.user.uid).set({
                             name: name,
                             surname: surname,

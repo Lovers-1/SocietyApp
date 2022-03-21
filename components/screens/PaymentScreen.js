@@ -17,6 +17,7 @@ const paymentScreen = ({ navigation }) => {
     const [CVV,setCVV]=useState('')
     const [Description,setDescription]=useState('')
     const user= auth.currentUser.uid
+  
     //
     const Addcard = () => {
         // if (

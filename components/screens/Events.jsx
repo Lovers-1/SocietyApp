@@ -42,7 +42,8 @@ const Events = ({ navigation,route }) => {
 
   }, [])
 
-  console.log(societyCode,"code 2")
+  // console.log(societyCode,"code 2")
+  // console.log(key,"key")
   return (
     <SafeAreaProvider>
        {/* tool bar */}
@@ -164,7 +165,7 @@ const Events = ({ navigation,route }) => {
                  <TouchableOpacity style={styles.signinButton}
                  >
                    <Text style={styles.signinButtonText} onPress={() => navigation.navigate('paymentScreen',{eventtype:element.events,
-                     name:name,email:email,price:element.price,date:element.date,societyCode:societyCode,key:key,
+                     name:name,email:email,price:element.price,date:element.date,societyCode:societyCode,key:element.key,
                      Description:element.Description,})}>PAY R {element.price}</Text>
                  </TouchableOpacity>
                  
